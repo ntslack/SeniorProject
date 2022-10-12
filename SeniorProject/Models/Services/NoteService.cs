@@ -6,11 +6,22 @@ namespace SeniorProject.Models.Services
 {
     public class NoteService : INoteService
     {
-        private readonly INoteService? _noteService;
+        private readonly INoteRepository _noteRepository;
 
-        public Task<List<NotesDTO>> GetNotesAsync(int userID)
+        public NoteService(INoteRepository noteRepository)
         {
-            return _noteService.GetNotesAsync(userID);
+            _noteRepository = noteRepository;
         }
+
+        public Task<List<NotesDTO>> GetNotesAsync(int userID) => _noteRepository.GetNotesAsync(userID);
+
+
+
+        //private readonly INoteService? _noteService;
+
+        //public Task<List<NotesDTO>> GetNotesAsync(int userID)
+        //{
+        //    return _noteService.GetNotesAsync(userID);
+        //}
     }
 }

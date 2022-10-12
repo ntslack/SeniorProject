@@ -5,7 +5,7 @@ using Microsoft.AspNetCore.Mvc;
 
 namespace SeniorProject.Controllers
 {
-    [Route("/Home/notes")]
+    [Route("/api/notes")]
     [ApiController]
     public class NoteController : ControllerBase
     {

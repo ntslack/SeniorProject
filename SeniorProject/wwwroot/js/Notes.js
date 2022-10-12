@@ -16,7 +16,7 @@
 
     self.getUserNotes = function () {
         $.ajax({
-            url: "/Home/notes",
+            url: "/api/notes",
             type: "GET",
             success: function (data) {
                 self.userNotes(data);
