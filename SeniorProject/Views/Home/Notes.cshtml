@@ -1,0 +1,91 @@
+﻿@{
+    ViewData["Title"] = "Notes";
+}
+
+<h2>Welcome to your Notes Page @ViewBag.Username</h2>
+
+
+<div class="container bootstrap snippets bootdeys" id="notesDiv">
+    <button type="submit" class="btn btn-warning btn-lg">Create a new Note</button>
+    <br />
+    <div class="input-group left-icon">
+        <span class="input-group-addon input-icon">
+            <span class="fa fa-search"></span>
+        </span>
+        <input type="text" id="search" class="form-control" placeholder="Search for a Note" aria-expanded="false" aria-owns="awesomplete_list_2" role="combobox">
+    </div>
+    <div class="row">
+        <!-- ko foreach: userNotes -->
+        <div class="col-md-4 col-sm-6 content-card">
+            <div class="card card-just-text" data-background="color" data-color="yellow" data-radius="none">
+                <div class="content">
+                    <h6 class="category">@ViewBag.Username</h6>
+                    <h4 class="title" data-bind="text: noteTitle"></h4>
+                    <p class="description" data-bind="text: noteDescription"></p>
+                </div>
+            </div>
+        </div>
+        <!-- /ko -->
+
+        @*<div class="col-md-4 col-sm-6 content-card">
+            <div class="card card-just-text" data-background="color" data-color="yellow" data-radius="none">
+                <div class="content">
+                    <h6 class="category">@ViewBag.Username</h6>
+                    <h4 class="title"><a href="#">Sample Note</a></h4>
+                    <p class="description">This is sample text for a user note that would late be filled with their own personalized information.</p>
+                </div>
+            </div> <!-- end card -->
+        </div>
+
+        <div class="col-md-4 col-sm-6 content-card">
+            <div class="card card-just-text" data-background="color" data-color="yellow" data-radius="none">
+                <div class="content">
+                    <h6 class="category">@ViewBag.Username</h6>
+                    <h4 class="title"><a href="#">Sample Note</a></h4>
+                    <p class="description">This is sample text for a user note that would late be filled with their own personalized information.</p>
+                </div>
+            </div> <!-- end card -->
+        </div>
+
+        <div class="col-md-4 col-sm-6 content-card">
+            <div class="card card-just-text" data-background="color" data-color="yellow" data-radius="none">
+                <div class="content">
+                    <h6 class="category">@ViewBag.Username</h6>
+                    <h4 class="title"><a href="#">Sample Note</a></h4>
+                    <p class="description">This is sample text for a user note that would late be filled with their own personalized information.</p>
+                </div>
+            </div> <!-- end card -->
+        </div>
+
+        <div class="col-md-4 col-sm-6 content-card">
+            <div class="card card-just-text" data-background="color" data-color="yellow" data-radius="none">
+                <div class="content">
+                    <h6 class="category">@ViewBag.Username</h6>
+                    <h4 class="title"><a href="#">Sample Note</a></h4>
+                    <p class="description">This is sample text for a user note that would late be filled with their own personalized information.</p>
+                </div>
+            </div> <!-- end card -->
+        </div>
+
+        <div class="col-md-4 col-sm-6 content-card">
+            <div class="card card-just-text" data-background="color" data-color="yellow" data-radius="none">
+                <div class="content">
+                    <h6 class="category">@ViewBag.Username</h6>
+                    <h4 class="title1"><a href="#">Sample Note</a></h4>
+                    <p class="description">This is sample text for a user note that would late be filled with their own personalized information.</p>
+                </div>
+            </div> <!-- end card -->
+        </div>*@
+    </div>
+</div>
+
+@section scripts {
+    <script src="~/js/Notes.js"></script>
+    <script type="text/javascript">
+        $(document).ready(function() {
+            var notesViewModel = new NotesViewModel();
+            ko.applyBindings(notesViewModel, document.getElementById("notesDiv"));
+            notesViewModel.getUserNotes();
+        })        
+    </script>
+}

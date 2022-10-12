@@ -1,0 +1,85 @@
+﻿@{
+    ViewData["Title"] = "Tasks";
+}
+
+<h2 class="justify-content-center">Welcome to your Task Page @ViewBag.Username</h2>
+
+<section class="vh-100">
+    <div class="container py-5 h-100">
+        <div class="row d-flex justify-content-center align-items-center h-100">
+            <div class="col col-lg-9 col-xl-7">
+                <div class="card rounded-3">
+                    <div class="card-body p-4">
+
+                        <h4 class="text-center my-3 pb-3">Tasks for @ViewBag.Username</h4>
+
+                        <form class="row row-cols-lg-auto g-3 justify-content-center align-items-center mb-4 pb-2">
+                            <div class="col-12">
+                                <div class="form-outline">
+                                    <input type="text" id="form1" class="form-control" />
+                                    <label class="form-label" for="form1">Enter a new task</label>
+                                </div>
+                            </div>
+
+                            <div class="col-12">
+                                <button type="submit" class="btn btn-primary">Create</button>
+                            </div>
+                        </form>
+
+                        <table class="table mb-4">
+                            <thead>
+                                <tr>
+                                    <th scope="col"></th>
+                                    <th scope="col">To Do</th>
+                                    <th scope="col">Doing</th>
+                                    <th scope="col">Done</th>
+                                    <th scope="col"></th>
+                                    <th scope="col"></th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr>
+                                    <td>1</td>
+                                    <td>Read pre-lab for Geol 111</td>
+                                    <td></td>
+                                    <td></td>
+                                    <td>
+                                        <button type="submit" class="btn btn-success btn-sm">Done</button>
+                                    </td>
+                                    <td>
+                                        <button type="submit" class="btn btn-secondary btn-sm">Favorite</button>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td>2</td>
+                                    <td></td>
+                                    <td>Do Project 3 for Csci 354</td>
+                                    <td></td>
+                                    <td>
+                                        <button type="submit" class="btn btn-success btn-sm">Done</button>
+                                    </td>
+                                    <td>
+                                        <button type="submit" class="btn btn-secondary btn-sm">Favorite</button>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td>3</td>
+                                    <td></td>
+                                    <td></td>
+                                    <td>Buy anniversary gift</td>
+                                    <td>
+                                        <button type="submit" class="btn btn-success btn-sm">Done</button>
+                                    </td>
+                                    <td>
+                                        <button type="submit" class="btn btn-secondary btn-sm">Favorite</button>
+                                    </td>
+                                </tr>
+                            </tbody>
+                        </table>
+
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
