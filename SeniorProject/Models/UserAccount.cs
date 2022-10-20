@@ -37,5 +37,15 @@ namespace SeniorProject.Models
         public bool isAdmin { get; set; }
 
         public ICollection<NotesDTO>? Notes;
+
+        public ICollection<ReminderDTO>? Reminders;
+
+        public ICollection<TaskDTO>? Tasks;
+
+        public ICollection<ListDTO>? Lists;
+
+        public ICollection<ExpenseDTO>? Expenses;
+
+        public ICollection<EventDTO>? Events;
     }
 }

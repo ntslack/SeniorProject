@@ -6,20 +6,22 @@ using KeyAttribute = System.ComponentModel.DataAnnotations.KeyAttribute;
 
 namespace SeniorProject.Models.DTOs
 {
-    public class ReminderDTO
+    public class ExpenseDTO
     {
         [Key]
-        public int reminderID { get; set; }
+        public int expenseID { get; set; }
 
-        public string? reminderTitle { get; set; }
+        public string? expenseTitle { get; set; }
 
-        public string? reminderDescription { get; set; }
+        public string? expenseDescription { get; set; }
 
-        public DateTime? reminderCreationDate { get; set; } = DateTime.Now;
+        public int expenseValue { get; set; }
+
+        public DateTime? expenseCreationDate { get; set; } = DateTime.Now;
 
         [ForeignKey("User")]
         public int userID { get; set; }
 
-        public UserAccount? User { get; set; };
+        public UserAccount? User { get; set; }
     }
 }

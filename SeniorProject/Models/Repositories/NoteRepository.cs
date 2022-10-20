@@ -17,11 +17,6 @@ namespace SeniorProject.Models.Repositories
 
         public async Task<List<NotesDTO>> GetNotesAsync(int userID)
         {
-            //return _dbcontext.Note
-            //    .Include(x => x.User)
-            //    .ToList();
-
-
             var notes = (from n in _dbcontext.Note
                          //join u in _dbcontext.User
                          //on n.userID equals u.userID
