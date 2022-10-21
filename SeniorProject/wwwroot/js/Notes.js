@@ -1,4 +1,14 @@
-﻿var NotesViewModel = function () {
+﻿$("#search").keyup(function () {
+    var searchText = $(this).val().toLowerCase();
+    $.each($("#notes div"), function () {
+        if ($(this).text().toLowerCase().indexOf(searchText) === -1)
+            $(this).hide();
+        else
+            $(this).show();
+    });
+});
+
+var NotesViewModel = function () {
     var self = this;
 
     self.userNotesObject = ko.observable({

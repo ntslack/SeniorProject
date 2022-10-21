@@ -48,8 +48,8 @@ namespace SeniorProject
             services.AddScoped<ITaskRepository, TaskRepository>();
             services.AddTransient<ITaskService, TaskService>();
 
-            // services.AddScoped<IEventRepository, EventRepository>();
-            // services.AddTransient<IEventService, EventService>();
+            services.AddScoped<IEventRepository, EventRepository>();
+            services.AddTransient<IEventService, EventService>();
 
             services.AddScoped<IExpenseRepository, ExpenseRepository>();
             services.AddTransient <IExpenseService, ExpenseService>();
@@ -62,8 +62,6 @@ namespace SeniorProject
 
             // services.AddScoped<IListItemRepository, ListItemRepository>();
             // services.AddTransient<IListItemService, ListItemService>();
-
-            // services.AddControllerWithViews();
 
             services.AddControllersWithViews();
         }
