@@ -42,17 +42,17 @@ namespace SeniorProject
             //services.AddScoped<IUserRepository, UserRepository>();
             //services.AddTransient<IUserService, UserService>();
 
-            //services.AddScoped<IReminderRepository, ReminderRepository>();
-            //services.AddTransient<IReminderService, ReminderService>();
+            services.AddScoped<IReminderRepository, ReminderRepository>();
+            services.AddTransient<IReminderService, ReminderService>();
 
-            // services.AddScoped<ITaskRepository, TaskRepository>();
-            // services.AddTransient<ITaskService, TaskService>();
+            services.AddScoped<ITaskRepository, TaskRepository>();
+            services.AddTransient<ITaskService, TaskService>();
 
             // services.AddScoped<IEventRepository, EventRepository>();
             // services.AddTransient<IEventService, EventService>();
 
-            // services.AddScoped<IExpenseRepository, ExpenseRepository>();
-            // services.AddTransient<IExpenseService, ExpenseService();
+            services.AddScoped<IExpenseRepository, ExpenseRepository>();
+            services.AddTransient <IExpenseService, ExpenseService>();
 
             services.AddScoped<INoteRepository, NoteRepository>();
             services.AddTransient<INoteService, NoteService>();

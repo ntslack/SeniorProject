@@ -1,15 +1,18 @@
-﻿using SeniorProject.Models.DTOs;
+﻿using Microsoft.AspNetCore.Mvc;
+using SeniorProject.Models.DTOs;
 using SeniorProject.Models.Interfaces;
 
 namespace SeniorProject.Models.Services
 {
     public class ReminderService : IReminderService
     {
-        private readonly IReminderService _reminderService;
+        private readonly IReminderRepository _reminderRepository;
 
-        public Task<ReminderDTO> GetReminderById()
+        public ReminderService(IReminderRepository reminderRepository)
         {
-            return _reminderService.GetReminderById();
+            _reminderRepository = reminderRepository;
         }
+
+        public Task<List<ReminderDTO>> GetRemindersAsync(int userID) => _reminderRepository.GetRemindersAsync(userID);
     }
 }

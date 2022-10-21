@@ -112,6 +112,20 @@ namespace SeniorProject.Controllers
             }
         }
 
+        [Route("lists")]
+        public IActionResult Lists()
+        {
+            if (HttpContext.Session.GetString("userID") != null)
+            {
+                ViewBag.Username = HttpContext.Session.GetString("username");
+                return View(_context.User.ToList());
+            }
+            else
+            {
+                return RedirectToAction("Login");
+            }
+        }
+
         [Route("calendar")]
         public IActionResult Calendar()
         {

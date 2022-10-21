@@ -14,14 +14,5 @@ namespace SeniorProject.Models.Services
         }
 
         public Task<List<NotesDTO>> GetNotesAsync(int userID) => _noteRepository.GetNotesAsync(userID);
-
-
-
-        //private readonly INoteService? _noteService;
-
-        //public Task<List<NotesDTO>> GetNotesAsync(int userID)
-        //{
-        //    return _noteService.GetNotesAsync(userID);
-        //}
     }
 }

@@ -5,8 +5,8 @@ using System.Threading.Tasks;
 
 namespace SeniorProject.Models.Interfaces
 {
-    public interface IReminderService
+    public interface ITaskService
     {
-        Task<List<ReminderDTO>> GetRemindersAsync(int userID);
+        Task<List<TaskDTO>> GetTasksAsync(int userID);
     }
 }

@@ -17,6 +17,8 @@ namespace SeniorProject.Models.DTOs
 
         public bool listIsFavorited { get; set; }
 
+        public DateTime? listCreationDate { get; set; } = DateTime.Now;
+
         [ForeignKey("User")]
         public int userID { get; set; }
 

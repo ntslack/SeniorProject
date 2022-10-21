@@ -17,9 +17,9 @@ namespace SeniorProject.Models.DTOs
 
         public DateTime? eventCreationDate { get; set; } = DateTime.Now;
 
-        public DateTime? eventStartDate { get; set; }
+        public DateTime? eventStartTime { get; set; }
 
-        public DateTime? eventEndDate { get; set; }
+        public DateTime? eventEndTime { get; set; }
 
         public bool eventIsFavorited { get; set; }
         

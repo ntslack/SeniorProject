@@ -20,6 +20,6 @@ namespace SeniorProject.Models.DTOs
         [ForeignKey("User")]
         public int userID { get; set; }
 
-        public UserAccount? User { get; set; };
+        public UserAccount? User { get; set; }
     }
 }
