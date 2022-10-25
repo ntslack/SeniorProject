@@ -5,10 +5,8 @@ using System.Threading.Tasks;
 
 namespace SeniorProject.Models.Interfaces
 {
-    public interface INoteRepository
+    public interface IListItemService
     {
-        Task<List<NotesDTO>> GetNotesAsync(int userID);
-
-        Task<NotesDTO> CreateNoteAsync(NotesDTO notesDTO);
+        Task<List<ListItemDTO>> GetListItemsAsync(int listID);
     }
 }

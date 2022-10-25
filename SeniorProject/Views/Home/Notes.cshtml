@@ -34,7 +34,7 @@
     <script src="~/js/Notes.js"></script>
     <script type="text/javascript">
         $(document).ready(function() {
-            var notesViewModel = new NotesViewModel();
+            var notesViewModel = new NotesViewModel(@ViewBag.userID);
             ko.applyBindings(notesViewModel, document.getElementById("notesDiv"));
             notesViewModel.getUserNotes();
         })        

@@ -14,5 +14,7 @@ namespace SeniorProject.Models.Services
         }
 
         public Task<List<NotesDTO>> GetNotesAsync(int userID) => _noteRepository.GetNotesAsync(userID);
+
+        public Task<NotesDTO> CreateNoteAsync(NotesDTO notesDTO) => _noteRepository.CreateNoteAsync(notesDTO);
     }
 }

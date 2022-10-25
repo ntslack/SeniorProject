@@ -18,6 +18,10 @@ namespace SeniorProject.Models.Repositories
         public async Task<List<TaskDTO>> GetTasksAsync(int userID)
         {
             var tasks = (from t in _dbcontext.Task
+                         join u in _dbcontext.User
+                         on t.userID equals u.userID
+                         where t.userID == userID
+                         orderby t.taskCreationDate descending
                          select new TaskDTO()
                          {
                              taskID = t.taskID,

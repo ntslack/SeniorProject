@@ -18,6 +18,10 @@ namespace SeniorProject.Models.Repositories
         public async Task<List<ReminderDTO>> GetRemindersAsync(int userID)
         {
             var reminders = (from r in _dbcontext.Reminder
+                             join u in _dbcontext.User
+                             on r.userID equals u.userID
+                             where r.userID == userID
+                             orderby r.reminderCreationDate descending
                              select new ReminderDTO()
                              {
                                  reminderID = r.reminderID,

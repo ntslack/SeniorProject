@@ -57,11 +57,11 @@ namespace SeniorProject
             services.AddScoped<INoteRepository, NoteRepository>();
             services.AddTransient<INoteService, NoteService>();
 
-            // services.AddScoped<IListRepository, ListRepository>();
-            // services.AddTransient<IListService, ListService>();
+            services.AddScoped<IListRepository, ListRepository>();
+            services.AddTransient<IListService, ListService>();
 
-            // services.AddScoped<IListItemRepository, ListItemRepository>();
-            // services.AddTransient<IListItemService, ListItemService>();
+            services.AddScoped<IListItemRepository, ListItemRepository>();
+            services.AddTransient<IListItemService, ListItemService>();
 
             services.AddControllersWithViews();
         }

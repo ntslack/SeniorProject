@@ -5,7 +5,7 @@ using Microsoft.AspNetCore.Mvc;
 
 namespace SeniorProject.Controllers
 {
-    [Route("/api/notes")]
+    [Route("Home/notes")]
     [ApiController]
     public class NoteController : ControllerBase
     {
@@ -19,10 +19,15 @@ namespace SeniorProject.Controllers
         [HttpGet]
         public async Task<IActionResult> GetNotesAsync(int userID)
         {
-            //userID = HttpContext.Session.GetInt32("userID");
-            userID = 1;
             List<NotesDTO>? notes = await _noteService.GetNotesAsync(userID);
             return Ok(notes);
+        }
+
+        [HttpPost]
+        public async Task<IActionResult> CreateNoteAsync([FromBody] NotesDTO notesDTO)
+        {
+            var note = await _noteService.CreateNoteAsync(notesDTO);
+            return Ok(note);
         }
     }
 }

@@ -24,6 +24,6 @@ namespace SeniorProject.Models.DTOs
 
         public UserAccount? User { get; set; }
 
-        public ICollection<ListItemDTO>? ListItems { get; set; }
+        public ICollection<ListItemDTO>? ListItem { get; set; }
     }
 }

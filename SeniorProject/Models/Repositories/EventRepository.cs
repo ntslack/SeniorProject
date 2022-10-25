@@ -18,6 +18,10 @@ namespace SeniorProject.Models.Repositories
         public async Task<List<EventDTO>> GetEventsAsync(int userID)
         {
             var events = (from e in _dbcontext.Event
+                          join u in _dbcontext.User
+                          on e.userID equals u.userID
+                          where e.userID == userID
+                          orderby e.eventCreationDate descending
                           select new EventDTO()
                           {
                               eventID = e.eventID,

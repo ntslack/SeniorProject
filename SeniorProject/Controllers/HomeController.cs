@@ -90,7 +90,7 @@ namespace SeniorProject.Controllers
             if (HttpContext.Session.GetString("userID") != null)
             {
                 ViewBag.Username = HttpContext.Session.GetString("username");
-                ViewBag.Id = HttpContext.Session.GetString("userID");
+                ViewBag.userID = HttpContext.Session.GetString("userID");
                 return View(_context.User.ToList());
             } else
             {
@@ -104,6 +104,8 @@ namespace SeniorProject.Controllers
             if (HttpContext.Session.GetString("userID") != null)
             {
                 ViewBag.Username = HttpContext.Session.GetString("username");
+                ViewBag.userID = HttpContext.Session.GetString("userID");
+                //ViewBag.userID = userID;
                 return View(_context.User.ToList());
             }
             else
@@ -118,6 +120,7 @@ namespace SeniorProject.Controllers
             if (HttpContext.Session.GetString("userID") != null)
             {
                 ViewBag.Username = HttpContext.Session.GetString("username");
+                ViewBag.userID = HttpContext.Session.GetString("userID");
                 return View(_context.User.ToList());
             }
             else
@@ -132,6 +135,7 @@ namespace SeniorProject.Controllers
             if (HttpContext.Session.GetString("userID") != null)
             {
                 ViewBag.Username = HttpContext.Session.GetString("username");
+                ViewBag.userID = HttpContext.Session.GetString("userID");
                 return View(_context.User.ToList());
             }
             else
@@ -146,6 +150,7 @@ namespace SeniorProject.Controllers
             if (HttpContext.Session.GetString("userID") != null)
             {
                 ViewBag.Username = HttpContext.Session.GetString("username");
+                ViewBag.userID = HttpContext.Session.GetString("userID");
                 return View(_context.User.ToList());
             }
             else
@@ -160,6 +165,7 @@ namespace SeniorProject.Controllers
             if (HttpContext.Session.GetString("userID") != null)
             {
                 ViewBag.Username = HttpContext.Session.GetString("username");
+                ViewBag.userID = HttpContext.Session.GetString("userID");
                 return View(_context.User.ToList());
             }
             else

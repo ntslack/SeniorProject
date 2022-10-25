@@ -5,7 +5,7 @@ using Microsoft.AspNetCore.Mvc;
 
 namespace SeniorProject.Controllers
 {
-    [Route("/api/reminders")]
+    [Route("Home/reminders")]
     [ApiController]
     public class ReminderController : ControllerBase
     {
@@ -19,7 +19,6 @@ namespace SeniorProject.Controllers
         [HttpGet]
         public async Task<IActionResult> GetRemindersAsync(int userID)
         {
-            userID = 1;
             List<ReminderDTO>? reminders = await _reminderService.GetRemindersAsync(userID);
             return Ok(reminders);
         }

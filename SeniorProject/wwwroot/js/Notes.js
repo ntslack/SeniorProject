@@ -8,7 +8,7 @@
     });
 });
 
-var NotesViewModel = function () {
+var NotesViewModel = function (userID) {
     var self = this;
 
     self.userNotesObject = ko.observable({
@@ -26,7 +26,7 @@ var NotesViewModel = function () {
 
     self.getUserNotes = function () {
         $.ajax({
-            url: "/api/notes",
+            url: "/Home/notes/?userID=" + userID,
             type: "GET",
             success: function (data) {
                 self.userNotes(data);

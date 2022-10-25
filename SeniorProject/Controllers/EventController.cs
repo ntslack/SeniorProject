@@ -5,7 +5,7 @@ using Microsoft.AspNetCore.Mvc;
 
 namespace SeniorProject.Controllers
 {
-    [Route("/api/events")]
+    [Route("Home/events")]
     [ApiController]
     public class EventController : ControllerBase
     {
@@ -19,7 +19,6 @@ namespace SeniorProject.Controllers
         [HttpGet]
         public async Task<IActionResult> GetEventsAsync(int userID)
         {
-            userID = 1;
             List<EventDTO>? events = await _eventService.GetEventsAsync(userID);
             return Ok(events);
         }

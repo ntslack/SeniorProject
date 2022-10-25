@@ -26,8 +26,8 @@ namespace SeniorProject.Models
         public string? lastName { get; set; }
 
         [Required(ErrorMessage = "Please Enter Email")]
-        [RegularExpression(@"[a-zA-Z0-9_]+@[A-Za-z0-9]+.[A-Za-z]{2,4}")]
-        //[DataType(DataType.EmailAddress)]
+        //[RegularExpression(@"[a-zA-Z0-9_]+@[A-Za-z0-9]+.[A-Za-z]{2,4}")]
+        [DataType(DataType.EmailAddress)]
         public string? email { get; set; }
 
         [Required(ErrorMessage = "Please Enter Phone Number")]

@@ -5,7 +5,7 @@ using Microsoft.AspNetCore.Mvc;
 
 namespace SeniorProject.Controllers
 {
-    [Route("/api/tasks")]
+    [Route("Home/tasks")]
     [ApiController]
     public class TaskController : ControllerBase
     {
@@ -19,7 +19,6 @@ namespace SeniorProject.Controllers
         [HttpGet]
         public async Task<IActionResult> GetTasksAsync(int userID)
         {
-            userID = 1;
             List<TaskDTO>? tasks = await _taskService.GetTasksAsync(userID);
             return Ok(tasks);
         }
