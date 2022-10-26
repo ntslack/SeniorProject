@@ -12,15 +12,13 @@ var NotesViewModel = function (userID) {
     var self = this;
 
     self.userNotesObject = ko.observable({
-        id: ko.observable(),
+        noteID: ko.observable(),
         userID: ko.observable(),
         noteTitle: ko.observable(),
         noteValue: ko.observable(),
         noteCreationDate: ko.observable(),
         noteIsFavorited: ko.observable()
     });
-
-    console.log(self.userNotesObject())
 
     self.userNotes = ko.observableArray([]);
 
@@ -38,5 +36,39 @@ var NotesViewModel = function (userID) {
                 alert(response.responseText);
             }
         })
+    }
+
+    self.createUserNote = function (noteData) {
+        $.ajax({
+            url: "/Home/notes",
+            type: "POST",
+            datatype: "json",
+            contentType: "application/json",
+            data: JSON.stringify(noteData),
+            success: function (result) {
+                if (result == -1) {
+                    toastr.error("Note was not successfully created");
+                } else {
+                    toastr.success(noteData.noteTitle + " was created");
+                    self.getUserNotes();
+                }
+            },
+            error: function (result) {
+                toastr.error(result);
+            }
+        })
+    }
+
+    self.submitUserNote = function () {
+        var noteTitle = $("#noteTitle").val();
+        var noteValue = $("#noteValue").val();
+        let payload = {
+            UserID: userID,
+            NoteTitle: noteTitle,
+            NoteValue: noteValue
+        };
+        self.createUserNote(payload);
+        $("#createNoteModal").modal("toggle");
+        return;
     }
 }

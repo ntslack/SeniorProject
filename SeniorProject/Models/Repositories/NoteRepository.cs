@@ -36,11 +36,13 @@ namespace SeniorProject.Models.Repositories
 
         public async Task<NotesDTO> CreateNoteAsync(NotesDTO notesDTO)
         {
+            if (notesDTO == null)
+            {
+                return null;
+            }
             var notes = (from n in _dbcontext.Note
                          join u in _dbcontext.User
                          on n.userID equals u.userID
-                         //where n.userID == userID
-                         orderby n.noteCreationDate descending
                          select new NotesDTO()
                          {
                              noteID = n.noteID,

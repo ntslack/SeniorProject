@@ -4,9 +4,34 @@
 
 <h2>Welcome to your Notes Page @ViewBag.Username</h2>
 
-
 <div class="container bootstrap snippets bootdeys" id="notesDiv">
-    <button type="submit" class="btn btn-warning btn-lg">Create a new Note</button>
+    <button type="submit" class="btn btn-warning btn-lg" data-bs-toggle="modal" data-bs-target="#createNoteModal">Create a new Note</button>
+
+    <!-- Create Note Modal -->
+    <div class="modal fade" id="createNoteModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="exampleModalLabel">Modal title</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body">
+                    <form id="createNoteForm" data-bind="submit: $root.submitUserNote">
+                        <label for="noteTitle">Note Title</label>
+                        <input class="form-control" type="text" id="noteTitle" required>
+
+                        <label for="noteValue">Note Content</label>
+                        <input class="form-control" type="text" id="noteValue" required>
+
+                        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                        <button type="submit" class="btn btn-primary">Create Note</button>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Rest of Notes Page HTML -->
     <br>
     <br>
     <div class="input-group left-icon">
