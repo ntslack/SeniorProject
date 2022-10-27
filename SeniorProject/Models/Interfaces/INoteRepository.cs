@@ -7,6 +7,7 @@ namespace SeniorProject.Models.Interfaces
 {
     public interface INoteRepository
     {
+
         Task<List<NotesDTO>> GetNotesAsync(int userID);
 
         Task<NotesDTO> CreateNoteAsync(NotesDTO notesDTO);

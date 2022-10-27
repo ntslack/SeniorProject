@@ -2,8 +2,10 @@
 using SeniorProject.Models.Context;
 using SeniorProject.Models.Interfaces;
 using Microsoft.EntityFrameworkCore;
+using SeniorProject.Models.Entities;
 using SeniorProject.Models;
 using Microsoft.AspNetCore.Mvc;
+using System.Linq;
 
 namespace SeniorProject.Models.Repositories
 {
@@ -14,6 +16,9 @@ namespace SeniorProject.Models.Repositories
         {
             _dbcontext = dbcontext;
         }
+
+        public DbSet<NoteEntity> Notes { get; set; }
+
 
         public async Task<List<NotesDTO>> GetNotesAsync(int userID)
         {
@@ -33,27 +38,11 @@ namespace SeniorProject.Models.Repositories
                          }).ToListAsync();
             return await notes;
         }
-
         public async Task<NotesDTO> CreateNoteAsync(NotesDTO notesDTO)
         {
-            if (notesDTO == null)
-            {
-                return null;
-            }
-            var notes = (from n in _dbcontext.Note
-                         join u in _dbcontext.User
-                         on n.userID equals u.userID
-                         select new NotesDTO()
-                         {
-                             noteID = n.noteID,
-                             userID = n.userID,
-                             noteTitle = n.noteTitle,
-                             noteValue = n.noteValue,
-                             noteCreationDate = n.noteCreationDate,
-                             noteIsFavorited = n.noteIsFavorited
-                         }).ToListAsync();
-            _dbcontext.AddAsync(notes);
-            _dbcontext.SaveChanges();
+            await _dbcontext.AddAsync(notesDTO);
+            await _dbcontext.SaveChangesAsync();
+
             return notesDTO;
         }
     }
