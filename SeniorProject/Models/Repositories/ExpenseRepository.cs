@@ -32,5 +32,48 @@ namespace SeniorProject.Models.Repositories
                             }).ToListAsync();
             return await expenses;
         }
+
+        public async Task<ExpenseDTO> GetExpenseByID(int expenseID)
+        {
+            var expense = await (from e in _dbcontext.Expense
+                                where e.expenseID == expenseID
+                                select new ExpenseDTO()
+                                {
+                                    expenseID = e.expenseID,
+                                    expenseTitle = e.expenseTitle,
+                                    expenseDescription = e.expenseDescription,
+                                    expenseValue = e.expenseValue
+                                }).SingleOrDefaultAsync();
+            return expense;
+        }
+
+        public async Task<ExpenseDTO> CreateExpenseAsync(ExpenseDTO expenseDTO)
+        {
+            await _dbcontext.AddAsync(expenseDTO);
+            await _dbcontext.SaveChangesAsync();
+
+            return expenseDTO;
+        }
+
+        public async Task<ExpenseDTO> UpdateExpenseAsync(ExpenseDTO expenseDTO)
+        {
+            if (expenseDTO == null)
+            {
+                throw new ArgumentNullException(nameof(expenseDTO));
+            }
+
+            _dbcontext.Update(expenseDTO);
+            await _dbcontext.SaveChangesAsync();
+
+            return expenseDTO;
+        }
+
+        public async Task<int> DeleteExpenseAsync(ExpenseDTO expenseDTO)
+        {
+            _dbcontext.Set<ExpenseDTO>().Remove(expenseDTO);
+            await _dbcontext.SaveChangesAsync();
+
+            return 0;
+        }
     }
 }

@@ -1,6 +1,7 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using SeniorProject.Models.DTOs;
 using SeniorProject.Models.Interfaces;
+using SeniorProject.Models.Repositories;
 
 namespace SeniorProject.Models.Services
 {
@@ -16,6 +17,12 @@ namespace SeniorProject.Models.Services
 
         public Task<List<NotesDTO>> GetNotesAsync(int userID) => _noteRepository.GetNotesAsync(userID);
 
+        public Task<NotesDTO> GetNoteByID(int noteID) => _noteRepository.GetNoteByID(noteID);
+
         public Task<NotesDTO> CreateNoteAsync(NotesDTO notesDTO) => _noteRepository.CreateNoteAsync(notesDTO);
+
+        public Task<NotesDTO> UpdateNoteAsync(NotesDTO notesDTO) => _noteRepository.UpdateNoteAsync(notesDTO);
+
+        public Task<int> DeleteNoteAsync(NotesDTO notesDTO) => _noteRepository.DeleteNoteAsync(notesDTO);
     }
 }

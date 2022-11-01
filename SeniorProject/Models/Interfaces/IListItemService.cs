@@ -8,5 +8,13 @@ namespace SeniorProject.Models.Interfaces
     public interface IListItemService
     {
         Task<List<ListItemDTO>> GetListItemsAsync(int listID);
+
+        Task<ListItemDTO> GetListItemByID(int listItemID);
+
+        Task<ListItemDTO> CreateListItemAsync(ListItemDTO listItemDTO);
+
+        Task<ListItemDTO> UpdateListItemAsync(ListItemDTO listItemDTO);
+
+        Task<int> DeleteListItemAsync(ListItemDTO listItemDTO);
     }
 }

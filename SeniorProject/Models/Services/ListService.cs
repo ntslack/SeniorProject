@@ -1,6 +1,7 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using SeniorProject.Models.DTOs;
 using SeniorProject.Models.Interfaces;
+using SeniorProject.Models.Repositories;
 
 namespace SeniorProject.Models.Services
 {
@@ -14,5 +15,13 @@ namespace SeniorProject.Models.Services
         }
 
         public Task<List<ListDTO>> GetListsAsync(int userID) => _listRepository.GetListsAsync(userID);
+
+        public Task<ListDTO> GetListByID(int listID) => _listRepository.GetListByID(listID);
+
+        public Task<ListDTO> CreateListAsync(ListDTO listDTO) => _listRepository.CreateListAsync(listDTO);
+
+        public Task<ListDTO> UpdateListAsync(ListDTO listDTO) => _listRepository.UpdateListAsync(listDTO);
+
+        public Task<int> DeleteListAsync(ListDTO listDTO) => _listRepository.DeleteListAsync(listDTO);
     }
 }

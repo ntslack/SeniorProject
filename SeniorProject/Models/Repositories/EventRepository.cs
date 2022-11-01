@@ -34,5 +34,49 @@ namespace SeniorProject.Models.Repositories
                            }).ToListAsync();
             return await events;
         }
+
+        public async Task<EventDTO> GetEventByID(int eventID)
+        {
+            var events = await (from e in _dbcontext.Event
+                              where e.eventID == eventID
+                              select new EventDTO()
+                              {
+                                  eventID = e.eventID,
+                                  eventTitle = e.eventTitle,
+                                  eventDescription = e.eventDescription,
+                                  eventStartTime = e.eventStartTime,
+                                  eventEndTime = e.eventEndTime
+                              }).SingleOrDefaultAsync();
+            return events;
+        }
+
+        public async Task<EventDTO> CreateEventAsync(EventDTO eventDTO)
+        {
+            await _dbcontext.AddAsync(eventDTO);
+            await _dbcontext.SaveChangesAsync();
+
+            return eventDTO;
+        }
+
+        public async Task<EventDTO> UpdateEventAsync(EventDTO eventDTO)
+        {
+            if (eventDTO == null)
+            {
+                throw new ArgumentNullException(nameof(eventDTO));
+            }
+
+            _dbcontext.Update(eventDTO);
+            await _dbcontext.SaveChangesAsync();
+
+            return eventDTO;
+        }
+
+        public async Task<int> DeleteEventAsync(EventDTO eventDTO)
+        {
+            _dbcontext.Set<EventDTO>().Remove(eventDTO);
+            await _dbcontext.SaveChangesAsync();
+
+            return 0;
+        }
     }
 }

@@ -11,6 +11,12 @@ namespace SeniorProject.Models.Interfaces
 
         Task<List<NotesDTO>> GetNotesAsync(int userID);
 
+        Task<NotesDTO> GetNoteByID(int noteID);
+
         Task<NotesDTO> CreateNoteAsync(NotesDTO notesDTO);
+
+        Task<NotesDTO> UpdateNoteAsync(NotesDTO notesDTO);
+
+        Task<int> DeleteNoteAsync(NotesDTO noteDTO);
     }
 }

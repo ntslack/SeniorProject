@@ -31,5 +31,47 @@ namespace SeniorProject.Models.Repositories
                              }).ToListAsync();
             return await reminders;
         }
+
+        public async Task<ReminderDTO> GetReminderByID(int reminderID)
+        {
+            var reminder = await (from r in _dbcontext.Reminder
+                              where r.reminderID == reminderID
+                              select new ReminderDTO()
+                              {
+                                  reminderID = r.reminderID,
+                                  reminderTitle = r.reminderTitle,
+                                  reminderDescription = r.reminderDescription
+                              }).SingleOrDefaultAsync();
+            return reminder;
+        }
+
+        public async Task<ReminderDTO> CreateReminderAsync(ReminderDTO reminderDTO)
+        {
+            await _dbcontext.AddAsync(reminderDTO);
+            await _dbcontext.SaveChangesAsync();
+
+            return reminderDTO;
+        }
+
+        public async Task<ReminderDTO> UpdateReminderAsync(ReminderDTO reminderDTO)
+        {
+            if (reminderDTO == null)
+            {
+                throw new ArgumentNullException(nameof(reminderDTO));
+            }
+
+            _dbcontext.Update(reminderDTO);
+            await _dbcontext.SaveChangesAsync();
+
+            return reminderDTO;
+        }
+
+        public async Task<int> DeleteReminderAsync(ReminderDTO reminderDTO)
+        {
+            _dbcontext.Set<ReminderDTO>().Remove(reminderDTO);
+            await _dbcontext.SaveChangesAsync();
+
+            return 0;
+        }
     }
 }

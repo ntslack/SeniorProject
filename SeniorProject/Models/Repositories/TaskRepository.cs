@@ -31,5 +31,46 @@ namespace SeniorProject.Models.Repositories
                          }).ToListAsync();
             return await tasks;
         }
+
+        public async Task<TaskDTO> GetTaskByID(int taskID)
+        {
+            var task = await (from t in _dbcontext.Task
+                              where t.taskID == taskID
+                              select new TaskDTO()
+                              {
+                                  taskID = t.taskID,
+                                  taskValue = t.taskValue
+                              }).SingleOrDefaultAsync();
+            return task;
+        }
+
+        public async Task<TaskDTO> CreateTaskAsync(TaskDTO taskDTO)
+        {
+            await _dbcontext.AddAsync(taskDTO);
+            await _dbcontext.SaveChangesAsync();
+
+            return taskDTO;
+        }
+
+        public async Task<TaskDTO> UpdateTaskAsync(TaskDTO taskDTO)
+        {
+            if (taskDTO == null)
+            {
+                throw new ArgumentNullException(nameof(taskDTO));
+            }
+
+            _dbcontext.Update(taskDTO);
+            await _dbcontext.SaveChangesAsync();
+
+            return taskDTO;
+        }
+
+        public async Task<int> DeleteTaskAsync(TaskDTO taskDTO)
+        {
+            _dbcontext.Set<TaskDTO>().Remove(taskDTO);
+            await _dbcontext.SaveChangesAsync();
+
+            return 0;
+        }
     }
 }

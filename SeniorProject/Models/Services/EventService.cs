@@ -14,5 +14,13 @@ namespace SeniorProject.Models.Services
         }
 
         public Task<List<EventDTO>> GetEventsAsync(int userID) => _eventRepository.GetEventsAsync(userID);
+
+        public Task<EventDTO> GetEventByID(int eventID) => _eventRepository.GetEventByID(eventID);
+
+        public Task<EventDTO> CreateEventAsync(EventDTO eventDTO) => _eventRepository.CreateEventAsync(eventDTO);
+
+        public Task<EventDTO> UpdateEventAsync(EventDTO eventDTO) => _eventRepository.UpdateEventAsync(eventDTO);
+
+        public Task<int> DeleteEventAsync(EventDTO eventDTO) => _eventRepository.DeleteEventAsync(eventDTO);
     }
 }

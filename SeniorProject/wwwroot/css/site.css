@@ -100,6 +100,38 @@ a:hover, a:focus {
         color: #d88715;
     }
 
+.card[data-color="blue"] {
+    background: #b8d8d8;
+}
+
+    .card[data-color="blue"] .description {
+        color: #506568;
+    }
+
+    .card[data-color="blue"] .category {
+        color: #7a9e9f;
+    }
+
+    .card[data-color="blue"] .title1 {
+        color: #7a9e9f;
+    }
+
+.card[data-color="orange"] {
+    background: #ff8f5e;
+}
+
+    .card[data-color="orange"] .description {
+        color: #772510;
+    }
+
+    .card[data-color="orange"] .category {
+        color: #e95e37;
+    }
+
+    .card[data-color="orange"] .title1 {
+        color: #e95e37;
+    }
+
 .editnote {
     position: relative;
     margin-top: 3px;

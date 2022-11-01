@@ -7,52 +7,98 @@
 
 <h2>Welcome to your Budget Page @ViewBag.Username</h2>
 
-<div>
-    <h1 class="title">Expense Tracking</h1>
-    <section class="content">
-        <h3 class="secondTitle">Add a new item: </h3>
-        <div class="form">
-            <form id="expForm">
-                <div class="formLine left">
-                    <span for="type">Type:</span>
-                    <select id="type">
-                        <option value="chooseOne">Choose one...</option>
-                        <option value="Credit">Credit</option>
-                        <option value="Debit">Debit</option>
-                        <option value="Cash">Cash</option>
-                        <option value="Other">Other</option>
-                    </select>
-                </div>
-                <div class="formLine right">
-                    <span for="name">Name:</span>
-                    <input type="text" id="name">
-                </div>
+<div class="container bootstrap snippets bootdeys" id="budgetDiv">
+    <button type="submit" class="btn btn-dark" data-bs-toggle="modal" data-bs-target="#addExpenseModal">Add an Expense</button>
 
-                <div class="formLine left">
-                    <span for="date">Date:</span>
-                    <input type="date" id="date">
+    <!-- Add Expense Modal -->
+    <div class="modal fade" id="addExpenseModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="exampleModalLabel">Add an Expense</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                 </div>
-                <div class="formLine right">
-                    <span for="amount">Amount:</span>
-                    <input type="text" id="amount">
+                <div class="modal-body">
+                    <form id="addExpenseForm" data-bind="submit: $root.submitUserExpense">
+                        <label for="expenseTitle">Expense Title</label>
+                        <input class="form-control" type="text" id="expenseTitle" required />
+
+                        <label for="expenseValue">Amount (Do not include a Dollar Sign)</label>
+                        <input class="form-control" type="text" id="expenseValue" required />
+
+                        <label for="expenseDescription">Description</label>
+                        <input class="form-control" type="text" id="expenseDescription" required />
+
+                        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                        <button type="submit" class="btn btn-primary">Create Note</button>
+                    </form>
                 </div>
-                <button type="submit" class="btn btn-success">Add a new expense</button>
-            </form>
+            </div>
         </div>
-    </section>
-    <section class="content">
-        <table class="table">
-            <thead>
-                <tr>
-                    <th>Type</th>
-                    <th>Name</th>
-                    <th>Date</th>
-                    <th>Amount</th>
-                    <th>Options</th>
-                </tr>
-            </thead>
-            <tbody id="expenseTable">
-            </tbody>
-        </table>
-    </section>
+    </div>
+
+    <!-- Rest of Budget Page HTML -->
+    <br>
+    <br>
+    <div class="input-group left-icon">
+        <span class="input-group-addon input-icon">
+            <span class="fa fa-search"></span>
+        </span>
+        <input id="search" type="text" class="form-control" placeholder="Search for an Expense" aria-expanded="false" aria-owns="awesomplete_list_2" role="combobox">
+    </div>
+    <div id="budgetDiv">
+        <h1 class="title">Expense Tracking</h1>
+        <div class="table-responsive">
+            <table class="table table-striped">
+                <thead>
+                    <tr>
+                        <th scope="col">Title</th>
+                        <th scope="col">Amount</th>
+                        <th scope="col">Date</th>
+                        <th scope="col">Description</th>
+                        <th scope="col">Edit</th>
+                        <th scope="col">Delete</th>
+                    </tr>
+                </thead>
+
+                <tbody>
+                    <!-- ko foreach: userExpenses -->
+                    <tr>
+                        <td>
+                            <a data-bind="text: expenseTitle"></a>
+                        </td>
+                        <td>
+                            $<a data-bind="text: expenseValue"></a>
+                        </td>
+                        <td>
+                            <a data-bind="text: expenseCreationDate"></a>
+                        </td>
+                        <td>
+                            <a data-bind="text: expenseDescription"></a>
+                        </td>
+                        <td>
+                            <button type="button" class="btn btn-secondary">Edit</button>
+                        </td>
+                        <td>
+                            <button type="button" class="btn btn-danger">Delete</button>
+                        </td>
+                    </tr>
+                    <!-- /ko -->
+                </tbody>
+            </table>
+        </div>
+    </div>
+
 </div>
+
+
+@section scripts {
+    <script src="~/js/Budget.js"></script>
+    <script type="text/javascript">
+        $(document).ready(function () {
+            var budgetViewModel = new BudgetViewModel(@ViewBag.userID);
+            ko.applyBindings(budgetViewModel, document.getElementById("budgetDiv"));
+            budgetViewModel.getUserExpenses();
+        })
+    </script>
+}

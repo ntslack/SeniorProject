@@ -4,3 +4,72 @@
 
 <h2>Welcome to your Lists Page @ViewBag.Username</h2>
 <h2>This is your Id @ViewBag.Id</h2>
+
+<div class="container bootstrap snippets bootdeys" id="listsDiv">
+    <button type="submit" class="btn btn-Secondary btn-lg" data-bs-toggle="modal" data-bs-target="#createListModal">Create a new List</button>
+
+    <!-- Create List Modal -->
+    <div class="modal fade" id="createListModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="exampleModalLabel">Create a new List</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body">
+                    <form id="createListForm" data-bind="submit: $root.submitUserList">
+                        <label for="listName">List Title</label>
+                        <input class="form-control" type="text" id="listName" required />
+
+                        <label for="listDescription">List Description</label>
+                        <input class="form-control" type="text" id="listDescription" required />
+
+                        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                        <button type="submit" class="btn btn-primary">Create List</button>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Rest of Lists Page HTML -->
+    <br>
+    <br>
+    <div class="input-group left-icon">
+        <span class="input-group-addon input-icon">
+            <span class="fa fa-search"></span>
+        </span>
+        <input id="search" type="text" class="form-control" placeholder="Search for a List" aria-expanded="false" aria-owns="awesomplete_list_2" role="combobox">
+    </div>
+    <div class="row" id="lists">
+        <!-- ko foreach: userLists -->
+        <div class="col-md-4 col-sm-6 content-card">
+            <div class="card card-just-text" data-background="color" data-color="orange" data-radius="none">
+                <div class="content">
+                    <button type="button" class="btn btn-secondary">Edit</button>
+                    <button type="button" class="btn btn-danger">Delete</button>
+                    <h6 class="category">@ViewBag.Username</h6>
+                    <h4 class="title" data-bind="text: listName"></h4>
+                    <p class="description" data-bind="text: listDescription"></p>
+                    <ul>
+                        <!-- ko foreach: userListItems -->
+                        <li class="description" data-bind="text: listItemValue"></li>
+                        <!-- /ko -->
+                    </ul>
+                </div>
+            </div>
+        </div>
+        <!-- /ko -->
+    </div>
+</div>
+
+@section scripts {
+    <script src="~/js/Lists.js"></script>
+    <script type="text/javascript">
+        $(document).ready(function () {
+            var listsViewModel = new ListViewModel(@ViewBag.userID);
+            ko.applyBindings(listsViewModel, document.getElementById("listsDiv"));
+            listsViewModel.getUserLists();
+        })
+    </script>
+}

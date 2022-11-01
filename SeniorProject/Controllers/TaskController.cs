@@ -2,6 +2,7 @@
 using SeniorProject.Models.DTOs;
 using SeniorProject.Models.Interfaces;
 using Microsoft.AspNetCore.Mvc;
+using SeniorProject.Models.Services;
 
 namespace SeniorProject.Controllers
 {
@@ -21,6 +22,34 @@ namespace SeniorProject.Controllers
         {
             List<TaskDTO>? tasks = await _taskService.GetTasksAsync(userID);
             return Ok(tasks);
+        }
+
+        [HttpGet("{taskID}")]
+        public async Task<IActionResult> GetTaskByID(int taskID)
+        {
+            TaskDTO? task = await _taskService.GetTaskByID(taskID);
+            return Ok(task);
+        }
+
+        [HttpPost]
+        public async Task<IActionResult> CreateTaskAsync([FromBody] TaskDTO taskDTO)
+        {
+            var task = await _taskService.CreateTaskAsync(taskDTO);
+            return Ok(task);
+        }
+
+        [HttpPut]
+        public async Task<IActionResult> UpdateTaskAsync(TaskDTO taskDTO)
+        {
+            var task = await _taskService.UpdateTaskAsync(taskDTO);
+            return Ok(task);
+        }
+
+        [HttpDelete]
+        public async Task<IActionResult> DeleteTaskAsync(TaskDTO taskDTO)
+        {
+            int task = await _taskService.DeleteTaskAsync(taskDTO);
+            return Ok(task);
         }
     }
 }

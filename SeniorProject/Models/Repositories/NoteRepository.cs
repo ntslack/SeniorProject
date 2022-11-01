@@ -2,7 +2,6 @@
 using SeniorProject.Models.Context;
 using SeniorProject.Models.Interfaces;
 using Microsoft.EntityFrameworkCore;
-using SeniorProject.Models.Entities;
 using SeniorProject.Models;
 using Microsoft.AspNetCore.Mvc;
 using System.Linq;
@@ -16,9 +15,6 @@ namespace SeniorProject.Models.Repositories
         {
             _dbcontext = dbcontext;
         }
-
-        public DbSet<NoteEntity> Notes { get; set; }
-
 
         public async Task<List<NotesDTO>> GetNotesAsync(int userID)
         {
@@ -38,12 +34,47 @@ namespace SeniorProject.Models.Repositories
                          }).ToListAsync();
             return await notes;
         }
+
+        public async Task<NotesDTO> GetNoteByID(int noteID)
+        {
+            var note = await (from n in _dbcontext.Note
+                              where n.noteID == noteID
+                              select new NotesDTO()
+                              {
+                                  noteID = n.noteID,
+                                  noteTitle = n.noteTitle,
+                                  noteValue = n.noteValue
+                              }).SingleOrDefaultAsync();
+            return note;
+        }
+
         public async Task<NotesDTO> CreateNoteAsync(NotesDTO notesDTO)
         {
             await _dbcontext.AddAsync(notesDTO);
             await _dbcontext.SaveChangesAsync();
 
             return notesDTO;
+        }
+
+        public async Task<NotesDTO> UpdateNoteAsync(NotesDTO notesDTO)
+        {
+            if (notesDTO == null)
+            {
+                throw new ArgumentNullException(nameof(notesDTO));
+            }
+
+            _dbcontext.Update(notesDTO);
+            await _dbcontext.SaveChangesAsync();
+
+            return notesDTO;
+        }
+
+        public async Task<int> DeleteNoteAsync(NotesDTO notesDTO)
+        {
+            _dbcontext.Set<NotesDTO>().Remove(notesDTO);
+            await _dbcontext.SaveChangesAsync();
+
+            return 0;
         }
     }
 }

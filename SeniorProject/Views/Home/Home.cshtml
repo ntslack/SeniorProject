@@ -4,3 +4,61 @@
 
 <h2>Welcome to your Home Page @ViewBag.Username</h2>
 <h2>This is your Id @ViewBag.userID</h2>
+
+<div class="container bootstrap snippets bootdeys" id="homeDiv">
+    <button type="submit" class="btn btn-info btn-lg" data-bs-toggle="modal" data-bs-target="#createReminderModal">Create a new Reminder</button>
+
+    <!-- Create Reminder Modal -->
+    <div class="modal fade" id="createReminderModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="exampleModalLabel">Create a new Reminder</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body">
+                    <form id="createReminderForm" data-bind="submit: $root.submitUserReminder">
+                        <label for="reminderTitle">Reminder Title</label>
+                        <input class="form-control" type="text" id="reminderTitle" required>
+
+                        <label for="reminderDescription">Reminder Content</label>
+                        <input class="form-control" type="text" id="reminderDescription" required>
+
+                        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                        <button type="submit" class="btn btn-primary">Create Reminder</button>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Rest of Home Page HTML -->
+    <br>
+    <br>
+    <div class="row" id="reminders">
+        <!-- ko foreach: userReminders -->
+        <div class="col-md-4 col-sm-6 content-card">
+            <div class="card card-just-text" data-background="color" data-color="blue" data-radius="none">
+                <div class="content">
+                    <button type="button" class="btn btn-secondary">Edit</button>
+                    <button type="button" class="btn btn-danger">Delete</button>
+                    <h6 class="category">@ViewBag.Username</h6>
+                    <h4 class="title" data-bind="text: reminderTitle"></h4>
+                    <p class="description" data-bind="text: reminderDescription"></p>
+                </div>
+            </div>
+        </div>
+        <!-- /ko -->
+    </div>
+</div>
+
+@section scripts {
+    <script src="~/js/Reminder.js"></script>
+    <script type="text/javascript">
+        $(document).ready(function () {
+            var reminderViewModel = new ReminderViewModel(@ViewBag.userID);
+            ko.applyBindings(reminderViewModel, document.getElementById("homeDiv"));
+            reminderViewModel.getUserReminders();
+        })
+    </script>
+}

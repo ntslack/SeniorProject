@@ -44,5 +44,58 @@ namespace SeniorProject.Models.Repositories
                          }).ToListAsync();
             return await notes;
         }
+
+        public async Task<ListDTO> GetListByID(int listID)
+        {
+            var list = await (from l in _dbcontext.List
+                                where l.listID == listID
+                                select new ListDTO()
+                                {
+                                    listID = l.listID,
+                                    listName = l.listName,
+                                    listDescription = l.listDescription,
+                                    ListItem = ((ICollection<ListItemDTO>)(
+                                          from lI in _dbcontext.ListItem
+                                          join ll in _dbcontext.List
+                                          on lI.listID equals l.listID
+                                          select new ListItemDTO()
+                                          {
+                                              listItemID = lI.listItemID,
+                                              listItemValue = lI.listItemValue,
+                                              listItemCreationDate = lI.listItemCreationDate,
+                                              listID = lI.listItemID,
+                                          }))
+                                }).SingleOrDefaultAsync();
+            return list;
+        }
+
+        public async Task<ListDTO> CreateListAsync(ListDTO listDTO)
+        {
+            await _dbcontext.AddAsync(listDTO);
+            await _dbcontext.SaveChangesAsync();
+
+            return listDTO;
+        }
+
+        public async Task<ListDTO> UpdateListAsync(ListDTO listDTO)
+        {
+            if (listDTO == null)
+            {
+                throw new ArgumentNullException(nameof(listDTO));
+            }
+
+            _dbcontext.Update(listDTO);
+            await _dbcontext.SaveChangesAsync();
+
+            return listDTO;
+        }
+
+        public async Task<int> DeleteListAsync(ListDTO listDTO)
+        {
+            _dbcontext.Set<ListDTO>().Remove(listDTO);
+            await _dbcontext.SaveChangesAsync();
+
+            return 0;
+        }
     }
 }
