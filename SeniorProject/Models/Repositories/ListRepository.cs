@@ -90,12 +90,13 @@ namespace SeniorProject.Models.Repositories
             return listDTO;
         }
 
-        public async Task<int> DeleteListAsync(ListDTO listDTO)
+        public async Task<bool> DeleteListAsync(int listID)
         {
-            _dbcontext.Set<ListDTO>().Remove(listDTO);
+            ListDTO listDTO = _dbcontext.List.Find(listID);
+            _dbcontext.List.Remove(listDTO);
             await _dbcontext.SaveChangesAsync();
 
-            return 0;
+            return true;
         }
     }
 }

@@ -15,6 +15,6 @@ namespace SeniorProject.Models.Interfaces
 
         Task<ExpenseDTO> UpdateExpenseAsync(ExpenseDTO expenseDTO);
 
-        Task<int> DeleteExpenseAsync(ExpenseDTO expenseDTO);
+        Task<bool> DeleteExpenseAsync(int expenseID);
     }
 }

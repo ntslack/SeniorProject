@@ -21,6 +21,7 @@ var BudgetViewModel = function (userID) {
     });
 
     self.userExpenses = ko.observableArray([]);
+    self.selectedExpense = ko.observable();
 
     self.getUserExpenses = function () {
         $.ajax({
@@ -72,5 +73,20 @@ var BudgetViewModel = function (userID) {
         self.createUserExpense(payload);
         $("#addExpenseModal").modal("toggle");
         return;
+    }
+
+    self.deleteExpense = function (Object) {
+        $.ajax({
+            url: '/Home/expenses/' + Object.expenseID,
+            type: 'DELETE',
+            success: function () {
+                //self.userExpenses.remove(selectedExpense);
+                self.getUserExpenses();
+                toastr.success("Expense " + Object.expenseTitle + " was deleted");
+            },
+            error: function (jqXHR) {
+                toastr.error(jqXHR.responseText);
+            }
+        })
     }
 }

@@ -15,6 +15,6 @@ namespace SeniorProject.Models.Interfaces
 
         Task<EventDTO> UpdateEventAsync(EventDTO eventDTO);
 
-        Task<int> DeleteEventAsync(EventDTO eventDTO);
+        Task<bool> DeleteEventAsync(int eventID);
     }
 }

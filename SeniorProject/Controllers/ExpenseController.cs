@@ -45,10 +45,10 @@ namespace SeniorProject.Controllers
             return Ok(expense);
         }
 
-        [HttpDelete]
-        public async Task<IActionResult> DeleteExpenseAsync(ExpenseDTO expenseDTO)
+        [HttpDelete("{expenseID}")]
+        public async Task<IActionResult> DeleteExpenseAsync([FromRoute] int expenseID)
         {
-            int expense = await _expenseService.DeleteExpenseAsync(expenseDTO);
+            bool expense = await _expenseService.DeleteExpenseAsync(expenseID);
             return Ok(expense);
         }
     }

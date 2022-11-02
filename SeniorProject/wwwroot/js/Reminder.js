@@ -61,4 +61,19 @@ var ReminderViewModel = function (userID) {
         $("#createReminderModal").modal("toggle");
         return;
     }
+
+    self.deleteReminder = function (Object) {
+        $.ajax({
+            url: '/Home/reminders/' + Object.reminderID,
+            type: 'DELETE',
+            success: function () {
+                //self.userExpenses.remove(selectedExpense);
+                self.getUserReminders();
+                toastr.success("Reminder " + Object.reminderTitle + " was deleted");
+            },
+            error: function (jqXHR) {
+                toastr.error(jqXHR.responseText);
+            }
+        })
+    }
 }

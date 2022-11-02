@@ -17,6 +17,6 @@ namespace SeniorProject.Models.Interfaces
 
         Task<NotesDTO> UpdateNoteAsync(NotesDTO notesDTO);
 
-        Task<int> DeleteNoteAsync(NotesDTO noteDTO);
+        Task<bool> DeleteNoteAsync(int noteID);
     }
 }

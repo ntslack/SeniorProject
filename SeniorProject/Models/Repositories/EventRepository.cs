@@ -71,12 +71,13 @@ namespace SeniorProject.Models.Repositories
             return eventDTO;
         }
 
-        public async Task<int> DeleteEventAsync(EventDTO eventDTO)
+        public async Task<bool> DeleteEventAsync(int eventID)
         {
-            _dbcontext.Set<EventDTO>().Remove(eventDTO);
+            EventDTO eventDTO = _dbcontext.Event.Find(eventID);
+            _dbcontext.Event.Remove(eventDTO);
             await _dbcontext.SaveChangesAsync();
 
-            return 0;
+            return true;
         }
     }
 }

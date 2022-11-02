@@ -45,10 +45,10 @@ namespace SeniorProject.Controllers
             return Ok(note);
         }
 
-        [HttpDelete]
-        public async Task<IActionResult> DeleteNoteAsync(NotesDTO notesDTO)
+        [HttpDelete("{noteID}")]
+        public async Task<IActionResult> DeleteNoteAsync(int noteID)
         {
-            int note = await _noteService.DeleteNoteAsync(notesDTO);
+            bool note = await _noteService.DeleteNoteAsync(noteID);
             return Ok(note);
         }
     }

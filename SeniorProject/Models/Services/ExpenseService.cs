@@ -22,6 +22,6 @@ namespace SeniorProject.Models.Services
 
         public Task<ExpenseDTO> UpdateExpenseAsync(ExpenseDTO expenseDTO) => _expenseRepository.UpdateExpenseAsync(expenseDTO);
 
-        public Task<int> DeleteExpenseAsync(ExpenseDTO expenseDTO) => _expenseRepository.DeleteExpenseAsync(expenseDTO);
+        public Task<bool> DeleteExpenseAsync(int expenseID) => _expenseRepository.DeleteExpenseAsync(expenseID);
     }
 }

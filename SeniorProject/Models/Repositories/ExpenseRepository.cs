@@ -68,12 +68,13 @@ namespace SeniorProject.Models.Repositories
             return expenseDTO;
         }
 
-        public async Task<int> DeleteExpenseAsync(ExpenseDTO expenseDTO)
+        public async Task<bool> DeleteExpenseAsync(int expenseID)
         {
-            _dbcontext.Set<ExpenseDTO>().Remove(expenseDTO);
+            ExpenseDTO expenseDTO = _dbcontext.Expense.Find(expenseID);
+            _dbcontext.Expense.Remove(expenseDTO);
             await _dbcontext.SaveChangesAsync();
 
-            return 0;
+            return true;
         }
     }
 }

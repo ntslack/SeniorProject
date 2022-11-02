@@ -45,10 +45,10 @@ namespace SeniorProject.Controllers
             return Ok(reminder);
         }
 
-        [HttpDelete]
-        public async Task<IActionResult> DeleteReminderAsync(ReminderDTO reminderDTO)
+        [HttpDelete("{reminderID}")]
+        public async Task<IActionResult> DeleteReminderAsync(int reminderID)
         {
-            int reminder = await _reminderService.DeleteReminderAsync(reminderDTO);
+            bool reminder = await _reminderService.DeleteReminderAsync(reminderID);
             return Ok(reminder);
         }
     }

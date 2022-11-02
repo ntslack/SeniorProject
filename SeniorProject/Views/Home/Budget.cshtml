@@ -46,49 +46,46 @@
         </span>
         <input id="search" type="text" class="form-control" placeholder="Search for an Expense" aria-expanded="false" aria-owns="awesomplete_list_2" role="combobox">
     </div>
-    <div id="budgetDiv">
-        <h1 class="title">Expense Tracking</h1>
-        <div class="table-responsive">
-            <table class="table table-striped">
-                <thead>
-                    <tr>
-                        <th scope="col">Title</th>
-                        <th scope="col">Amount</th>
-                        <th scope="col">Date</th>
-                        <th scope="col">Description</th>
-                        <th scope="col">Edit</th>
-                        <th scope="col">Delete</th>
-                    </tr>
-                </thead>
+    <h1 class="title">Expense Tracking</h1>
+    <div class="table-responsive">
+        <table class="table table-striped">
+            <thead>
+                <tr>
+                    <th scope="col">Title</th>
+                    <th scope="col">Amount</th>
+                    <th scope="col">Date</th>
+                    <th scope="col">Description</th>
+                    <th scope="col">Edit</th>
+                    <th scope="col">Delete</th>
+                </tr>
+            </thead>
 
-                <tbody>
-                    <!-- ko foreach: userExpenses -->
-                    <tr>
-                        <td>
-                            <a data-bind="text: expenseTitle"></a>
-                        </td>
-                        <td>
-                            $<a data-bind="text: expenseValue"></a>
-                        </td>
-                        <td>
-                            <a data-bind="text: expenseCreationDate"></a>
-                        </td>
-                        <td>
-                            <a data-bind="text: expenseDescription"></a>
-                        </td>
-                        <td>
-                            <button type="button" class="btn btn-secondary">Edit</button>
-                        </td>
-                        <td>
-                            <button type="button" class="btn btn-danger">Delete</button>
-                        </td>
-                    </tr>
-                    <!-- /ko -->
-                </tbody>
-            </table>
-        </div>
+            <tbody>
+                <!-- ko foreach: userExpenses -->
+                <tr>
+                    <td>
+                        <a data-bind="text: expenseTitle"></a>
+                    </td>
+                    <td>
+                        $<a data-bind="text: expenseValue"></a>
+                    </td>
+                    <td>
+                        <a data-bind="text: expenseCreationDate"></a>
+                    </td>
+                    <td>
+                        <a data-bind="text: expenseDescription"></a>
+                    </td>
+                    <td>
+                        <button type="button" class="btn btn-secondary">Edit</button>
+                    </td>
+                    <td>
+                        <button type="button" class="btn btn-danger" data-bind="click: $parent.deleteExpense">Delete</button>
+                    </td>
+                </tr>
+                <!-- /ko -->
+            </tbody>
+        </table>
     </div>
-
 </div>
 
 

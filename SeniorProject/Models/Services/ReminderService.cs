@@ -22,6 +22,6 @@ namespace SeniorProject.Models.Services
 
         public Task<ReminderDTO> UpdateReminderAsync(ReminderDTO reminderDTO) => _reminderRepository.UpdateReminderAsync(reminderDTO);
 
-        public Task<int> DeleteReminderAsync(ReminderDTO reminderDTO) => _reminderRepository.DeleteReminderAsync(reminderDTO);
+        public Task<bool> DeleteReminderAsync(int reminderID) => _reminderRepository.DeleteReminderAsync(reminderID);
     }
 }

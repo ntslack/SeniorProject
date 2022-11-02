@@ -71,4 +71,19 @@ var NotesViewModel = function (userID) {
         $("#createNoteModal").modal("toggle");
         return;
     }
+
+    self.deleteNote = function (Object) {
+        $.ajax({
+            url: '/Home/notes/' + Object.noteID,
+            type: 'DELETE',
+            success: function () {
+                //self.userExpenses.remove(selectedExpense);
+                self.getUserNotes();
+                toastr.success("Note " + Object.noteTitle + " was deleted");
+            },
+            error: function (jqXHR) {
+                toastr.error(jqXHR.responseText);
+            }
+        })
+    }
 }

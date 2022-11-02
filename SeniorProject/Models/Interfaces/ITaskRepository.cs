@@ -15,6 +15,6 @@ namespace SeniorProject.Models.Interfaces
 
         Task<TaskDTO> UpdateTaskAsync(TaskDTO taskDTO);
 
-        Task<int> DeleteTaskAsync(TaskDTO taskDTO);
+        Task<bool> DeleteTaskAsync(int taskID);
     }
 }

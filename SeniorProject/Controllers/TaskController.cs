@@ -45,10 +45,10 @@ namespace SeniorProject.Controllers
             return Ok(task);
         }
 
-        [HttpDelete]
-        public async Task<IActionResult> DeleteTaskAsync(TaskDTO taskDTO)
+        [HttpDelete("{taskID}")]
+        public async Task<IActionResult> DeleteTaskAsync(int taskID)
         {
-            int task = await _taskService.DeleteTaskAsync(taskDTO);
+            bool task = await _taskService.DeleteTaskAsync(taskID);
             return Ok(task);
         }
     }

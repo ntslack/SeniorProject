@@ -72,5 +72,14 @@ namespace SeniorProject.Models.Repositories
 
             return 0;
         }
+
+        public async Task<bool> DeleteTaskAsync(int taskID)
+        {
+            TaskDTO taskDTO = _dbcontext.Task.Find(taskID);
+            _dbcontext.Task.Remove(taskDTO);
+            await _dbcontext.SaveChangesAsync();
+
+            return true;
+        }
     }
 }

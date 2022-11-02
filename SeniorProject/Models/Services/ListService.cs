@@ -22,6 +22,6 @@ namespace SeniorProject.Models.Services
 
         public Task<ListDTO> UpdateListAsync(ListDTO listDTO) => _listRepository.UpdateListAsync(listDTO);
 
-        public Task<int> DeleteListAsync(ListDTO listDTO) => _listRepository.DeleteListAsync(listDTO);
+        public Task<bool> DeleteListAsync(int listID) => _listRepository.DeleteListAsync(listID);
     }
 }

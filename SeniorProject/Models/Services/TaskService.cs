@@ -22,6 +22,6 @@ namespace SeniorProject.Models.Services
 
         public Task<TaskDTO> UpdateTaskAsync(TaskDTO taskDTO) => _taskRepository.UpdateTaskAsync(taskDTO);
 
-        public Task<int> DeleteTaskAsync(TaskDTO taskDTO) => _taskRepository.DeleteTaskAsync(taskDTO);
+        public Task<bool> DeleteTaskAsync(int taskID) => _taskRepository.DeleteTaskAsync(taskID);
     }
 }

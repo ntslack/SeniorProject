@@ -66,12 +66,13 @@ namespace SeniorProject.Models.Repositories
             return reminderDTO;
         }
 
-        public async Task<int> DeleteReminderAsync(ReminderDTO reminderDTO)
+        public async Task<bool> DeleteReminderAsync(int reminderID)
         {
-            _dbcontext.Set<ReminderDTO>().Remove(reminderDTO);
+            ReminderDTO reminderDTO = _dbcontext.Reminder.Find(reminderID);
+            _dbcontext.Reminder.Remove(reminderDTO);
             await _dbcontext.SaveChangesAsync();
 
-            return 0;
+            return true;
         }
     }
 }

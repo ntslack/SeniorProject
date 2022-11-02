@@ -21,6 +21,6 @@ namespace SeniorProject.Models.Services
 
         public Task<EventDTO> UpdateEventAsync(EventDTO eventDTO) => _eventRepository.UpdateEventAsync(eventDTO);
 
-        public Task<int> DeleteEventAsync(EventDTO eventDTO) => _eventRepository.DeleteEventAsync(eventDTO);
+        public Task<bool> DeleteEventAsync(int eventID) => _eventRepository.DeleteEventAsync(eventID);
     }
 }

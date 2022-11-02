@@ -15,6 +15,6 @@ namespace SeniorProject.Models.Interfaces
 
         Task<ListItemDTO> UpdateListItemAsync(ListItemDTO listItemDTO);
 
-        Task<int> DeleteListItemAsync(ListItemDTO listItemDTO);
+        Task<bool> DeleteListItemAsync(int listItemID);
     }
 }

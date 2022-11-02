@@ -128,4 +128,18 @@ var ListViewModel = function (userID) {
         $("#createListItemModal").modal("toggle");
         return;
     }
+
+    self.deleteList = function (Object) {
+        $.ajax({
+            url: '/Home/lists/' + Object.listID,
+            type: 'DELETE',
+            success: function () {
+                self.getUserLists();
+                toastr.success("List " + Object.listName + " was deleted");
+            },
+            error: function (jqXHR) {
+                toastr.error(jqXHR.responseText);
+            }
+        })
+    }
 }

@@ -23,6 +23,6 @@ namespace SeniorProject.Models.Services
 
         public Task<NotesDTO> UpdateNoteAsync(NotesDTO notesDTO) => _noteRepository.UpdateNoteAsync(notesDTO);
 
-        public Task<int> DeleteNoteAsync(NotesDTO notesDTO) => _noteRepository.DeleteNoteAsync(notesDTO);
+        public Task<bool> DeleteNoteAsync(int noteID) => _noteRepository.DeleteNoteAsync(noteID);
     }
 }

@@ -15,6 +15,6 @@ namespace SeniorProject.Models.Interfaces
 
         Task<ReminderDTO> UpdateReminderAsync(ReminderDTO reminderDTO);
 
-        Task<int> DeleteReminderAsync(ReminderDTO reminderDTO);
+        Task<bool> DeleteReminderAsync(int reminderID);
     }
 }

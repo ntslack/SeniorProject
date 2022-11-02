@@ -69,12 +69,13 @@ namespace SeniorProject.Models.Repositories
             return notesDTO;
         }
 
-        public async Task<int> DeleteNoteAsync(NotesDTO notesDTO)
+        public async Task<bool> DeleteNoteAsync(int noteID)
         {
-            _dbcontext.Set<NotesDTO>().Remove(notesDTO);
+            NotesDTO noteDTO = _dbcontext.Note.Find(noteID);
+            _dbcontext.Note.Remove(noteDTO);
             await _dbcontext.SaveChangesAsync();
 
-            return 0;
+            return true;
         }
     }
 }
