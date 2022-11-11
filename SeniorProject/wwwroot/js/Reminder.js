@@ -12,6 +12,10 @@ var ReminderViewModel = function (userID) {
 
     self.userReminders = ko.observableArray([]);
 
+    self.dismissEditModal = function () {
+        $("#editReminderModal").modal("toggle");
+    }
+
     self.getUserReminders = function () {
         $.ajax({
             url: "/Home/reminders/?userID=" + userID,
@@ -60,6 +64,50 @@ var ReminderViewModel = function (userID) {
         self.createUserReminder(payload);
         $("#createReminderModal").modal("toggle");
         return;
+    }
+
+    var Id;
+    self.editReminder = function (Object) {
+        console.log(Object);
+        ko.mapping.fromJS(Object, {}, self.userRemindersObject);
+        Id = Object.reminderID;
+    }
+
+    self.submitEditedUserReminder = function () {
+        var reminderID = Id;
+        var reminderTitle = $("#editReminderTitle").val();
+        var reminderDescription = $("#editReminderDescription").val();
+
+        let payload2 = {
+            userId: userID,
+            reminderId: reminderID,
+            remindertitle: reminderTitle,
+            reminderdescription: reminderDescription
+        }
+
+        self.updateReminder(payload2);
+    }
+
+    self.updateReminder = function (payload2) {
+        $.ajax({
+            url: "/Home/reminders",
+            type: "PUT",
+            dataType: "json",
+            contentType: "application/json",
+            data: JSON.stringify(payload2),
+            success: function (result) {
+                if (result == -1) {
+                    toastr.error("Error");
+                } else {
+                    toastr.success("Successfully Changed Reminder");
+                    self.getUserReminders();
+                    self.dismissEditModal();
+                }
+            },
+            error: function () {
+                toastr.error("Error Updating Note")
+            }
+        })
     }
 
     self.deleteReminder = function (Object) {

@@ -8,6 +8,30 @@
 <div class="container bootstrap snippets bootdeys" id="listsDiv">
     <button type="submit" class="btn btn-Secondary btn-lg" data-bs-toggle="modal" data-bs-target="#createListModal">Create a new List</button>
 
+    <!-- View List Items Modal -->
+    <div class="modal fade" id="editListItemsModal" tabindex="-1" aria-hidden="true">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title">List Items</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body">
+                    <form id="editListItemForm" data-bind="submit: $root.submitUserListItem">
+                        <div data-bind="foreach: userListItems">
+                            <label for="listItemValue">List Item</label>
+                            <a class="form-group" data-bind="text: listItemValue"></a>
+                        </div>
+                        @*<input class="form-control" id="listItemValue" data-bind="text: listItemValue" required />*@
+                        <br />
+                        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                        <button type="submit" class="btn btn-primary">Save</button>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+
     <!-- Create List Modal -->
     <div class="modal fade" id="createListModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
         <div class="modal-dialog">
@@ -32,6 +56,32 @@
         </div>
     </div>
 
+    <!-- Edit List Modal -->
+    <div class="modal fade" id="editListModal" aria-labelledby="exampleModalLabel" tabindex="-1" aria-hidden="true">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="exampleModalLabel">Edit List</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body">
+                    <form id="editListForm" data-bind="submit: $root.submitEditedUserList">
+                        <label for="listName">Title</label>
+                        <input class="form-control" type="text" id="editListName" data-bind="textInput: userListsObject().listName()" required />
+
+                        <label for="listDescription">Description</label>
+                        <textarea class="form-control" type="text" id="editListDescription" data-bind="textInput: userListsObject().listDescription()" required></textarea>
+
+                        <br />
+
+                        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                        <button type="submit" class="btn btn-primary">Submit</button>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+
     <!-- Rest of Lists Page HTML -->
     <br>
     <br>
@@ -46,22 +96,22 @@
         <div class="col-md-4 col-sm-6 content-card">
             <div class="card card-just-text" data-background="color" data-color="orange" data-radius="none">
                 <div class="content">
-                    <button type="button" class="btn btn-secondary">Edit</button>
+                    <button type="button" class="btn btn-secondary" data-bs-toggle="modal" data-bs-target="#editListModal" data-bind="click: $root.editList">Edit</button>
                     <button type="button" class="btn btn-danger" data-bind="click: $parent.deleteList">Delete</button>
                     <h6 class="category">@ViewBag.Username</h6>
                     <h4 class="title" data-bind="text: listName"></h4>
                     <p class="description" data-bind="text: listDescription"></p>
-                    <ul>
-                        <!-- ko foreach: userListItems -->
-                        <li class="description" data-bind="text: listItemValue"></li>
-                        <!-- /ko -->
-                    </ul>
+                    <button type="button" class="btn btn-secondary" data-bs-toggle="modal" data-bs-target="#editListItemsModal" data-bind="click: $root.editListItems">See Items</button>
+                    @*<ul>
+                        <li class="description" data-bind="text: $root.userListItems().listItemValue()"></li>
+                    </ul>*@
                 </div>
             </div>
         </div>
         <!-- /ko -->
     </div>
 </div>
+
 
 @section scripts {
     <script src="~/js/Lists.js"></script>

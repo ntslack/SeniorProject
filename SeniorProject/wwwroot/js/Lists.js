@@ -31,6 +31,10 @@ var ListViewModel = function (userID) {
 
     self.userListItems = ko.observableArray([]);
 
+    self.dismissEditModal = function () {
+        $("#editListModal").modal("toggle");
+    }
+
     self.getUserLists = function () {
         $.ajax({
             url: "/Home/lists/?userID=" + userID,
@@ -81,12 +85,63 @@ var ListViewModel = function (userID) {
         return;
     }
 
-    self.getUserListItems = function () {
+    var Id;
+    self.editList = function (Object) {
+        ko.mapping.fromJS(Object, {}, self.userListsObject);
+        Id = Object.listID;
+    }
+
+    self.submitEditedUserList = function () {
+        var listID = Id;
+        var listName = $("#editListName").val();
+        var listDescription = $("#editListDescription").val();
+
+        let payload2 = {
+            userId: userID,
+            listId: listID,
+            listname: listName,
+            listdescription: listDescription
+        }
+
+        self.updateList(payload2);
+    }
+
+    self.updateList = function (payload2) {
         $.ajax({
-            url: "Home/listitems/?listID=" + listID,
+            url: "/Home/lists",
+            type: "PUT",
+            dataType: "json",
+            contentType: "application/json",
+            data: JSON.stringify(payload2),
+            success: function (result) {
+                if (result == -1) {
+                    toastr.error("Error");
+                } else {
+                    toastr.success("Successfully Changed List");
+                    self.getUserLists();
+                    self.dismissEditModal();
+                }
+            },
+            error: function () {
+                toastr.error("Error Updating Expense")
+            }
+        })
+    }
+
+    self.editListItems = function (Object) {
+        console.log(Object);
+        let listID = Object.listID;
+        self.getUserListItems(listID);
+    }
+
+    self.getUserListItems = function (listID) {
+        $.ajax({
+            url: "/Home/listitems/?listID=" + listID,
             type: "GET",
-            success: function (data) {
-                self.userListItems(data);
+            success: function (Object) {
+                self.userListItems.push(Object.filter(element => element.listID == listID));
+                console.log(self.userListItems());
+                self.userListItems();
             },
             failure: function (response) {
                 alert(response.responseText);
@@ -135,11 +190,12 @@ var ListViewModel = function (userID) {
             type: 'DELETE',
             success: function () {
                 self.getUserLists();
-                toastr.success("List " + Object.listName + " was deleted");
+                toastr.success("List was deleted");
             },
             error: function (jqXHR) {
                 toastr.error(jqXHR.responseText);
             }
         })
     }
+    console.log(self.userListItems())
 }

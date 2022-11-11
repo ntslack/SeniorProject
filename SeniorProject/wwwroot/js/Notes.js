@@ -22,6 +22,10 @@ var NotesViewModel = function (userID) {
 
     self.userNotes = ko.observableArray([]);
 
+    self.dismissEditModal = function () {
+        $("#editNoteModal").modal("toggle");
+    }
+
     self.getUserNotes = function () {
         $.ajax({
             url: "/Home/notes/?userID=" + userID,
@@ -70,6 +74,50 @@ var NotesViewModel = function (userID) {
         self.createUserNote(payload);
         $("#createNoteModal").modal("toggle");
         return;
+    }
+
+    var Id;
+    self.editNote = function (Object) {
+        console.log(Object);
+        ko.mapping.fromJS(Object, {}, self.userNotesObject);
+        Id = Object.noteID;
+    }
+
+    self.submitEditedUserNote = function () {
+        var noteID = Id;
+        var noteTitle = $("#editNoteTitle").val();
+        var noteValue = $("#editNoteValue").val();
+
+        let payload2 = {
+            userId: userID,
+            noteId: noteID,
+            notetitle: noteTitle,
+            notevalue: noteValue
+        }
+
+        self.updateNote(payload2);
+    }
+
+    self.updateNote = function (payload2) {
+        $.ajax({
+            url: "/Home/notes",
+            type: "PUT",
+            dataType: "json",
+            contentType: "application/json",
+            data: JSON.stringify(payload2),
+            success: function(result) {
+                if (result == -1) {
+                    toastr.error("Error");
+                } else {
+                    toastr.success("Successfully Changed Note");
+                    self.getUserNotes();
+                    self.dismissEditModal();
+                }
+            },
+            error: function () {
+                toastr.error("Error Updating Note")
+            }
+        })
     }
 
     self.deleteNote = function (Object) {

@@ -30,7 +30,36 @@
                         <input class="form-control" type="text" id="expenseDescription" required />
 
                         <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
-                        <button type="submit" class="btn btn-primary">Create Note</button>
+                        <button type="submit" class="btn btn-primary">Create Expense</button>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Edit Expense Modal -->
+    <div class="modal fade" id="editExpenseModal" aria-labelledby="exampleModalLabel" tabindex="-1" aria-hidden="true">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="exampleModalLabel">Edit Expense</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body">
+                    <form id="editExpenseForm" data-bind="submit: $root.submitEditedUserExpense">
+                        <label for="expenseTitle">Title</label>
+                        <input class="form-control" type="text" id="editExpenseTitle" data-bind="textInput: userExpensesObject().expenseTitle()" required />
+
+                        <label for="expenseValue">Amount (Do not include a Dollar Sign)</label>
+                        <input class="form-control" type="text" id="editExpenseValue" data-bind="textInput: userExpensesObject().expenseValue()" required />
+
+                        <label for="expenseDescription">Description</label>
+                        <input class="form-control" type="text" id="editExpenseDescription" data-bind="textInput: userExpensesObject().expenseDescription()" required />
+
+                        <br />
+
+                        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                        <button type="submit" class="btn btn-primary">Submit</button>
                     </form>
                 </div>
             </div>
@@ -76,7 +105,7 @@
                         <a data-bind="text: expenseDescription"></a>
                     </td>
                     <td>
-                        <button type="button" class="btn btn-secondary">Edit</button>
+                        <button type="button" class="btn btn-secondary" data-bs-toggle="modal" data-bs-target="#editExpenseModal" data-bind="click: $root.editExpense">Edit</button>
                     </td>
                     <td>
                         <button type="button" class="btn btn-danger" data-bind="click: $parent.deleteExpense">Delete</button>

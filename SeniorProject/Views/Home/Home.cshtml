@@ -32,6 +32,32 @@
         </div>
     </div>
 
+    <!-- Edit Reminder Modal -->
+    <div class="modal fade" id="editReminderModal" aria-labelledby="exampleModalLabel" tabindex="-1" aria-hidden="true">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="exampleModalLabel">Edit Reminder</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body">
+                    <form id="editReminderForm" data-bind="submit: $root.submitEditedUserReminder">
+                        <label for="reminderTitle">Title</label>
+                        <input class="form-control" type="text" id="editReminderTitle" data-bind="textInput: userRemindersObject().reminderTitle()" required />
+
+                        <label for="reminderDescription">Description</label>
+                        <textarea class="form-control" type="text" id="editReminderDescription" data-bind="textInput: userRemindersObject().reminderDescription()" required></textarea>
+
+                        <br />
+
+                        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                        <button type="submit" class="btn btn-primary">Submit</button>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+
     <!-- Rest of Home Page HTML -->
     <br>
     <br>
@@ -40,7 +66,7 @@
         <div class="col-md-4 col-sm-6 content-card">
             <div class="card card-just-text" data-background="color" data-color="blue" data-radius="none">
                 <div class="content">
-                    <button type="button" class="btn btn-secondary">Edit</button>
+                    <button type="button" class="btn btn-secondary" data-bs-toggle="modal" data-bs-target="#editReminderModal" data-bind="click: $root.editReminder">Edit</button>
                     <button type="button" class="btn btn-danger" data-bind="click: $parent.deleteReminder">Delete</button>
                     <h6 class="category">@ViewBag.Username</h6>
                     <h4 class="title" data-bind="text: reminderTitle"></h4>

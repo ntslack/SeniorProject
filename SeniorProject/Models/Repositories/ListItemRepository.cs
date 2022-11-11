@@ -23,7 +23,7 @@ namespace SeniorProject.Models.Repositories
                                  listItemID = lI.listItemID,
                                  listItemValue = lI.listItemValue,
                                  listItemCreationDate = lI.listItemCreationDate,
-                                 listID = lI.listItemID
+                                 listID = lI.listID
                              }).ToListAsync();
             return await listItems;
         }
