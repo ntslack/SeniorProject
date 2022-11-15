@@ -72,10 +72,12 @@ namespace SeniorProject.Controllers
         public IActionResult Login(UserAccount user)
         {
             var account = _context.User.Where(u => u.username == user.username && u.password == user.password).FirstOrDefault();
+            Console.WriteLine(user.isAdmin);
             if (account != null)
             {
                 HttpContext.Session.SetString("userID", account.userID.ToString());
                 HttpContext.Session.SetString("username", account.username);
+                HttpContext.Session.SetString("isAdmin", account.isAdmin.ToString());
                 return RedirectToAction("Home");
             } else
             {
@@ -91,6 +93,7 @@ namespace SeniorProject.Controllers
             {
                 ViewBag.Username = HttpContext.Session.GetString("username");
                 ViewBag.userID = HttpContext.Session.GetString("userID");
+                ViewBag.isAdmin = HttpContext.Session.GetString("isAdmin");
                 return View(_context.User.ToList());
             } else
             {
@@ -166,6 +169,22 @@ namespace SeniorProject.Controllers
             {
                 ViewBag.Username = HttpContext.Session.GetString("username");
                 ViewBag.userID = HttpContext.Session.GetString("userID");
+                return View(_context.User.ToList());
+            }
+            else
+            {
+                return RedirectToAction("Login");
+            }
+        }
+
+        [Route("admin")]
+        public IActionResult Admin()
+        {
+            if (HttpContext.Session.GetString("userID") != null)
+            {
+                ViewBag.Username = HttpContext.Session.GetString("username");
+                ViewBag.userID = HttpContext.Session.GetString("userID");
+                ViewBag.isAdmin = HttpContext.Session.GetString("isAdmin");
                 return View(_context.User.ToList());
             }
             else

@@ -125,7 +125,6 @@ var NotesViewModel = function (userID) {
             url: '/Home/notes/' + Object.noteID,
             type: 'DELETE',
             success: function () {
-                //self.userExpenses.remove(selectedExpense);
                 self.getUserNotes();
                 toastr.success("Note " + Object.noteTitle + " was deleted");
             },

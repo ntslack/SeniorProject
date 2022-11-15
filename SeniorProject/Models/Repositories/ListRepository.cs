@@ -17,7 +17,7 @@ namespace SeniorProject.Models.Repositories
 
         public async Task<List<ListDTO>> GetListsAsync(int userID)
         {
-            var notes = (from l in _dbcontext.List
+            var lists = (from l in _dbcontext.List
                          join u in _dbcontext.User
                          on l.userID equals u.userID
                          where l.userID == userID
@@ -30,19 +30,19 @@ namespace SeniorProject.Models.Repositories
                              listCreationDate = l.listCreationDate,
                              listIsFavorited = l.listIsFavorited,
                              userID = l.userID,
-                             ListItem = ((ICollection<ListItemDTO>)(
-                                          from lI in _dbcontext.ListItem
-                                          join l in _dbcontext.List
-                                          on lI.listID equals l.listID
-                                          select new ListItemDTO()
-                                          {
-                                              listItemID = lI.listItemID,
-                                              listItemValue = lI.listItemValue,
-                                              listItemCreationDate = lI.listItemCreationDate,
-                                              listID = lI.listItemID,
-                                          }))
+                             //ListItem = ((ICollection<ListItemDTO>)(
+                             //             from lI in _dbcontext.ListItem
+                             //             join l in _dbcontext.List
+                             //             on lI.listID equals l.listID
+                             //             select new ListItemDTO()
+                             //             {
+                             //                 listItemID = lI.listItemID,
+                             //                 listItemValue = lI.listItemValue,
+                             //                 listItemCreationDate = lI.listItemCreationDate,
+                             //                 listID = lI.listID,
+                             //             }))
                          }).ToListAsync();
-            return await notes;
+            return await lists;
         }
 
         public async Task<ListDTO> GetListByID(int listID)
@@ -63,7 +63,7 @@ namespace SeniorProject.Models.Repositories
                                               listItemID = lI.listItemID,
                                               listItemValue = lI.listItemValue,
                                               listItemCreationDate = lI.listItemCreationDate,
-                                              listID = lI.listItemID,
+                                              listID = lI.listID,
                                           }))
                                 }).SingleOrDefaultAsync();
             return list;

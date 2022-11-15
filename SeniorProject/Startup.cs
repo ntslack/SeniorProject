@@ -39,8 +39,8 @@ namespace SeniorProject
 
             AddDbContexts(services);
 
-            //services.AddScoped<IUserRepository, UserRepository>();
-            //services.AddTransient<IUserService, UserService>();
+            services.AddScoped<IUserRepository, UserRepository>();
+            services.AddTransient<IUserService, UserService>();
 
             services.AddScoped<IReminderRepository, ReminderRepository>();
             services.AddTransient<IReminderService, ReminderService>();

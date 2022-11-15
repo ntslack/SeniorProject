@@ -17,7 +17,12 @@ var ListViewModel = function (userID) {
         listName: ko.observable(),
         listDescription: ko.observable(),
         listIsFavorited: ko.observable(),
-        listCreationDate: ko.observable()
+        listCreationDate: ko.observable(),
+        listItems: ko.observableArray([{
+            listItemID: ko.observable(),
+            listID: ko.observable(),
+            listItemValue: ko.observable()
+        }])
     });
 
     self.userListItemsObject = ko.observable({
@@ -30,6 +35,8 @@ var ListViewModel = function (userID) {
     self.userLists = ko.observableArray([]);
 
     self.userListItems = ko.observableArray([]);
+
+    self.listItemValues = ko.observableArray();
 
     self.dismissEditModal = function () {
         $("#editListModal").modal("toggle");
@@ -88,6 +95,7 @@ var ListViewModel = function (userID) {
     var Id;
     self.editList = function (Object) {
         ko.mapping.fromJS(Object, {}, self.userListsObject);
+        console.log(self.userListsObject());
         Id = Object.listID;
     }
 
@@ -129,19 +137,29 @@ var ListViewModel = function (userID) {
     }
 
     self.editListItems = function (Object) {
-        console.log(Object);
-        let listID = Object.listID;
-        self.getUserListItems(listID);
+        ko.mapping.fromJS(Object, {}, self.userListsObject);
+        console.log(self.userListsObject())
+        //let listID = Object.listID;
+        self.getUserListItems(self.userListsObject().listID());
     }
 
-    self.getUserListItems = function (listID) {
+    self.getUserListItems = function (listID, Object) {
+        console.log(listID);
         $.ajax({
             url: "/Home/listitems/?listID=" + listID,
             type: "GET",
-            success: function (Object) {
-                self.userListItems.push(Object.filter(element => element.listID == listID));
-                console.log(self.userListItems());
-                self.userListItems();
+            success: function (result) {
+                self.userListItems.push(result.filter(element => element.listID == listID));
+                ko.mapping.fromJS(result, {}, self.userListItemsObject);
+                self.listItemValues.removeAll();
+                for (var i = 0; i < self.userListItems().length; i++) {
+                    self.listItemValues.push(self.userListItems()[i].listItemValue());
+                }
+                console.log(self.listItemValues());
+
+                //self.userListItems.push(Object.filter(element => element.listID == listID));
+                //console.log(self.userListItems());
+                //self.userListItems();
             },
             failure: function (response) {
                 alert(response.responseText);
@@ -197,5 +215,4 @@ var ListViewModel = function (userID) {
             }
         })
     }
-    console.log(self.userListItems())
 }

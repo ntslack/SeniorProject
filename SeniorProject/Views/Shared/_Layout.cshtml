@@ -23,13 +23,22 @@
                     <ul class="navbar-nav flex-grow-1">
                         <li class="nav-item">
                             <a class="nav-link text-dark" asp-area="" asp-controller="Home" asp-action="Index">Info</a>
-                            @if (Context.Session.GetString("userID") != null) 
+                            @if (Context.Session.GetString("isAdmin") == "True")
+                            {
+                            <li class="navbar-collapse collapse justify-content-around"><a class="nav-link text-dark" asp-controller="Home" asp-action="Notes">Notes</a></li>
+                            <li class="navbar-collapse collapse justify-content-around"><a class="nav-link text-dark" asp-controller="Home" asp-action="Lists">Lists</a></li>
+                            <li class="navbar-collapse collapse justify-content-center"><a class="nav-link text-dark" asp-controller="Home" asp-action="Home">Home</a></li>
+                            <li class="navbar-collapse collapse justify-content-around"><a class="nav-link text-dark" asp-controller="Home" asp-action="Calendar">Calendar</a></li>
+                            <li class="navbar-collapse collapse justify-content-around"><a class="nav-link text-dark" asp-controller="Home" asp-action="Budget">Budget</a></li>
+                            <li class="navbar-collapse collapse justify-content-around"><a class="nav-link text-dark" asp-controller="Home" asp-action="Admin">Admin</a></li>
+                            <li class="navbar-collapse collapse justify-content-end"><a class="nav-link text-dark" asp-controller="Home" asp-action="Logout">Logout</a></li>
+                            }
+                            else if (Context.Session.GetString("userID") != null) 
                             {
                                 <li class="navbar-collapse collapse justify-content-around"><a class="nav-link text-dark" asp-controller="Home" asp-action="Notes">Notes</a></li>
                                 <li class="navbar-collapse collapse justify-content-around"><a class="nav-link text-dark" asp-controller="Home" asp-action="Lists">Lists</a></li>
                                 <li class="navbar-collapse collapse justify-content-center"><a class="nav-link text-dark" asp-controller="Home" asp-action="Home">Home</a></li>
                                 <li class="navbar-collapse collapse justify-content-around"><a class="nav-link text-dark" asp-controller="Home" asp-action="Calendar">Calendar</a></li>
-                                @*<li class="navbar-collapse collapse justify-content-around"><a class="nav-link text-dark" asp-controller="Home" asp-action="Tasks">Tasks</a></li>*@
                                 <li class="navbar-collapse collapse justify-content-around"><a class="nav-link text-dark" asp-controller="Home" asp-action="Budget">Budget</a></li>
                                 <li class="navbar-collapse collapse justify-content-end"><a class="nav-link text-dark" asp-controller="Home" asp-action="Logout">Logout</a></li>
                             }

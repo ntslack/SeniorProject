@@ -1,0 +1,97 @@
+﻿@{
+    ViewData["Title"] = "Budget";
+}
+<head>
+
+</head>
+
+<h2>Welcome to your Budget Page @ViewBag.Username</h2>
+
+<div class="container bootstrap snippets bootdeys" id="adminDiv">
+
+    <!-- Edit User Modal -->
+    <div class="modal fade" id="editUserModal" aria-labelledby="exampleModalLabel" tabindex="-1" aria-hidden="true">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="exampleModalLabel">Edit User Information</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body">
+                    <form id="editUserForm" data-bind="submit: $root.submitEditedUserInfo">
+                        <label for="username">Username</label>
+                        <input class="form-control" type="text" id="editUsername" data-bind="textInput: adminObject().username()" required />
+
+                        <label for="email">Email</label>
+                        <input class="form-control" type="text" id="editEmail" data-bind="textInput: adminObject().email()" required />
+
+                        <label for="mobile">Mobile</label>
+                        <input class="form-control" type="text" id="editMobile" data-bind="textInput: adminObject().mobile()" required />
+
+                        <br />
+
+                        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                        <button type="submit" class="btn btn-primary">Submit</button>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Rest of Budget Page HTML -->
+    <h1 class="title">"Organize All" Users</h1>
+    <br>
+    <br>
+    <div class="input-group left-icon">
+        <span class="input-group-addon input-icon">
+            <span class="fa fa-search"></span>
+        </span>
+        <input id="search" type="text" class="form-control" placeholder="Search for a User" aria-expanded="false" aria-owns="awesomplete_list_2" role="combobox">
+    </div>
+    <div class="table-responsive">
+        <table class="table table-striped">
+            <thead>
+                <tr>
+                    <th scope="col">Username</th>
+                    <th scope="col">Email</th>
+                    <th scope="col">Mobile</th>
+                    @*<th scope="col">Edit</th>*@
+                    <th scope="col">Delete</th>
+                </tr>
+            </thead>
+
+            <tbody>
+                <!-- ko foreach: userInfo -->
+                <tr>
+                    <td>
+                        <a data-bind="text: username"></a>
+                    </td>
+                    <td>
+                        <a data-bind="text: email"></a>
+                    </td>
+                    <td>
+                        <a data-bind="text: mobile"></a>
+                    </td>
+                    @*<td>
+                        <button type="button" class="btn btn-secondary" data-bs-toggle="modal" data-bs-target="#editUserModal" data-bind="click: $root.editInfo">Edit Info</button>
+                    </td>*@
+                    <td>
+                        <button type="button" class="btn btn-danger" data-bind="click: $parent.deleteUser">Delete</button>
+                    </td>
+                </tr>
+                <!-- /ko -->
+            </tbody>
+        </table>
+    </div>
+</div>
+
+@section scripts {
+    <script src="~/js/Admin.js"></script>
+    <script type="text/javascript">
+        $(document).ready(function () {
+            var adminViewModel = new AdminViewModel();
+            ko.applyBindings(adminViewModel, document.getElementById("adminDiv"));
+            adminViewModel.getUserInfo();
+        })
+    </script>
+}
