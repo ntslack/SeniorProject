@@ -17,12 +17,28 @@
                     <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                 </div>
                 <div class="modal-body">
-                    <form id="editListItemForm" data-bind="submit: $root.submitUserListItem">
-                        <div data-bind="foreach: userListItems">
-                            <label for="listItemValue">List Item</label>
-                            <a class="form-group" data-bind="text: listItemValue"></a>
+                    <form id="editListItemForm">
+                        <div class="form-group">
+                            <label>Add List Item</label>
+                            <div class="input-group">
+                                <input class="form-control" type="text" placeholder="Enter Item" id="createListItemInput" />
+                                <div class="input-group-btn">
+                                    <button class="btn btn-success" data-bind="click: $root.createUserListItem">Add</button>
+                                </div>
+                            </div>
                         </div>
-                        @*<input class="form-control" id="listItemValue" data-bind="text: listItemValue" required />*@
+
+                        <div class="form-group">
+                            <!-- ko foreach: userListItems -->
+                            <label for="listItemValue">Item</label>
+                            <div class="input-group">
+                                <input class="form-control" id="listItemValue" data-bind="textInput: listItemValue" required />
+                                <div class="input-group-btn">
+                                    <button class="btn btn-danger" data-bind="click: $root.deleteListItem">Delete</button>
+                                </div>
+                            </div>
+                            <!-- /ko -->
+                        </div>
                         <br />
                         <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
                         <button type="submit" class="btn btn-primary">Save</button>

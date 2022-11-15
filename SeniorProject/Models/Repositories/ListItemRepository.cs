@@ -18,6 +18,10 @@ namespace SeniorProject.Models.Repositories
         public async Task<List<ListItemDTO>> GetListItemsAsync(int listID)
         {
             var listItems = (from lI in _dbcontext.ListItem
+                             join l in _dbcontext.List
+                             on lI.listID equals l.listID
+                             where lI.listID == listID
+                             orderby lI.listItemCreationDate descending
                              select new ListItemDTO()
                              {
                                  listItemID = lI.listItemID,

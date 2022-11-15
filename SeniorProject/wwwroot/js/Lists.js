@@ -138,28 +138,15 @@ var ListViewModel = function (userID) {
 
     self.editListItems = function (Object) {
         ko.mapping.fromJS(Object, {}, self.userListsObject);
-        console.log(self.userListsObject())
-        //let listID = Object.listID;
         self.getUserListItems(self.userListsObject().listID());
     }
 
-    self.getUserListItems = function (listID, Object) {
-        console.log(listID);
+    self.getUserListItems = function (listID) {
         $.ajax({
             url: "/Home/listitems/?listID=" + listID,
             type: "GET",
             success: function (result) {
-                self.userListItems.push(result.filter(element => element.listID == listID));
-                ko.mapping.fromJS(result, {}, self.userListItemsObject);
-                self.listItemValues.removeAll();
-                for (var i = 0; i < self.userListItems().length; i++) {
-                    self.listItemValues.push(self.userListItems()[i].listItemValue());
-                }
-                console.log(self.listItemValues());
-
-                //self.userListItems.push(Object.filter(element => element.listID == listID));
-                //console.log(self.userListItems());
-                //self.userListItems();
+                self.userListItems(result);
             },
             failure: function (response) {
                 alert(response.responseText);
@@ -170,36 +157,42 @@ var ListViewModel = function (userID) {
         })
     }
 
-    self.createUserListItem = function (listItemData) {
-        $.ajax({
-            url: "/Home/listitems",
-            type: "POST",
-            datatype: "json",
-            contentType: "application/json",
-            data: JSON.stringify(listItemData),
-            success: function (result) {
-                if (result == -1) {
-                    toastr.error("List Item was not successfully created");
-                } else {
-                    toastr.success("List Item was created");
-                    self.getUserListItems();
-                }
-            },
-            error: function (result) {
-                toastr.error(result);
-            }
-        })
-    }
+    self.createUserListItem = function () {
+        let listid = self.userListsObject().listID();
+        let input = $("#createListItemInput").val();
 
-    self.submitUserListItem = function () {
-        var listItemValue = $("#listItemValue").val();
-        let payload = {
-            ListID: listID,
-            ListItemValue: listItemValue
-        };
-        self.createUserListItem(payload);
-        $("#createListItemModal").modal("toggle");
-        return;
+        let payload3 = {
+            listID: listid,
+            listItemValue: input
+        }
+
+        if (input == '') {
+            toastr.error("Can't create an empty item");
+        }
+        else if (self.userListItems().indexOf(input) != -1) {
+            toastr.error(input + " already exists");
+        }
+        else {
+            $.ajax({
+                url: "/Home/listitems",
+                type: "POST",
+                datatype: "json",
+                contentType: "application/json",
+                data: JSON.stringify(payload3),
+                success: function (result) {
+                    if (result == -1) {
+                        toastr.error("List Item was not successfully created");
+                    } else {
+                        self.getUserListItems(self.userListsObject().listID());
+                        toastr.success("List Item was created");
+                        $("#createListItemInput").val('');
+                    }
+                },
+                error: function (result) {
+                    toastr.error(result);
+                }
+            })
+        }
     }
 
     self.deleteList = function (Object) {
@@ -209,6 +202,20 @@ var ListViewModel = function (userID) {
             success: function () {
                 self.getUserLists();
                 toastr.success("List was deleted");
+            },
+            error: function (jqXHR) {
+                toastr.error(jqXHR.responseText);
+            }
+        })
+    }
+
+    self.deleteListItem = function (Object) {
+        $.ajax({
+            url: '/Home/listitems/' + Object.listItemID,
+            type: 'DELETE',
+            success: function () {
+                self.getUserListItems(Object.listID);
+                toastr.success("Item was deleted");
             },
             error: function (jqXHR) {
                 toastr.error(jqXHR.responseText);
