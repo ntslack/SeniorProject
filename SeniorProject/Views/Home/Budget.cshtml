@@ -27,7 +27,7 @@
                         <input class="form-control" type="text" id="expenseValue" required />
 
                         <label for="expenseDescription">Description</label>
-                        <input class="form-control" type="text" id="expenseDescription" required />
+                        <textarea class="form-control" type="text" id="expenseDescription" required ></textarea>
 
                         <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
                         <button type="submit" class="btn btn-primary">Create Expense</button>
@@ -54,7 +54,7 @@
                         <input class="form-control" type="text" id="editExpenseValue" data-bind="textInput: userExpensesObject().expenseValue()" required />
 
                         <label for="expenseDescription">Description</label>
-                        <input class="form-control" type="text" id="editExpenseDescription" data-bind="textInput: userExpensesObject().expenseDescription()" required />
+                        <textarea class="form-control" type="text" id="editExpenseDescription" data-bind="textInput: userExpensesObject().expenseDescription()" required ></textarea>
 
                         <br />
 
@@ -69,21 +69,22 @@
     <!-- Rest of Budget Page HTML -->
     <br>
     <br>
-    <div class="input-group left-icon">
-        <span class="input-group-addon input-icon">
-            <span class="fa fa-search"></span>
-        </span>
-        <input id="search" type="text" class="form-control" placeholder="Search for an Expense" aria-expanded="false" aria-owns="awesomplete_list_2" role="combobox">
-    </div>
     <h1 class="title">Expense Tracking</h1>
     <div class="table-responsive">
-        <table class="table table-striped">
+        <h5>Click Column Headers to Sort</h5>
+        <div class="input-group left-icon">
+            <span class="input-group-addon input-icon">
+                <span class="fa fa-search"></span>
+            </span>
+            <input id="search" type="text" class="form-control" placeholder="Search for an Expense" aria-expanded="false" aria-owns="awesomplete_list_2" role="combobox">
+        </div>
+        <table class="table table-striped" id="myTable">
             <thead>
                 <tr>
-                    <th scope="col">Title</th>
-                    <th scope="col">Amount</th>
-                    <th scope="col">Date</th>
-                    <th scope="col">Description</th>
+                    <th scope="col" data-bind="sort: { arr: userExpenses, prop: 'expenseTitle' }">Title</th>
+                    <th scope="col" data-bind="sort: { arr: userExpenses, prop: 'expenseValue' }">Amount</th>
+                    <th scope="col" data-bind="sort: { arr: userExpenses, prop: 'expenseCreationDate' }">Date</th>
+                    <th scope="col" data-bind="sort: { arr: userExpenses, prop: 'expenseDescription' }">Description</th>
                     <th scope="col">Edit</th>
                     <th scope="col">Delete</th>
                 </tr>
