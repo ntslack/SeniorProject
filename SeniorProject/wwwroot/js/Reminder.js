@@ -105,7 +105,7 @@ var ReminderViewModel = function (userID) {
                 }
             },
             error: function () {
-                toastr.error("Error Updating Note")
+                toastr.error("Error Updating Reminder")
             }
         })
     }

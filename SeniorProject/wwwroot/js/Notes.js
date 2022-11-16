@@ -43,6 +43,7 @@ var NotesViewModel = function (userID) {
     }
 
     self.createUserNote = function (noteData) {
+        console.log(noteData);
         $.ajax({
             url: "/Home/notes",
             type: "POST",
@@ -53,7 +54,7 @@ var NotesViewModel = function (userID) {
                 if (result == -1) {
                     toastr.error("Note was not successfully created");
                 } else {
-                    toastr.success(noteData.noteTitle + " was created");
+                    toastr.success("Note successfully created");
                     self.getUserNotes();
                 }
             },
