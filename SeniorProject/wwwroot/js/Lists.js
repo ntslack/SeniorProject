@@ -36,8 +36,6 @@ var ListViewModel = function (userID) {
 
     self.userListItems = ko.observableArray([]);
 
-    self.listItemValues = ko.observableArray();
-
     self.dismissEditModal = function () {
         $("#editListModal").modal("toggle");
     }
@@ -205,6 +203,27 @@ var ListViewModel = function (userID) {
             },
             error: function (jqXHR) {
                 toastr.error(jqXHR.responseText);
+            }
+        })
+    }
+
+    self.favoriteList = function (Object) {
+        $.ajax({
+            url: "/Home/favlists",
+            type: "PUT",
+            dataType: "json",
+            contentType: "application/json",
+            data: JSON.stringify(Object),
+            success: function (result) {
+                if (result == -1) {
+                    toastr.error("Error");
+                } else {
+                    toastr.success("Success!");
+                    self.getUserLists();
+                }
+            },
+            error: function () {
+                toastr.error("Error Updating List")
             }
         })
     }

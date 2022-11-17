@@ -10,7 +10,27 @@ var ReminderViewModel = function (userID) {
         reminderCreationDate: ko.observable()
     });
 
+    self.userListsObject = ko.observable({
+        listID: ko.observable(),
+        userID: ko.observable(),
+        listName: ko.observable(),
+        listDescription: ko.observable(),
+        listIsFavorited: ko.observable(),
+        listCreationDate: ko.observable(),
+        listItems: ko.observableArray([{
+            listItemID: ko.observable(),
+            listID: ko.observable(),
+            listItemValue: ko.observable()
+        }])
+    });
+
     self.userReminders = ko.observableArray([]);
+
+    self.favoritedNotes = ko.observableArray([]);
+    self.favoritedLists = ko.observableArray([]);
+    self.favoritedEvents = ko.observableArray([]);
+
+    self.userListItems = ko.observableArray([]);
 
     self.dismissEditModal = function () {
         $("#editReminderModal").modal("toggle");
@@ -28,6 +48,89 @@ var ReminderViewModel = function (userID) {
             },
             error: function (response) {
                 alert(response.responseText);
+            }
+        })
+    }
+
+    self.getFavoritedNotes = function () {
+        $.ajax({
+            url: "/Home/favnotes/?userID=" + userID,
+            type: "GET",
+            success: function (data) {
+                self.favoritedNotes(data);
+            },
+            failure: function (response) {
+                alert(response.responseText);
+            },
+            error: function (response) {
+                alert(response.responseText);
+            }
+        })
+    }
+
+    self.getFavoritedLists = function () {
+        $.ajax({
+            url: "/Home/favlists/?userID=" + userID,
+            type: "GET",
+            success: function (data) {
+                self.favoritedLists(data);
+            },
+            failure: function (response) {
+                alert(response.responseText);
+            },
+            error: function (response) {
+                alert(response.responseText);
+            }
+        })
+    }
+
+    self.getFavoritedEvents = function () {
+        $.ajax({
+            url: "/Home/favevents/?userID=" + userID,
+            type: "GET",
+            success: function (data) {
+                self.favoritedEvents(data);
+            },
+            failure: function (response) {
+                alert(response.responseText);
+            },
+            error: function (response) {
+                alert(response.responseText);
+            }
+        })
+    }
+
+    self.editListItems = function (Object) {
+        ko.mapping.fromJS(Object, {}, self.userListsObject);
+        self.getUserListItems(self.userListsObject().listID());
+    }
+
+    self.getUserListItems = function (listID) {
+        $.ajax({
+            url: "/Home/listitems/?listID=" + listID,
+            type: "GET",
+            success: function (result) {
+                self.userListItems(result);
+            },
+            failure: function (response) {
+                alert(response.responseText);
+            },
+            error: function (response) {
+                alert(response.responseText);
+            }
+        })
+    }
+
+    self.deleteListItem = function (Object) {
+        $.ajax({
+            url: '/Home/listitems/' + Object.listItemID,
+            type: 'DELETE',
+            success: function () {
+                self.getUserListItems(Object.listID);
+                toastr.success("Item was deleted");
+            },
+            error: function (jqXHR) {
+                toastr.error(jqXHR.responseText);
             }
         })
     }
@@ -68,7 +171,6 @@ var ReminderViewModel = function (userID) {
 
     var Id;
     self.editReminder = function (Object) {
-        console.log(Object);
         ko.mapping.fromJS(Object, {}, self.userRemindersObject);
         Id = Object.reminderID;
     }

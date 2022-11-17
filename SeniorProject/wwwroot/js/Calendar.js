@@ -38,6 +38,7 @@ var CalendarViewModel = function (userID) {
                         title: v.eventTitle,
                         eventTitle:v.eventTitle,
                         eventDescription: v.eventDescription,
+                        eventCreationDate: v.eventCreationDate,
                         start: moment(v.eventStartTime),
                         eventStartTime: v.eventStartTime,
                         end: v.eventEndTime != null ? moment(v.eventEndTime) : null,
@@ -61,6 +62,7 @@ var CalendarViewModel = function (userID) {
     function GenerateCalendar(userEvents) {
         $('#calendar').fullCalendar('Drop');
         $('#calendar').fullCalendar({
+            initialView: 'timeGrid',
             contentHeight: 400,
             defaultDate: new Date(),
             timeFormat: 'h(:mm)a',
@@ -70,7 +72,9 @@ var CalendarViewModel = function (userID) {
                 right: 'month, basicWeek, basicDay'
             },
             eventLimit: true,
-            eventColor: '#378006',
+            eventColor: '#000000',
+            displayEventEnd: true,
+            dayHeaders: true,
             events: userEvents,
             eventClick: function (calEvent, jsEvent, view) {
                 ko.mapping.fromJS(calEvent, {}, self.userCalendarObject);
@@ -150,6 +154,7 @@ var CalendarViewModel = function (userID) {
         }
 
         self.updateEvent(payload2);
+        self.favoriteEvent(payload2);
     }
 
     self.updateEvent = function (payload2) {
@@ -171,6 +176,38 @@ var CalendarViewModel = function (userID) {
             },
             error: function (result) {
                 console.log(result);
+                toastr.error("Error Updating Event")
+            }
+        })
+    }
+
+    self.favoriteEvent = function (Object) {
+        let payload3 = {
+            eventID: self.userCalendarObject().eventID(),
+            userID: self.userCalendarObject().userID(),
+            eventTitle: self.userCalendarObject().eventTitle(),
+            eventDescription: self.userCalendarObject().eventDescription(),
+            eventCreationDate: self.userCalendarObject().eventCreationDate(),
+            eventStartTime: self.userCalendarObject().eventStartTime(),
+            eventEndTime: self.userCalendarObject().eventEndTime(),
+            eventIsFavorited: self.userCalendarObject().eventIsFavorited()
+        }
+        console.log(self.userCalendarObject());
+        $.ajax({
+            url: "/Home/favevents",
+            type: "PUT",
+            dataType: "json",
+            contentType: "application/json",
+            data: JSON.stringify(payload3),
+            success: function (result) {
+                if (result == -1) {
+                    toastr.error("Error");
+                } else {
+                    toastr.success("Success!");
+                    self.getUserEvents();
+                }
+            },
+            error: function () {
                 toastr.error("Error Updating Event")
             }
         })

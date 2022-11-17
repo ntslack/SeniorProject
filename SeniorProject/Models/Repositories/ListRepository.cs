@@ -25,22 +25,11 @@ namespace SeniorProject.Models.Repositories
                          select new ListDTO()
                          {
                              listID = l.listID,
+                             userID = l.userID,
                              listName = l.listName,
                              listDescription = l.listDescription,
                              listCreationDate = l.listCreationDate,
-                             listIsFavorited = l.listIsFavorited,
-                             userID = l.userID,
-                             //ListItem = ((ICollection<ListItemDTO>)(
-                             //             from lI in _dbcontext.ListItem
-                             //             join l in _dbcontext.List
-                             //             on lI.listID equals l.listID
-                             //             select new ListItemDTO()
-                             //             {
-                             //                 listItemID = lI.listItemID,
-                             //                 listItemValue = lI.listItemValue,
-                             //                 listItemCreationDate = lI.listItemCreationDate,
-                             //                 listID = lI.listID,
-                             //             }))
+                             listIsFavorited = l.listIsFavorited
                          }).ToListAsync();
             return await lists;
         }

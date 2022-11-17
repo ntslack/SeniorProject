@@ -25,6 +25,7 @@ namespace SeniorProject.Models.Repositories
                              select new ReminderDTO()
                              {
                                  reminderID = r.reminderID,
+                                 userID = r.userID,
                                  reminderTitle = r.reminderTitle,
                                  reminderDescription = r.reminderDescription,
                                  reminderCreationDate = r.reminderCreationDate

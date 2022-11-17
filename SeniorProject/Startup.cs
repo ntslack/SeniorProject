@@ -63,6 +63,15 @@ namespace SeniorProject
             services.AddScoped<IListItemRepository, ListItemRepository>();
             services.AddTransient<IListItemService, ListItemService>();
 
+            services.AddScoped<IFavNotesRepository, FavNotesRepository>();
+            services.AddTransient<IFavNotesService, FavNotesService>();
+
+            services.AddScoped<IFavListsRepository, FavListsRepository>();
+            services.AddTransient<IFavListsService, FavListsService>();
+
+            services.AddScoped<IFavEventsRepository, FavEventsRepository>();
+            services.AddTransient<IFavEventsService, FavEventsService>();
+
             services.AddControllersWithViews();
         }
 

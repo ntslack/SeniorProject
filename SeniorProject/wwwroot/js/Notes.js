@@ -121,6 +121,27 @@ var NotesViewModel = function (userID) {
         })
     }
 
+    self.favoriteNote = function (Object) {
+        $.ajax({
+            url: "/Home/favnotes",
+            type: "PUT",
+            dataType: "json",
+            contentType: "application/json",
+            data: JSON.stringify(Object),
+            success: function (result) {
+                if (result == -1) {
+                    toastr.error("Error");
+                } else {
+                    toastr.success("Success!");
+                    self.getUserNotes();
+                }
+            },
+            error: function () {
+                toastr.error("Error Updating Note")
+            }
+        })
+    }
+
     self.deleteNote = function (Object) {
         $.ajax({
             url: '/Home/notes/' + Object.noteID,

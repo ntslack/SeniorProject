@@ -118,7 +118,6 @@ var BudgetViewModel = function (userID, viewModel) {
             ExpenseValue: expenseValue,
             ExpenseDescription: expenseDescription
         };
-        console.log(payload);
         self.createUserExpense(payload);
         $("#addExpenseModal").modal("toggle");
         return;

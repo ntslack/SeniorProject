@@ -114,13 +114,11 @@
                 <div class="content">
                     <button type="button" class="btn btn-secondary" data-bs-toggle="modal" data-bs-target="#editListModal" data-bind="click: $root.editList">Edit</button>
                     <button type="button" class="btn btn-danger" data-bind="click: $parent.deleteList">Delete</button>
+                    <button type="button" class="btn btn-secondary" data-bind="click: $parent.favoriteList">Favorite</button>
                     <h6 class="category">@ViewBag.Username</h6>
                     <h4 class="title" data-bind="text: listName"></h4>
                     <p class="description" data-bind="text: listDescription"></p>
                     <button type="button" class="btn btn-secondary" data-bs-toggle="modal" data-bs-target="#editListItemsModal" data-bind="click: $root.editListItems">See Items</button>
-                    @*<ul>
-                        <li class="description" data-bind="text: $root.userListItems().listItemValue()"></li>
-                    </ul>*@
                 </div>
             </div>
         </div>
