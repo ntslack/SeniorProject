@@ -15,8 +15,6 @@ namespace SeniorProject.Models.Services
 
         public Task<List<UserAccount>> GetUsersAsync() => _userRepository.GetUsersAsync();
 
-        //public Task<UserAccount> GetUserByID(int userID) => _userRepository.GetUserByID(userID);
-
         public Task<UserAccount> UpdateUserAsync(UserAccount account) => _userRepository.UpdateUserAsync(account);
 
         public Task<bool> DeleteUserAsync(int userID) => _userRepository.DeleteUserAsync(userID);

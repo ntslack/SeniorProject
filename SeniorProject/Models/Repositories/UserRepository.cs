@@ -32,23 +32,6 @@ namespace SeniorProject.Models.Repositories
             return await users;
         }
 
-        //public async Task<UserAccount> GetUserByID(int userID)
-        //{
-        //    var user = await (from u in _dbcontext.User
-        //                        where u.userID == userID
-        //                        select new UserAccount()
-        //                        {
-        //                            userID = u.userID,
-        //                            username = u.username,
-        //                            firstName = u.firstName,
-        //                            lastName = u.lastName,
-        //                            email = u.email,
-        //                            mobile = u.mobile,
-        //                            isAdmin = u.isAdmin
-        //                        }).SingleOrDefaultAsync();
-        //    return user;
-        //}
-
         public async Task<UserAccount> UpdateUserAsync(UserAccount account)
         {
             if (account == null)

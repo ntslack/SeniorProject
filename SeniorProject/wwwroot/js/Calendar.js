@@ -33,14 +33,17 @@ var CalendarViewModel = function (userID) {
             success: function (data) {
                 $.each(data, function (i, v) {
                     self.userEvents.push({
-                        eventid: v.eventID,
-                        userid: v.userID,
+                        eventID: v.eventID,
+                        userID: v.userID,
                         title: v.eventTitle,
-                        description: v.eventDescription,
+                        eventTitle:v.eventTitle,
+                        eventDescription: v.eventDescription,
                         start: moment(v.eventStartTime),
+                        eventStartTime: v.eventStartTime,
                         end: v.eventEndTime != null ? moment(v.eventEndTime) : null,
+                        eventEndTime: v.eventEndTime,
                         color: v.color,
-                        favorited: v.eventIsFavorited
+                        eventIsFavorited: v.eventIsFavorited
                     })
                 })
                 GenerateCalendar(self.userEvents());
@@ -54,6 +57,7 @@ var CalendarViewModel = function (userID) {
         })
     }
 
+    var Id;
     function GenerateCalendar(userEvents) {
         $('#calendar').fullCalendar('Drop');
         $('#calendar').fullCalendar({
@@ -63,21 +67,15 @@ var CalendarViewModel = function (userID) {
             header: {
                 left: 'prev, next today',
                 center: 'title',
-                right: 'month, basicWeek, basicDay,agenda'
+                right: 'month, basicWeek, basicDay'
             },
             eventLimit: true,
             eventColor: '#378006',
             events: userEvents,
             eventClick: function (calEvent, jsEvent, view) {
-                $('#DBModal #eventTitle').text(calEvent.title);
-                var $description = $('<div/>');
-                $description.append($('<p/>').html('<b>Start:</b>' + calEvent.start.format("DD-MMM-YYYY HH:mm a")));
-                if (calEvent.end != null) {
-                    $description.append($('<p/>').html('<b>End:</b>' + calEvent.end.format("DD-MMM-YYYY HH:mm a")));
-                }
-                $description.append($('<p/>').html('<b>Description:</b>' + calEvent.description));
-                $('#DBModal #pDetails').empty().html(description);
-                $('#DBModal').modal();
+                ko.mapping.fromJS(calEvent, {}, self.userCalendarObject);
+                Id = self.userCalendarObject().eventID();
+                $('#editEventModal').modal('show');
             }
         })
     }
@@ -94,8 +92,9 @@ var CalendarViewModel = function (userID) {
                 if (result == -1) {
                     toastr.error("Event was not successfully created");
                 } else {
-                    toastr.success("Event was created");
                     self.getUserEvents();
+                    toastr.success("Event was created");
+                    location.reload();
                 }
             },
             error: function (result) {
@@ -125,8 +124,8 @@ var CalendarViewModel = function (userID) {
         return;
     }
 
-    var Id;
     self.editevent = function (Object) {
+        console.log(Object);
         ko.mapping.fromJS(Object, {}, self.userCalendarObject);
         Id = Object.eventID;
     }
@@ -136,11 +135,18 @@ var CalendarViewModel = function (userID) {
         var eventTitle = $("#editEventTitle").val();
         var eventDescription = $("#editEventDescription").val();
 
+        var EventStartTime = new Date($("#editEventStartTime").val());
+        var newEventStartTime = new Date(EventStartTime.getTime() - (EventStartTime.getTimezoneOffset() * 60000)).toJSON();
+        var EventEndTime = new Date($("#editEventEndTime").val());
+        var newEventEndTime = new Date(EventEndTime.getTime() - (EventEndTime.getTimezoneOffset() * 60000)).toJSON();
+
         let payload2 = {
             userId: userID,
             eventId: eventID,
             eventtitle: eventTitle,
-            eventdescription: eventDescription
+            eventdescription: eventDescription,
+            eventStartTime: newEventStartTime,
+            eventEndTime: newEventEndTime
         }
 
         self.updateEvent(payload2);
@@ -157,24 +163,27 @@ var CalendarViewModel = function (userID) {
                 if (result == -1) {
                     toastr.error("Error");
                 } else {
-                    toastr.success("Successfully Changed Event");
                     self.getUserEvents();
                     self.dismissEditModal();
+                    location.reload();
+                    toastr.success("Successfully Changed Event");
                 }
             },
-            error: function () {
+            error: function (result) {
+                console.log(result);
                 toastr.error("Error Updating Event")
             }
         })
     }
 
-    self.deleteEvent = function (Object) {
+    self.deleteEvent = function () {
         $.ajax({
-            url: '/Home/events/' + Object.eventID,
+            url: '/Home/events/' + Id,
             type: 'DELETE',
             success: function () {
                 self.getUserEvents();
                 toastr.success("Event was deleted");
+                location.reload();
             },
             error: function (jqXHR) {
                 toastr.error(jqXHR.responseText);

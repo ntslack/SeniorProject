@@ -25,6 +25,7 @@ namespace SeniorProject.Models.Repositories
                           select new EventDTO()
                           {
                               eventID = e.eventID,
+                              userID = e.userID,
                               eventTitle = e.eventTitle,
                               eventDescription = e.eventDescription,
                               eventStartTime = e.eventStartTime,

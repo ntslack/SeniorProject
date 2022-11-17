@@ -22,7 +22,7 @@
                         <input class="form-control" placeholder="Add a Title" type="text" id="eventTitle" required>
 
                         <label for="eventDescription">Description</label>
-                        <input class="form-control" placeholder="Add a Description" type="text" id="eventDescription" required>
+                        <textarea class="form-control" placeholder="Add a Description" type="text" id="eventDescription" required></textarea>
 
                         <label for="eventStartTime">Start Time</label>
                         <input type="datetime-local" placeholder="Select DateTime" class="form-control" id="eventStartTime" />
@@ -40,9 +40,44 @@
         </div>
     </div>
 
+    <!-- Edit Event Modal -->
+    <div class="modal fade" id="editEventModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="exampleModalLabel">Edit Event</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body">
+                    <form id="editEventForm" data-bind="submit: $root.submitEditedUserEvent">
+                        <label for="eventTitle">Title</label>
+                        <input class="form-control" type="text" id="editEventTitle" data-bind="textInput: userCalendarObject().eventTitle()" required>
+
+                        <label for="eventDescription">Description</label>
+                        <textarea class="form-control" type="text" id="editEventDescription" data-bind="textInput: userCalendarObject().eventDescription()" required></textarea>
+
+                        <label for="eventStartTime">Start Time</label>
+                        <input type="datetime-local" class="form-control" id="editEventStartTime" data-bind="textInput: userCalendarObject().eventStartTime()" />
+
+                        <label for="eventEndTime">End Time</label>
+                        <input type="datetime-local" class="form-control" id="editEventEndTime" data-bind="textInput: userCalendarObject().eventEndTime()" />
+
+                        <br />
+
+                        <div class="text-end">
+                            <button type="button" data-bind="click: deleteEvent" class="btn btn-danger">Delete Event</button>
+                            <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                            <button type="submit" class="btn btn-primary">Submit</button>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+
     <div id="calendar"></div>
 
-    <div id="DBModal" class="modal fade" role="dialog">
+    @*<div id="editEventModal" class="modal fade" role="dialog">
         <div class="modal-dialog">
             <div class="modal-content">
                 <div class="modal-header">
@@ -57,7 +92,7 @@
                 </div>
             </div>
         </div>
-    </div>
+    </div>*@
 
     <link href="//cdnjs.cloudflare.com/ajax/libs/fullcalendar/3.4.0/fullcalendar.min.css" rel="stylesheet" />
     <link href="//cdnjs.cloudflare.com/ajax/libs/fullcalendar/3.4.0/fullcalendar.print.css" rel="stylesheet" media="print" />
@@ -81,7 +116,7 @@
 
 
 
-@*<script>
+    @*<script>
     document.addEventListener('DOMContentLoaded', function () {
         var calendarEl = document.getElementById('calendar');
         var calendar = new FullCalendar.Calendar(calendarEl, {
@@ -97,12 +132,10 @@
         calendar.render();
     });
 </script>
-
 <div class="text-center">
     <h2>Welcome to your Calendar Page @ViewBag.Username</h2>
     <a href="/MyCalendar">View My Calendar</a>
 </div>
-
 <div class="row">
     <div class="col-md-6">
         <a href="/Event"><h3>Events</h3></a>
