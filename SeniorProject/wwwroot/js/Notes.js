@@ -74,6 +74,9 @@ var NotesViewModel = function (userID) {
         };
         self.createUserNote(payload);
         $("#createNoteModal").modal("toggle");
+        $("#createNoteModal").on("hidden.bs.modal", function () {
+            $("#createNoteForm").find("input, textarea, select").val('').end();
+        });
         return;
     }
 

@@ -87,6 +87,9 @@ var ListViewModel = function (userID) {
         };
         self.createUserList(payload);
         $("#createListModal").modal("toggle");
+        $("#createListModal").on("hidden.bs.modal", function () {
+            $("#createListForm").find("input, textarea, select").val('').end();
+        });
         return;
     }
 

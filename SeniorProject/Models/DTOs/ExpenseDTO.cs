@@ -15,7 +15,7 @@ namespace SeniorProject.Models.DTOs
 
         public string? expenseDescription { get; set; }
 
-        public int expenseValue { get; set; }
+        public double expenseValue { get; set; }
 
         public DateTime? expenseCreationDate { get; set; } = DateTime.Now;
 

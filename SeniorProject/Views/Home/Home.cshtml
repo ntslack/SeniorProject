@@ -22,7 +22,7 @@
                         <input class="form-control" type="text" id="reminderTitle" required>
 
                         <label for="reminderDescription">Reminder Content</label>
-                        <input class="form-control" type="text" id="reminderDescription" required>
+                        <textarea class="form-control" type="text" id="reminderDescription" required></textarea>
 
                         <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
                         <button type="submit" class="btn btn-primary">Create Reminder</button>
@@ -100,7 +100,9 @@
                     <button type="button" class="btn btn-danger" data-bind="click: $parent.deleteReminder">Delete</button>
                     <h6 class="category">@ViewBag.Username</h6>
                     <h4 class="title" data-bind="text: reminderTitle"></h4>
-                    <p class="description" data-bind="text: reminderDescription"></p>
+                    <div style="white-space: pre-wrap">
+                        <p class="description" data-bind="text: reminderDescription"></p>
+                    </div>
                 </div>
             </div>
         </div>
@@ -113,7 +115,9 @@
                 <div class="content">
                     <h6 class="category">@ViewBag.Username</h6>
                     <h4 class="title" data-bind="text: noteTitle"></h4>
-                    <p class="description" data-bind="text: noteValue"></p>
+                    <div style="white-space: pre-wrap">
+                        <p class="description" data-bind="text: noteValue"></p>
+                    </div>
                 </div>
             </div>
         </div>
@@ -126,7 +130,9 @@
                 <div class="content">
                     <h6 class="category">@ViewBag.Username</h6>
                     <h4 class="title" data-bind="text: listName"></h4>
-                    <p class="description" data-bind="text: listDescription"></p>
+                    <div style="white-space: pre-wrap">
+                        <p class="description" data-bind="text: listDescription"></p>
+                    </div>
                     <button type="button" class="btn btn-secondary" data-bs-toggle="modal" data-bs-target="#editListItemsModal" data-bind="click: $root.editListItems">See Items</button>
                 </div>
             </div>
@@ -140,7 +146,9 @@
                 <div class="content">
                     <h6 class="category">@ViewBag.Username</h6>
                     <h4 class="title" data-bind="text: eventTitle"></h4>
-                    <p class="description" data-bind="text: eventDescription"></p>
+                    <div style="white-space: pre-wrap">
+                        <p class="description" data-bind="text: eventDescription"></p>
+                    </div>
                     <p class="description" data-bind="text: eventStartTime"></p>
                     <p class="description">To</p>
                     <p class="description" data-bind="text: eventEndTime"></p>

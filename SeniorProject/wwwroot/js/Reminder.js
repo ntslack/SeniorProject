@@ -146,7 +146,7 @@ var ReminderViewModel = function (userID) {
                 if (result == -1) {
                     toastr.error("Reminder was not successfully created");
                 } else {
-                    toastr.success(reminderData.reminderTitle + " was created");
+                    toastr.success("Reminder was created");
                     self.getUserReminders();
                 }
             },
@@ -166,6 +166,9 @@ var ReminderViewModel = function (userID) {
         };
         self.createUserReminder(payload);
         $("#createReminderModal").modal("toggle");
+        $("#createReminderModal").on("hidden.bs.modal", function () {
+            $("#createReminderForm").find("input, textarea, select").val('').end();
+        });
         return;
     }
 
@@ -219,7 +222,7 @@ var ReminderViewModel = function (userID) {
             success: function () {
                 //self.userExpenses.remove(selectedExpense);
                 self.getUserReminders();
-                toastr.success("Reminder " + Object.reminderTitle + " was deleted");
+                toastr.success("Reminder  was deleted");
             },
             error: function (jqXHR) {
                 toastr.error(jqXHR.responseText);

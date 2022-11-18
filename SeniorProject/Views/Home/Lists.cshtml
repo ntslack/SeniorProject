@@ -117,7 +117,9 @@
                     <button type="button" class="btn btn-secondary" data-bind="click: $parent.favoriteList">Favorite</button>
                     <h6 class="category">@ViewBag.Username</h6>
                     <h4 class="title" data-bind="text: listName"></h4>
-                    <p class="description" data-bind="text: listDescription"></p>
+                    <div style="white-space: pre-wrap">
+                        <p class="description" data-bind="text: listDescription"></p>
+                    </div>
                     <button type="button" class="btn btn-secondary" data-bs-toggle="modal" data-bs-target="#editListItemsModal" data-bind="click: $root.editListItems">See Items</button>
                 </div>
             </div>

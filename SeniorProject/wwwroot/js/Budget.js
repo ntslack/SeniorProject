@@ -110,8 +110,10 @@ var BudgetViewModel = function (userID, viewModel) {
 
     self.submitUserExpense = function () {
         var expenseTitle = $("#expenseTitle").val();
+        //var expenseValue = ko.observable($("#expenseValue").val()).extend({ numeric: 2 });
         var expenseValue = $("#expenseValue").val();
         var expenseDescription = $("#expenseDescription").val();
+        console.log(expenseValue);
         let payload = {
             UserID: userID,
             ExpenseTitle: expenseTitle,
@@ -120,6 +122,9 @@ var BudgetViewModel = function (userID, viewModel) {
         };
         self.createUserExpense(payload);
         $("#addExpenseModal").modal("toggle");
+        $("#addExpenseModal").on("hidden.bs.modal", function () {
+            $("#addExpenseForm").find("input, textarea, select").val('').end();
+        });
         return;
     }
 
