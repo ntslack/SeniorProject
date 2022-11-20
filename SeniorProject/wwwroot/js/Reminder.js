@@ -229,4 +229,68 @@ var ReminderViewModel = function (userID) {
             }
         })
     }
+
+    self.unfavoriteNote = function (Object) {
+        $.ajax({
+            url: "/Home/favnotes",
+            type: "PUT",
+            dataType: "json",
+            contentType: "application/json",
+            data: JSON.stringify(Object),
+            success: function (result) {
+                if (result == -1) {
+                    toastr.error("Error");
+                } else {
+                    toastr.success("Success!");
+                    self.getFavoritedNotes();
+                }
+            },
+            error: function () {
+                toastr.error("Error Updating Note")
+            }
+        })
+    }
+
+    self.unfavoriteList = function (Object) {
+        $.ajax({
+            url: "/Home/favlists",
+            type: "PUT",
+            dataType: "json",
+            contentType: "application/json",
+            data: JSON.stringify(Object),
+            success: function (result) {
+                if (result == -1) {
+                    toastr.error("Error");
+                } else {
+                    toastr.success("Success!");
+                    self.getFavoritedLists();
+                }
+            },
+            error: function () {
+                toastr.error("Error Updating List")
+            }
+        })
+    }
+
+    self.unfavoriteEvent = function (Object) {
+        console.log(Object);
+        $.ajax({
+            url: "/Home/favevents",
+            type: "PUT",
+            dataType: "json",
+            contentType: "application/json",
+            data: JSON.stringify(Object),
+            success: function (result) {
+                if (result == -1) {
+                    toastr.error("Error");
+                } else {
+                    toastr.success("Success!");
+                    self.getFavoritedEvents();
+                }
+            },
+            error: function () {
+                toastr.error("Error Updating Event")
+            }
+        })
+    }
 }

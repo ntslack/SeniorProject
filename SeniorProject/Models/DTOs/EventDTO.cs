@@ -23,8 +23,6 @@ namespace SeniorProject.Models.DTOs
 
         public bool eventIsFavorited { get; set; }
         
-        public string? color { get; set; }
-
         [ForeignKey("User")]
         public int userID { get; set; }
 

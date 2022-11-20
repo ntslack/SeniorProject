@@ -113,6 +113,7 @@
         <div class="col-md-4 col-sm-6 content-card">
             <div class="card card-just-text" data-background="color" data-color="yellow" data-radius="none">
                 <div class="content">
+                    <button type="button" class="btn btn-secondary" data-bind="click: $parent.unfavoriteNote">Unfavorite</button>
                     <h6 class="category">@ViewBag.Username</h6>
                     <h4 class="title" data-bind="text: noteTitle"></h4>
                     <div style="white-space: pre-wrap">
@@ -128,6 +129,7 @@
         <div class="col-md-4 col-sm-6 content-card">
             <div class="card card-just-text" data-background="color" data-color="orange" data-radius="none">
                 <div class="content">
+                    <button type="button" class="btn btn-secondary" data-bind="click: $parent.unfavoriteList">Unfavorite</button>
                     <h6 class="category">@ViewBag.Username</h6>
                     <h4 class="title" data-bind="text: listName"></h4>
                     <div style="white-space: pre-wrap">
@@ -144,6 +146,7 @@
         <div class="col-md-4 col-sm-6 content-card">
             <div class="card card-just-text" data-background="color" data-color="orange" data-radius="none">
                 <div class="content">
+                    <button type="button" class="btn btn-secondary" data-bind="click: $parent.unfavoriteEvent">Unfavorite</button>
                     <h6 class="category">@ViewBag.Username</h6>
                     <h4 class="title" data-bind="text: eventTitle"></h4>
                     <div style="white-space: pre-wrap">

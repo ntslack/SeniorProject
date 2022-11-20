@@ -43,7 +43,6 @@ var CalendarViewModel = function (userID) {
                         eventStartTime: v.eventStartTime,
                         end: v.eventEndTime != null ? moment(v.eventEndTime) : null,
                         eventEndTime: v.eventEndTime,
-                        color: v.color,
                         eventIsFavorited: v.eventIsFavorited
                     })
                 })
