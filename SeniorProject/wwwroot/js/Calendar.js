@@ -85,7 +85,6 @@ var CalendarViewModel = function (userID) {
     }
 
     self.createUserEvent = function (eventData) {
-        console.log(JSON.stringify(eventData));
         $.ajax({
             url: "/Home/events",
             type: "POST",
@@ -122,7 +121,6 @@ var CalendarViewModel = function (userID) {
             eventStartTime: newEventStartTime,
             eventEndTime: newEventEndTime
         };
-        console.log(payload);
         self.createUserEvent(payload);
         $("#createEventModal").modal("toggle");
         return;

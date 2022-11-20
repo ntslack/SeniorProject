@@ -67,6 +67,13 @@ var BudgetViewModel = function (userID, viewModel) {
     self.userExpenses = ko.observableArray([]);
     self.selectedExpense = ko.observable();
 
+    config = {
+        enableTime: true,
+        dateFormat: "Y-m-d H:i",
+    }
+
+    flatpickr("input[type=datetime-local]", config);
+
     self.dismissEditModal = function () {
         $("#editExpenseModal").modal("toggle");
     }
@@ -110,15 +117,16 @@ var BudgetViewModel = function (userID, viewModel) {
 
     self.submitUserExpense = function () {
         var expenseTitle = $("#expenseTitle").val();
-        //var expenseValue = ko.observable($("#expenseValue").val()).extend({ numeric: 2 });
         var expenseValue = $("#expenseValue").val();
         var expenseDescription = $("#expenseDescription").val();
-        console.log(expenseValue);
+        var expenseCreationDate = new Date($("#expenseCreationDate").val());
+        var newExpenseCreationDate = new Date(expenseCreationDate.getTime() - (expenseCreationDate.getTimezoneOffset() * 60000)).toJSON();
         let payload = {
             UserID: userID,
             ExpenseTitle: expenseTitle,
             ExpenseValue: expenseValue,
-            ExpenseDescription: expenseDescription
+            ExpenseDescription: expenseDescription,
+            ExpenseCreationDate: newExpenseCreationDate
         };
         self.createUserExpense(payload);
         $("#addExpenseModal").modal("toggle");
@@ -140,13 +148,16 @@ var BudgetViewModel = function (userID, viewModel) {
         var expenseTitle = $("#editExpenseTitle").val();
         var expenseValue = $("#editExpenseValue").val();
         var expenseDescription = $("#editExpenseDescription").val();
+        var expenseCreationDate = new Date($("#editExpenseCreationDate").val());
+        var newExpenseCreationDate = new Date(expenseCreationDate.getTime() - (expenseCreationDate.getTimezoneOffset() * 60000)).toJSON();
 
         let payload2 = {
             userId: userID,
             expenseId: expenseID,
             expensetitle: expenseTitle,
             expensevalue: expenseValue,
-            expensedescription: expenseDescription
+            expensedescription: expenseDescription,
+            expensecreationdate: newExpenseCreationDate
         }
 
         self.updateExpense(payload2);

@@ -29,6 +29,11 @@
                         <label for="expenseDescription">Description</label>
                         <textarea class="form-control" type="text" id="expenseDescription" required ></textarea>
 
+                        <label for="expenseCreationDate">Start Time</label>
+                        <input type="datetime-local" placeholder="Select DateTime" class="form-control" id="expenseCreationDate" />
+
+                        <br />
+
                         <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
                         <button type="submit" class="btn btn-primary">Create Expense</button>
                     </form>
@@ -55,6 +60,9 @@
 
                         <label for="expenseDescription">Description</label>
                         <textarea class="form-control" type="text" id="editExpenseDescription" data-bind="textInput: userExpensesObject().expenseDescription()" required ></textarea>
+
+                        <label for="expenseCreationDate">Date</label>
+                        <input type="datetime-local" class="form-control" id="editExpenseCreationDate" data-bind="textInput: userExpensesObject().expenseCreationDate()" />
 
                         <br />
 
