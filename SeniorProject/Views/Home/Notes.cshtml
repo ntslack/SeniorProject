@@ -57,6 +57,7 @@
         </div>
     </div>
 
+
     <!-- Rest of Notes Page HTML -->
     <br>
     <br>
@@ -64,9 +65,12 @@
         <span class="input-group-addon input-icon">
             <span class="fa fa-search"></span>
         </span>
-        <input id="search" type="text" id="search" class="form-control" placeholder="Search for a Note" aria-expanded="false" aria-owns="awesomplete_list_2" role="combobox">
+        <input id="search" type="text" class="form-control" placeholder="Search for a Note" aria-expanded="false" aria-owns="awesomplete_list_2" role="combobox">
     </div>
-    <div class="row" id="notes">
+    <div class="noItemsDiv table-bordered" data-bind="visible: noNotes">
+        <h3 class="noNotesLabel">No Notes Yet</h3>
+    </div>
+    <div class="row" id="notes" data-bind="visible: notesAvailable">
         <!-- ko foreach: userNotes -->
         <div class="col-md-4 col-sm-6 content-card">
             <div class="card card-just-text" data-background="color" data-color="yellow" data-radius="none">

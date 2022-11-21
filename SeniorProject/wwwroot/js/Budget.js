@@ -67,6 +67,9 @@ var BudgetViewModel = function (userID, viewModel) {
     self.userExpenses = ko.observableArray([]);
     self.selectedExpense = ko.observable();
 
+    self.noExpenses = ko.observable(false);
+    self.expensesAvailable = ko.observable(false);
+
     config = {
         enableTime: true,
         dateFormat: "Y-m-d H:i",
@@ -82,8 +85,13 @@ var BudgetViewModel = function (userID, viewModel) {
         $.ajax({
             url: "/Home/expenses/?userID=" + userID,
             type: "GET",
-            success: function (data) {
-                self.userExpenses(data);
+            success: function (response) {
+                ko.mapping.fromJS(response, {}, self.userExpenses);
+                if (self.userExpenses().length < 1) {
+                    self.noExpenses(true);
+                } else {
+                    self.expensesAvailable(true);
+                }
             },
             failure: function (response) {
                 alert(response.responseText);
@@ -106,6 +114,7 @@ var BudgetViewModel = function (userID, viewModel) {
                     toastr.error("Expense was not successfully created");
                 } else {
                     toastr.success("Expense was created");
+                    self.noExpenses(false);
                     self.getUserExpenses();
                 }
             },
@@ -139,7 +148,7 @@ var BudgetViewModel = function (userID, viewModel) {
     var Id;
     self.editExpense = function (Object) {
         ko.mapping.fromJS(Object, {}, self.userExpensesObject);
-        Id = Object.expenseID;
+        Id = Object.expenseID();
     }
 
     self.submitEditedUserExpense = function () {
@@ -187,11 +196,12 @@ var BudgetViewModel = function (userID, viewModel) {
 
     self.deleteExpense = function (Object) {
         $.ajax({
-            url: '/Home/expenses/' + Object.expenseID,
+            url: '/Home/expenses/' + Object.expenseID(),
             type: 'DELETE',
             success: function () {
                 self.getUserExpenses();
                 toastr.success("Expense was deleted");
+                location.reload();
             },
             error: function (jqXHR) {
                 toastr.error(jqXHR.responseText);

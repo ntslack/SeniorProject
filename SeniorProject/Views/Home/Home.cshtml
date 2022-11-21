@@ -91,7 +91,10 @@
     <!-- Rest of Home Page HTML -->
     <br>
     <br>
-    <div class="row" id="reminders">
+    <div class="noItemsDiv table-bordered" data-bind="visible: noReminders">
+        <h3 class="noRemindersLabel">No Reminders Yet</h3>
+    </div>
+    <div class="row" id="reminders" data-bind="visible: remindersAvailable">
         <!-- ko foreach: userReminders -->
         <div class="col-md-4 col-sm-6 content-card">
             <div class="card card-just-text" data-background="color" data-color="blue" data-radius="none">
@@ -168,10 +171,10 @@
         $(document).ready(function () {
             var reminderViewModel = new ReminderViewModel(@ViewBag.userID);
             ko.applyBindings(reminderViewModel, document.getElementById("homeDiv"));
-            reminderViewModel.getUserReminders();
-            reminderViewModel.getFavoritedNotes();
-            reminderViewModel.getFavoritedLists();
             reminderViewModel.getFavoritedEvents();
+            reminderViewModel.getFavoritedLists();
+            reminderViewModel.getFavoritedNotes();
+            reminderViewModel.getUserReminders();
         })
     </script>
 }

@@ -33,8 +33,10 @@ var ListViewModel = function (userID) {
     });
 
     self.userLists = ko.observableArray([]);
-
     self.userListItems = ko.observableArray([]);
+
+    self.noLists = ko.observable(false);
+    self.listsAvailable = ko.observable(false);
 
     self.dismissEditModal = function () {
         $("#editListModal").modal("toggle");
@@ -44,8 +46,13 @@ var ListViewModel = function (userID) {
         $.ajax({
             url: "/Home/lists/?userID=" + userID,
             type: "GET",
-            success: function (data) {
-                self.userLists(data);
+            success: function (response) {
+                ko.mapping.fromJS(response, {}, self.userLists);
+                if (self.userLists().length < 1) {
+                    self.noLists(true);
+                } else {
+                    self.listsAvailable(true);
+                }
             },
             failure: function (response) {
                 alert(response.responseText);
@@ -68,6 +75,7 @@ var ListViewModel = function (userID) {
                     toastr.error("List was not successfully created");
                 } else {
                     toastr.success(listData.listTitle + " was created");
+                    self.noLists(false);
                     self.getUserLists();
                 }
             },
@@ -97,19 +105,22 @@ var ListViewModel = function (userID) {
     self.editList = function (Object) {
         ko.mapping.fromJS(Object, {}, self.userListsObject);
         console.log(self.userListsObject());
-        Id = Object.listID;
+        Id = Object.listID();
     }
 
     self.submitEditedUserList = function () {
+        console.log(self.userListsObject());
         var listID = Id;
         var listName = $("#editListName").val();
         var listDescription = $("#editListDescription").val();
+        var favorited = self.userListsObject().listIsFavorited();
 
         let payload2 = {
             userId: userID,
             listId: listID,
             listname: listName,
-            listdescription: listDescription
+            listdescription: listDescription,
+            listisfavorited: favorited
         }
 
         self.updateList(payload2);
@@ -198,7 +209,7 @@ var ListViewModel = function (userID) {
 
     self.deleteList = function (Object) {
         $.ajax({
-            url: '/Home/lists/' + Object.listID,
+            url: '/Home/lists/' + Object.listID(),
             type: 'DELETE',
             success: function () {
                 self.getUserLists();
@@ -211,12 +222,20 @@ var ListViewModel = function (userID) {
     }
 
     self.favoriteList = function (Object) {
+        payload4 = {
+            userId: Object.userID(),
+            listId: Object.listID(),
+            listName: Object.listName(),
+            listDescription: Object.listDescription(),
+            listIsFavorited: Object.listIsFavorited(),
+            listCreationDate: Object.listCreationDate()
+        }
         $.ajax({
             url: "/Home/favlists",
             type: "PUT",
             dataType: "json",
             contentType: "application/json",
-            data: JSON.stringify(Object),
+            data: JSON.stringify(payload4),
             success: function (result) {
                 if (result == -1) {
                     toastr.error("Error");

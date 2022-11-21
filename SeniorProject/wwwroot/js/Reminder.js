@@ -32,6 +32,9 @@ var ReminderViewModel = function (userID) {
 
     self.userListItems = ko.observableArray([]);
 
+    self.noReminders = ko.observable(false);
+    self.remindersAvailable = ko.observable(false);
+
     self.dismissEditModal = function () {
         $("#editReminderModal").modal("toggle");
     }
@@ -40,8 +43,13 @@ var ReminderViewModel = function (userID) {
         $.ajax({
             url: "/Home/reminders/?userID=" + userID,
             type: "GET",
-            success: function (data) {
-                self.userReminders(data);
+            success: function (response) {
+                ko.mapping.fromJS(response, {}, self.userReminders);
+                if (self.userReminders().length < 1) {
+                    self.noReminders(true);
+                } else {
+                    self.remindersAvailable(true);
+                }
             },
             failure: function (response) {
                 alert(response.responseText);
@@ -147,6 +155,7 @@ var ReminderViewModel = function (userID) {
                     toastr.error("Reminder was not successfully created");
                 } else {
                     toastr.success("Reminder was created");
+                    self.noReminders(false);
                     self.getUserReminders();
                 }
             },
@@ -175,7 +184,7 @@ var ReminderViewModel = function (userID) {
     var Id;
     self.editReminder = function (Object) {
         ko.mapping.fromJS(Object, {}, self.userRemindersObject);
-        Id = Object.reminderID;
+        Id = Object.reminderID();
     }
 
     self.submitEditedUserReminder = function () {
@@ -217,10 +226,9 @@ var ReminderViewModel = function (userID) {
 
     self.deleteReminder = function (Object) {
         $.ajax({
-            url: '/Home/reminders/' + Object.reminderID,
+            url: '/Home/reminders/' + Object.reminderID(),
             type: 'DELETE',
             success: function () {
-                //self.userExpenses.remove(selectedExpense);
                 self.getUserReminders();
                 toastr.success("Reminder  was deleted");
             },
@@ -273,7 +281,6 @@ var ReminderViewModel = function (userID) {
     }
 
     self.unfavoriteEvent = function (Object) {
-        console.log(Object);
         $.ajax({
             url: "/Home/favevents",
             type: "PUT",

@@ -107,7 +107,10 @@
         </span>
         <input id="search" type="text" class="form-control" placeholder="Search for a List" aria-expanded="false" aria-owns="awesomplete_list_2" role="combobox">
     </div>
-    <div class="row" id="lists">
+    <div class="noItemsDiv table-bordered" data-bind="visible: noLists">
+        <h3 class="noListsLabel">No Lists Yet</h3>
+    </div>
+    <div class="row" id="lists" data-bind="visible: listsAvailable">
         <!-- ko foreach: userLists -->
         <div class="col-md-4 col-sm-6 content-card">
             <div class="card card-just-text" data-background="color" data-color="orange" data-radius="none">

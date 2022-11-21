@@ -21,6 +21,16 @@ body {
     text-align: center;
 }
 
+.noItemsDiv {
+    height: 12vh;
+    text-align: center;
+    background-color: #edf2f4;
+    color: #4d5057;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
 
 .coloured-cards .card {
     margin-top: 30px;

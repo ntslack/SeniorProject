@@ -58,6 +58,7 @@ var CalendarViewModel = function (userID) {
     }
 
     var Id;
+    var Favorited;
     function GenerateCalendar(userEvents) {
         $('#calendar').fullCalendar('Drop');
         $('#calendar').fullCalendar({
@@ -78,6 +79,7 @@ var CalendarViewModel = function (userID) {
             eventClick: function (calEvent, jsEvent, view) {
                 ko.mapping.fromJS(calEvent, {}, self.userCalendarObject);
                 Id = self.userCalendarObject().eventID();
+                Favorited = self.userCalendarObject().eventIsFavorited();
                 $('#editEventModal').modal('show');
             }
         })
@@ -101,7 +103,6 @@ var CalendarViewModel = function (userID) {
             },
             error: function (result) {
                 toastr.error("There has been an error");
-                console.log(result)
             }
         })
     }
@@ -125,14 +126,9 @@ var CalendarViewModel = function (userID) {
         return;
     }
 
-    self.editevent = function (Object) {
-        console.log(Object);
-        ko.mapping.fromJS(Object, {}, self.userCalendarObject);
-        Id = Object.eventID;
-    }
-
     self.submitEditedUserEvent = function () {
         var eventID = Id;
+        var favorited = Favorited;
         var eventTitle = $("#editEventTitle").val();
         var eventDescription = $("#editEventDescription").val();
 
@@ -147,8 +143,10 @@ var CalendarViewModel = function (userID) {
             eventtitle: eventTitle,
             eventdescription: eventDescription,
             eventStartTime: newEventStartTime,
-            eventEndTime: newEventEndTime
+            eventEndTime: newEventEndTime,
+            eventIsFavorited: favorited
         }
+
 
         self.updateEvent(payload2);
         self.favoriteEvent(payload2);
@@ -167,12 +165,10 @@ var CalendarViewModel = function (userID) {
                 } else {
                     self.getUserEvents();
                     self.dismissEditModal();
-                    location.reload();
                     toastr.success("Successfully Changed Event");
                 }
             },
             error: function (result) {
-                console.log(result);
                 toastr.error("Error Updating Event")
             }
         })
@@ -189,7 +185,6 @@ var CalendarViewModel = function (userID) {
             eventEndTime: self.userCalendarObject().eventEndTime(),
             eventIsFavorited: self.userCalendarObject().eventIsFavorited()
         }
-        console.log(self.userCalendarObject());
         $.ajax({
             url: "/Home/favevents",
             type: "PUT",

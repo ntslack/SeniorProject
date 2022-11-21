@@ -21,6 +21,10 @@ var NotesViewModel = function (userID) {
     });
 
     self.userNotes = ko.observableArray([]);
+    self.userFavoritedNotes = ko.observable([]);
+
+    self.noNotes = ko.observable(false);
+    self.notesAvailable = ko.observable(false);
 
     self.dismissEditModal = function () {
         $("#editNoteModal").modal("toggle");
@@ -30,8 +34,13 @@ var NotesViewModel = function (userID) {
         $.ajax({
             url: "/Home/notes/?userID=" + userID,
             type: "GET",
-            success: function (data) {
-                self.userNotes(data);
+            success: function (response) {
+                ko.mapping.fromJS(response, {}, self.userNotes);
+                if (self.userNotes().length < 1) {
+                    self.noNotes(true);
+                } else {
+                    self.notesAvailable(true);
+                }
             },
             failure: function (response) {
                 alert(response.responseText);
@@ -43,7 +52,6 @@ var NotesViewModel = function (userID) {
     }
 
     self.createUserNote = function (noteData) {
-        console.log(noteData);
         $.ajax({
             url: "/Home/notes",
             type: "POST",
@@ -55,6 +63,7 @@ var NotesViewModel = function (userID) {
                     toastr.error("Note was not successfully created");
                 } else {
                     toastr.success("Note successfully created");
+                    self.noNotes(false);
                     self.getUserNotes();
                 }
             },
@@ -84,19 +93,21 @@ var NotesViewModel = function (userID) {
     self.editNote = function (Object) {
         console.log(Object);
         ko.mapping.fromJS(Object, {}, self.userNotesObject);
-        Id = Object.noteID;
+        Id = Object.noteID();
     }
 
     self.submitEditedUserNote = function () {
         var noteID = Id;
         var noteTitle = $("#editNoteTitle").val();
         var noteValue = $("#editNoteValue").val();
+        var favorited = self.userNotesObject().noteIsFavorited();
 
         let payload2 = {
             userId: userID,
             noteId: noteID,
             notetitle: noteTitle,
-            notevalue: noteValue
+            notevalue: noteValue,
+            noteisfavorited: favorited
         }
 
         self.updateNote(payload2);
@@ -125,12 +136,20 @@ var NotesViewModel = function (userID) {
     }
 
     self.favoriteNote = function (Object) {
+        payload3 = {
+            userId: Object.userID(),
+            noteId: Object.noteID(),
+            noteIsFavorited: Object.noteIsFavorited(),
+            noteTitle: Object.noteTitle(),
+            noteCreationDate: Object.noteCreationDate(),
+            noteValue: Object.noteValue()
+        }
         $.ajax({
             url: "/Home/favnotes",
             type: "PUT",
             dataType: "json",
             contentType: "application/json",
-            data: JSON.stringify(Object),
+            data: JSON.stringify(payload3),
             success: function (result) {
                 if (result == -1) {
                     toastr.error("Error");
@@ -147,11 +166,11 @@ var NotesViewModel = function (userID) {
 
     self.deleteNote = function (Object) {
         $.ajax({
-            url: '/Home/notes/' + Object.noteID,
+            url: '/Home/notes/' + Object.noteID(),
             type: 'DELETE',
             success: function () {
                 self.getUserNotes();
-                toastr.success("Note " + Object.noteTitle + " was deleted");
+                toastr.success("Note was deleted");
             },
             error: function (jqXHR) {
                 toastr.error(jqXHR.responseText);

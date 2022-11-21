@@ -86,7 +86,10 @@
             </span>
             <input id="search" type="text" class="form-control" placeholder="Search for an Expense" aria-expanded="false" aria-owns="awesomplete_list_2" role="combobox">
         </div>
-        <table class="table table-striped" id="myTable">
+        <div class="noItemsDiv table-bordered" data-bind="visible: noExpenses">
+            <h3 class="noExpensesLabel">No Expenses Yet</h3>
+        </div>
+        <table class="table table-striped" id="myTable" data-bind="visible: expensesAvailable">
             <thead>
                 <tr>
                     <th scope="col" data-bind="sort: { arr: userExpenses, prop: 'expenseTitle' }">Title</th>
