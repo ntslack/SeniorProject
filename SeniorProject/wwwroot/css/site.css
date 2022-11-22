@@ -31,6 +31,17 @@ body {
     align-items: center;
 }
 
+.pastdays {
+    position: relative;
+    padding-left: 20px;
+}
+
+.pastdays:after {
+    position: absolute;
+    padding-left: 10px;
+    content: 'dollars';
+}
+
 
 .coloured-cards .card {
     margin-top: 30px;
@@ -41,11 +52,13 @@ body {
 }
 
 .card {
-    border-radius: 8px;
+    height: 80%;
+    overflow: auto;
+    border-radius: 4px;
     box-shadow: 0 2px 2px rgba(204, 197, 185, 0.5);
     background-color: #FFFFFF;
     color: #252422;
-    margin-bottom: 20px;
+    /*margin-bottom: 10px;*/
     position: relative;
     z-index: 1;
 }
@@ -87,7 +100,7 @@ h6, .h6 {
 }
 
 .content-card {
-    margin-top: 20px;
+    margin-top: 10px;
 }
 
 a:hover, a:focus {

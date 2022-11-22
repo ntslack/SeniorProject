@@ -43,4 +43,28 @@ namespace SeniorProject.Models.Services
         public Task<List<EventDTO>> GetFavEventsAsync(int userID) => _favEventsRepository.GetFavEventsAsync(userID);
         public Task<EventDTO> FavoriteEvent(EventDTO eventDTO) => _favEventsRepository.FavoriteEvent(eventDTO);
     }
+
+    public class Expense7DaysService : IExpense7DaysService
+    {
+        private readonly IExpense7DaysRepository _expense7DaysRepository;
+
+        public Expense7DaysService(IExpense7DaysRepository expense7DaysRepository)
+        {
+            _expense7DaysRepository = expense7DaysRepository;
+        }
+
+        public Task<double> GetExpensesLast7DaysAsync(int userID) => _expense7DaysRepository.GetExpensesLast7DaysAsync(userID);
+    }
+
+    public class Expense30DaysService : IExpense30DaysService
+    {
+        private readonly IExpense30DaysRepository _expense30DaysRepository;
+
+        public Expense30DaysService(IExpense30DaysRepository expense30DaysRepository)
+        {
+            _expense30DaysRepository = expense30DaysRepository;
+        }
+
+        public Task<double> GetExpensesLast30DaysAsync(int userID) => _expense30DaysRepository.GetExpensesLast30DaysAsync(userID);
+    }
 }

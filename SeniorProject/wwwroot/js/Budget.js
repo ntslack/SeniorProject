@@ -67,6 +67,42 @@ var BudgetViewModel = function (userID, viewModel) {
     self.userExpenses = ko.observableArray([]);
     self.selectedExpense = ko.observable();
 
+    self.past7 = ko.observable();
+
+    self.past7days = function () {
+        $.ajax({
+            url: "/Home/expense7days/?userID=" + userID,
+            type: "GET",
+            success: function (response) {
+                ko.mapping.fromJS(response, {}, self.past7)
+            },
+            failure: function (response) {
+                alert(response.responseText)
+            },
+            error: function (response) {
+                alert(response.responseText)
+            }
+        })
+    }
+
+    self.past30 = ko.observable();
+
+    self.past30days = function () {
+        $.ajax({
+            url: "/Home/expense30days/?userID=" + userID,
+            type: "GET",
+            success: function (response) {
+                ko.mapping.fromJS(response, {}, self.past30)
+            },
+            failure: function (response) {
+                alert(response.responseText)
+            },
+            error: function (response) {
+                alert(response.responseText)
+            }
+        })
+    }
+
     self.noExpenses = ko.observable(false);
     self.expensesAvailable = ko.observable(false);
 

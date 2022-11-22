@@ -143,4 +143,38 @@ namespace SeniorProject.Models.Repositories
             return eventDTO;
         }
     }
+
+    public class Expense7DaysRepository : IExpense7DaysRepository
+    {
+        DatabaseContext _dbcontext;
+
+        public Expense7DaysRepository(DatabaseContext dbcontext)
+        {
+            _dbcontext = dbcontext;
+        }
+
+        public async Task<double> GetExpensesLast7DaysAsync(int userID)
+        {
+            double expensesLast7Days = 0;
+            expensesLast7Days = _dbcontext.Expense.Where(e => e.userID == userID && e.expenseCreationDate >= DateTime.Now.AddDays(-7)).Sum(e => e.expenseValue);
+            return expensesLast7Days;
+        }
+    }
+
+    public class Expense30DaysRepository : IExpense30DaysRepository
+    {
+        DatabaseContext _dbcontext;
+
+        public Expense30DaysRepository(DatabaseContext dbcontext)
+        {
+            _dbcontext = dbcontext;
+        }
+
+        public async Task<double> GetExpensesLast30DaysAsync(int userID)
+        {
+            double expensesLast30Days = 0;
+            expensesLast30Days = _dbcontext.Expense.Where(e => e.userID == userID && e.expenseCreationDate >= DateTime.Now.AddDays(-30)).Sum(e => e.expenseValue);
+            return expensesLast30Days;
+        }
+    }
 }

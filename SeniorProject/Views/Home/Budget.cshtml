@@ -74,11 +74,55 @@
         </div>
     </div>
 
+    <!-- Last 7 Days Modal -->
+    <div class="modal fade" id="last7DaysModal" aria-labelledby="exampleModalLabel" tabindex="-1" aria-hidden="true">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="exampleModalLabel">Total Expenses For The Last 7 Days</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body">
+                    <form>
+                        <h3 class="pastdays" data-bind="text: past7"></h3>
+
+                        <br />
+
+                        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Last 30 Days Modal -->
+    <div class="modal fade" id="last30DaysModal" aria-labelledby="exampleModalLabel" tabindex="-1" aria-hidden="true">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="exampleModalLabel">Total Expenses For The Last 30 Days</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body">
+                    <form>
+                        <h3 class="pastdays" data-bind="text: past30"></h3>
+
+                        <br />
+
+                        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+
     <!-- Rest of Budget Page HTML -->
     <br>
     <br>
     <h1 class="title">Expense Tracking</h1>
     <div class="table-responsive">
+        <button type="button" class="btn btn-secondary" data-bs-toggle="modal" data-bs-target="#last7DaysModal" data-bind="click: $root.past7days">Total Expenses for Last 7 Days</button>
+        <button type="button" class="btn btn-secondary" data-bs-toggle="modal" data-bs-target="#last30DaysModal" data-bind="click: $root.past30days">Total Expenses for Last 30 Days</button>
         <h5>Click Column Headers to Sort</h5>
         <div class="input-group left-icon">
             <span class="input-group-addon input-icon">

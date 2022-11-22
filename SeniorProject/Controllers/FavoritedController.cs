@@ -83,4 +83,42 @@ namespace SeniorProject.Controllers
             return Ok(events);
         }
     }
+
+    [Route("Home/expense7days")]
+    [ApiController]
+    public class Expense7DaysController : ControllerBase
+    {
+        private readonly IExpense7DaysService _expense7DaysService;
+
+        public Expense7DaysController(IExpense7DaysService expense7DaysService)
+        {
+            _expense7DaysService = expense7DaysService;
+        }
+
+        [HttpGet]
+        public async Task<IActionResult> GetExpensesLast7DaysAsync(int userID)
+        {
+            double expenses = await _expense7DaysService.GetExpensesLast7DaysAsync(userID);
+            return Ok(expenses);
+        }
+    }
+
+    [Route("Home/expense30days")]
+    [ApiController]
+    public class Expense30DaysController : ControllerBase
+    {
+        private readonly IExpense30DaysService _expense30DaysService;
+
+        public Expense30DaysController(IExpense30DaysService expense30DaysService)
+        {
+            _expense30DaysService = expense30DaysService;
+        }
+
+        [HttpGet]
+        public async Task<IActionResult> GetExpensesLast30DaysAsync(int userID)
+        {
+            double expenses = await _expense30DaysService.GetExpensesLast30DaysAsync(userID);
+            return Ok(expenses);
+        }
+    }
 }

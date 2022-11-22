@@ -24,6 +24,22 @@ var ReminderViewModel = function (userID) {
         }])
     });
 
+    self.past7days = function () {
+        $.ajax({
+            url: "/Home/expenses/?userID=" + userID,
+            type: "GET",
+            success: function (response) {
+                console.log(response);
+            },
+            failure: function (response) {
+                alert(response.responseText)
+            },
+            error: function (response) {
+                alert(response.responseText)
+            }
+        })
+    }
+
     self.userReminders = ko.observableArray([]);
 
     self.favoritedNotes = ko.observableArray([]);

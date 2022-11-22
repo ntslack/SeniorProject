@@ -22,4 +22,14 @@ namespace SeniorProject.Models.Interfaces
         Task<List<EventDTO>> GetFavEventsAsync(int userID);
         Task<EventDTO> FavoriteEvent(EventDTO eventDTO);
     }
+
+    public interface IExpense7DaysRepository
+    {
+        Task<double> GetExpensesLast7DaysAsync(int userID);
+    }
+
+    public interface IExpense30DaysRepository
+    {
+        Task<double> GetExpensesLast30DaysAsync(int userID);
+    }
 }

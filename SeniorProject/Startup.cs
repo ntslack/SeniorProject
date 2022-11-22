@@ -72,6 +72,12 @@ namespace SeniorProject
             services.AddScoped<IFavEventsRepository, FavEventsRepository>();
             services.AddTransient<IFavEventsService, FavEventsService>();
 
+            services.AddScoped<IExpense7DaysRepository, Expense7DaysRepository>();
+            services.AddTransient<IExpense7DaysService, Expense7DaysService>();
+
+            services.AddScoped<IExpense30DaysRepository, Expense30DaysRepository>();
+            services.AddTransient<IExpense30DaysService, Expense30DaysService>();
+
             services.AddControllersWithViews();
         }
 
