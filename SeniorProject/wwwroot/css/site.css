@@ -108,51 +108,71 @@ a:hover, a:focus {
 }
 
 .card[data-color="yellow"] {
-    background: #ffe28c;
+    background: #f4a261;
+    /*background: #ffe28c;*/
 }
 
     .card[data-color="yellow"] .description {
-        color: #b25825;
+        color: black;
+        /*color: #b25825;*/
     }
 
     .card[data-color="yellow"] .category {
-        color: #d88715;
+        color: black;
+        /*color: #d88715;*/
     }
 
-    .card[data-color="yellow"] .title1 {
-        color: #d88715;
+    .card[data-color="yellow"] .title {
+        color: black;
+        /*color: #d88715;*/
     }
 
 .card[data-color="blue"] {
-    background: #b8d8d8;
+    background: #2a9d8f;
 }
 
     .card[data-color="blue"] .description {
-        color: #506568;
+        color: black;
     }
 
     .card[data-color="blue"] .category {
-        color: #7a9e9f;
+        color: black;
     }
 
-    .card[data-color="blue"] .title1 {
-        color: #7a9e9f;
+    .card[data-color="blue"] .title {
+        color: black;
     }
 
 .card[data-color="orange"] {
-    background: #ff8f5e;
+    background: #e76f51;
 }
 
     .card[data-color="orange"] .description {
-        color: #772510;
+        color: black;
     }
 
     .card[data-color="orange"] .category {
-        color: #e95e37;
+        color: black;
     }
 
-    .card[data-color="orange"] .title1 {
-        color: #e95e37;
+    .card[data-color="orange"] .title {
+        color: black;
+    }
+
+.card[data-color="event"] {
+    background: #264653;
+}
+
+    .card[data-color="event"] .description {
+        color: white;
+    }
+
+    .card[data-color="event"] .category {
+        color: white;
+    }
+
+    .card[data-color="event"] .title {
+        color: white;
     }
 
 .editnote {

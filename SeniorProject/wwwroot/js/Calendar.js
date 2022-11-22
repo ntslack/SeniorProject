@@ -72,7 +72,7 @@ var CalendarViewModel = function (userID) {
                 right: 'month, basicWeek, basicDay'
             },
             eventLimit: true,
-            eventColor: '#000000',
+            eventColor: '#264563',
             displayEventEnd: true,
             dayHeaders: true,
             events: userEvents,
