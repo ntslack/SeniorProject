@@ -2,11 +2,8 @@
     ViewData["Title"] = "Calendar";
 }
 
-<h2>Welcome to your Calendar Page @ViewBag.Username</h2>
 
 <div class="container bootstrap snippets bootdeys" id="calendarDiv">
-    <button type="submit" class="btn btn-dark btn-lg" data-bs-toggle="modal" data-bs-target="#createEventModal">Create a new Event</button>
-    <br />
 
     <!-- Create Event Modal -->
     <div class="modal fade" id="createEventModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
@@ -50,7 +47,6 @@
                 </div>
                 <div class="modal-body">
                     <form id="editEventForm" data-bind="submit: $root.submitEditedUserEvent">
-                        <button type="button" class="btn btn-secondary" data-bind="click: favoriteEvent">Favorite</button>
 
                         <label for="eventTitle">Title</label>
                         <input class="form-control" type="text" id="editEventTitle" data-bind="textInput: userCalendarObject().eventTitle()" required>
@@ -66,9 +62,10 @@
 
                         <br />
 
-                        <div class="text-end">
-                            <button type="button" data-bind="click: deleteEvent" class="btn btn-danger">Delete Event</button>
+                        <div class="text-center">
                             <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                            <button type="button" class="btn btn-success" data-bind="click: favoriteEvent"><i class="fa fa-solid fa-heart"></i></button>
+                            <button type="button" data-bind="click: deleteEvent" class="btn btn-danger"><i class="fa fa-solid fa-trash"></i></button>
                             <button type="submit" class="btn btn-primary">Submit</button>
                         </div>
                     </form>
@@ -77,7 +74,15 @@
         </div>
     </div>
 
+    <div class="text-center">
+        <h2>Welcome to your Calendar Page @ViewBag.Username</h2>
+        <button type="submit" class="btn btn-secondary btn-lg" data-bs-toggle="modal" data-bs-target="#createEventModal">Create a new Event</button>
+    </div>
+    <br />
+
     <div id="calendar"></div>
+    <br />
+    <br />
 
     <link href="//cdnjs.cloudflare.com/ajax/libs/fullcalendar/3.4.0/fullcalendar.min.css" rel="stylesheet" />
     <link href="//cdnjs.cloudflare.com/ajax/libs/fullcalendar/3.4.0/fullcalendar.print.css" rel="stylesheet" media="print" />

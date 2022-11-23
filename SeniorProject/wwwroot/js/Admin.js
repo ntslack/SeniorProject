@@ -16,7 +16,6 @@ var AdminViewModel = function () {
         username: ko.observable(),
         firstName: ko.observable(),
         lastName: ko.observable(),
-        email: ko.observable(),
         mobile: ko.observable(),
         isAdmin: ko.observable()
     });
@@ -57,13 +56,11 @@ var AdminViewModel = function () {
     self.submitEditedUserInfo = function () {
         var userID = Id;
         var username = $("#editUsername").val();
-        var email = $("#editEmail").val();
         var mobile = $("#editMobile").val();
 
         let payload2 = {
             userId: userID,
             userName: username,
-            Email: email,
             Mobile: mobile
         }
 

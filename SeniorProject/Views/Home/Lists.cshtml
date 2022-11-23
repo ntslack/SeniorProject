@@ -2,11 +2,8 @@
     ViewData["Title"] = "Lists";
 }
 
-<h2>Welcome to your Lists Page @ViewBag.Username</h2>
-<h2>This is your Id @ViewBag.Id</h2>
 
 <div class="container bootstrap snippets bootdeys" id="listsDiv">
-    <button type="submit" class="btn btn-Secondary btn-lg" data-bs-toggle="modal" data-bs-target="#createListModal">Create a new List</button>
 
     <!-- View List Items Modal -->
     <div class="modal fade" id="editListItemsModal" tabindex="-1" aria-hidden="true">
@@ -34,7 +31,7 @@
                             <div class="input-group">
                                 <input class="form-control" id="listItemValue" data-bind="textInput: listItemValue" required />
                                 <div class="input-group-btn">
-                                    <button class="btn btn-danger" data-bind="click: $root.deleteListItem">Delete</button>
+                                    <button class="btn btn-secondary" data-bind="click: $root.deleteListItem">Remove</button>
                                 </div>
                             </div>
                             <!-- /ko -->
@@ -63,6 +60,8 @@
 
                         <label for="listDescription">List Description</label>
                         <input class="form-control" type="text" id="listDescription" required />
+
+                        <br />
 
                         <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
                         <button type="submit" class="btn btn-primary">Create List</button>
@@ -99,12 +98,12 @@
     </div>
 
     <!-- Rest of Lists Page HTML -->
-    <br>
+    <div class="text-center">
+        <h2>Welcome to your Lists Page @ViewBag.Username</h2>
+        <button type="submit" class="btn btn-secondary btn-lg" data-bs-toggle="modal" data-bs-target="#createListModal">Create a new List</button>
+    </div>
     <br>
     <div class="input-group left-icon">
-        <span class="input-group-addon input-icon">
-            <span class="fa fa-search"></span>
-        </span>
         <input id="search" type="text" class="form-control" placeholder="Search for a List" aria-expanded="false" aria-owns="awesomplete_list_2" role="combobox">
     </div>
     <div class="noItemsDiv table-bordered" data-bind="visible: noLists">
@@ -115,20 +114,20 @@
         <div class="col-md-4 col-sm-6 content-card">
             <div class="card card-just-text" data-background="color" data-color="orange" data-radius="none">
                 <div class="content">
-                    <button type="button" class="btn btn-secondary" data-bs-toggle="modal" data-bs-target="#editListModal" data-bind="click: $root.editList">Edit</button>
-                    <button type="button" class="btn btn-danger" data-bind="click: $parent.deleteList">Delete</button>
-                    <button type="button" class="btn btn-secondary" data-bind="click: $parent.favoriteList">Favorite</button>
+                    <button type="button" class="btn btn-secondary" data-bs-toggle="modal" data-bs-target="#editListModal" data-bind="click: $root.editList"><i class="fa fa-solid fa-pencil"></i></button>
+                    <button type="button" class="btn btn-success" data-bind="click: $parent.favoriteList"><i class="fa fa-solid fa-heart"></i></button>
+                    <button type="button" class="btn btn-danger" data-bind="click: $parent.deleteList"><i class="fa fa-solid fa-trash"></i></button>
                     <h6 class="category">@ViewBag.Username</h6>
                     <h4 class="title" data-bind="text: listName"></h4>
-                    <div style="white-space: pre-wrap">
-                        <p class="description" data-bind="text: listDescription"></p>
-                    </div>
-                    <button type="button" class="btn btn-secondary" data-bs-toggle="modal" data-bs-target="#editListItemsModal" data-bind="click: $root.editListItems">See Items</button>
+                    <p style="white-space: pre-wrap" class="description" data-bind="text: listDescription"></p>
+                    <button type="button" class="btn btn-secondary" data-bs-toggle="modal" data-bs-target="#editListItemsModal" data-bind="click: $root.editListItems">Items</button>
                 </div>
             </div>
         </div>
         <!-- /ko -->
     </div>
+    <br />
+    <br />
 </div>
 
 

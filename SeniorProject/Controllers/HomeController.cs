@@ -3,6 +3,7 @@ using Microsoft.AspNetCore.Mvc;
 using SeniorProject.Models;
 using System.Diagnostics;
 using SeniorProject.Models.Context;
+using System.Security.Cryptography;
 
 namespace SeniorProject.Controllers
 {
@@ -32,11 +33,13 @@ namespace SeniorProject.Controllers
         [HttpPost]
         public IActionResult Register(UserAccount user)
         {
+
+            user.password = BCrypt.Net.BCrypt.HashPassword(user.password);
+
             if (ModelState.IsValid)
             {
                 bool userExists = _context.User.Any(x => x.username == user.username);
                 bool mobileExists = _context.User.Any(y => y.mobile == user.mobile);
-                bool emailExists = _context.User.Any(z => z.email == user.email);
                 if (userExists)
                 {
                     ViewBag.Message = "This Username Already Exists.";
@@ -44,10 +47,6 @@ namespace SeniorProject.Controllers
                 else if (mobileExists)
                 {
                     ViewBag.Message = "The Given Phone Number is Already in Use.";
-                }
-                else if (emailExists)
-                {
-                    ViewBag.Message = "The Given Email is Already in Use.";
                 }
                 else
                 {
@@ -71,13 +70,13 @@ namespace SeniorProject.Controllers
         [HttpPost]
         public IActionResult Login(UserAccount user)
         {
-            var account = _context.User.Where(u => u.username == user.username && u.password == user.password).FirstOrDefault();
-            Console.WriteLine(user.isAdmin);
-            if (account != null)
+            var usr = _context.User.SingleOrDefault(x => x.username == user.username);
+            bool isValidPassword = BCrypt.Net.BCrypt.Verify(user.password, usr.password);
+            if (isValidPassword)
             {
-                HttpContext.Session.SetString("userID", account.userID.ToString());
-                HttpContext.Session.SetString("username", account.username);
-                HttpContext.Session.SetString("isAdmin", account.isAdmin.ToString());
+                HttpContext.Session.SetString("userID", usr.userID.ToString());
+                HttpContext.Session.SetString("username", usr.username);
+                HttpContext.Session.SetString("isAdmin", usr.isAdmin.ToString());
                 return RedirectToAction("Home");
             } else
             {

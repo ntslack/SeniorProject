@@ -31,6 +31,36 @@ body {
     align-items: center;
 }
 
+.noFavNotesDiv {
+    height: 12vh;
+    text-align: center;
+    background-color: #edf2f4;
+    color: #4d5057;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.noFavListsDiv {
+    height: 12vh;
+    text-align: center;
+    background-color: #edf2f4;
+    color: #4d5057;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.noFavEventsDiv {
+    height: 12vh;
+    text-align: center;
+    background-color: #edf2f4;
+    color: #4d5057;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
 .pastdays {
     position: relative;
     padding-left: 20px;
@@ -40,6 +70,30 @@ body {
     position: absolute;
     padding-left: 10px;
     content: 'dollars';
+}
+
+.infopage {
+    display: inline;
+}
+
+#homenav {
+    background-color: #6bd5e1;
+}
+
+#notesnav {
+    background-color: #ffd98e;
+}
+
+#listsnav {
+    background-color: #fecea8;
+}
+
+#calendarnav {
+    background-color: #264653;
+}
+
+#budgetnav {
+    background-color: lightgray;
 }
 
 
@@ -52,13 +106,13 @@ body {
 }
 
 .card {
-    height: 80%;
+    height: 100%;
+    width: 100%;
     overflow: auto;
     border-radius: 4px;
     box-shadow: 0 2px 2px rgba(204, 197, 185, 0.5);
     background-color: #FFFFFF;
     color: #252422;
-    /*margin-bottom: 10px;*/
     position: relative;
     z-index: 1;
 }
@@ -69,12 +123,12 @@ body {
     }
 
     .card.card-just-text .content {
-        padding: 50px 65px;
+        padding: 5px 5px 5px 5px;
         text-align: center;
     }
 
-    .card .content {
-        padding: 20px 20px 10px 20px;
+    .card.card-just-text .content h6 h4 {
+        padding-bottom: 0px;
     }
 
     .card .category, .card .label {
@@ -101,6 +155,8 @@ h6, .h6 {
 
 .content-card {
     margin-top: 10px;
+    margin-bottom: 10px;
+    padding-bottom: 10px;
 }
 
 a:hover, a:focus {
@@ -108,55 +164,55 @@ a:hover, a:focus {
 }
 
 .card[data-color="yellow"] {
-    background: #f4a261;
+    background: #ffd98e;
     /*background: #ffe28c;*/
 }
 
     .card[data-color="yellow"] .description {
-        color: black;
+        color: #264653;
         /*color: #b25825;*/
     }
 
     .card[data-color="yellow"] .category {
-        color: black;
+        color: #264653;
         /*color: #d88715;*/
     }
 
     .card[data-color="yellow"] .title {
-        color: black;
+        color: #264653;
         /*color: #d88715;*/
     }
 
 .card[data-color="blue"] {
-    background: #2a9d8f;
+    background: #6bd5e1;
 }
 
     .card[data-color="blue"] .description {
-        color: black;
+        color: #264653;
     }
 
     .card[data-color="blue"] .category {
-        color: black;
+        color: #264653;
     }
 
     .card[data-color="blue"] .title {
-        color: black;
+        color: #264653;
     }
 
 .card[data-color="orange"] {
-    background: #e76f51;
+    background: #fecea8;
 }
 
     .card[data-color="orange"] .description {
-        color: black;
+        color: #152744;
     }
 
     .card[data-color="orange"] .category {
-        color: black;
+        color: #152744;
     }
 
     .card[data-color="orange"] .title {
-        color: black;
+        color: #152744;
     }
 
 .card[data-color="event"] {
@@ -164,15 +220,15 @@ a:hover, a:focus {
 }
 
     .card[data-color="event"] .description {
-        color: white;
+        color: #f7f7f7;
     }
 
     .card[data-color="event"] .category {
-        color: white;
+        color: #f7f7f7;
     }
 
     .card[data-color="event"] .title {
-        color: white;
+        color: #f7f7f7;
     }
 
 .editnote {

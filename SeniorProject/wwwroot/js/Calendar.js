@@ -165,6 +165,7 @@ var CalendarViewModel = function (userID) {
                 } else {
                     self.getUserEvents();
                     self.dismissEditModal();
+                    location.reload();
                     toastr.success("Successfully Changed Event");
                 }
             },
@@ -195,7 +196,12 @@ var CalendarViewModel = function (userID) {
                 if (result == -1) {
                     toastr.error("Error");
                 } else {
-                    toastr.success("Success!");
+                    if (payload3.eventIsFavorited == true) {
+                        toastr.success("Event Unfavorited")
+                    } else {
+                        toastr.success("Event Favorited");
+                    }
+                    self.dismissEditModal();
                     self.getUserEvents();
                 }
             },

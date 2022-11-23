@@ -11,46 +11,77 @@
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/flatpickr/dist/flatpickr.min.css">
     <script src="https://unpkg.com/popper.js/dist/umd/popper.min.js"></script>
     <script src="https://unpkg.com/tooltip.js/dist/umd/tooltip.min.js"></script>
+    <script src="https://kit.fontawesome.com/b9b693a6b4.js" crossorigin="anonymous"></script>
 
 </head>
 <body>
     <header>
-        <nav class="navbar navbar-expand-sm navbar-toggleable-sm navbar-light bg-light border-bottom box-shadow mb-3" style="background-color: #e3f2fd">
+        <nav class="navbar navbar-expand-lg navbar-toggleable-lg navbar-light bg-light border-bottom box-shadow mb-3" style="background-color: #e3f2fd">
             <div class="container-fluid">
-                <a class="navbar-brand" asp-area="" asp-controller="Home" asp-action="Index">SeniorProject</a>
+                <a class="navbar-brand" asp-area="" asp-controller="Home" asp-action="Index">Organize All</a>
                 <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target=".navbar-collapse" aria-controls="navbarSupportedContent"
                         aria-expanded="false" aria-label="Toggle navigation">
                     <span class="navbar-toggler-icon"></span>
                 </button>
-                <div class="navbar-collapse collapse justify-content-around">
-                    <ul class="navbar-nav flex-grow-1">
-                        <li class="nav-item">
-                            <a class="nav-link text-dark" asp-area="" asp-controller="Home" asp-action="Index">Info</a>
+                <div class="navbar-collapse collapse">
+                    <ul class="navbar-nav flex-grow-1 justify-content-xxl-evenly">
+                            <li class="nav-item">
+                                <a class="nav-link text-dark" asp-controller="Home" asp-action="Index">Info</a>
+                            </li>
                             @if (Context.Session.GetString("isAdmin") == "True")
                             {
-                            <li class="navbar-collapse collapse justify-content-around"><a class="nav-link text-dark" asp-controller="Home" asp-action="Notes">Notes</a></li>
-                            <li class="navbar-collapse collapse justify-content-around"><a class="nav-link text-dark" asp-controller="Home" asp-action="Lists">Lists</a></li>
-                            <li class="navbar-collapse collapse justify-content-center"><a class="nav-link text-dark" asp-controller="Home" asp-action="Home">Home</a></li>
-                            <li class="navbar-collapse collapse justify-content-around"><a class="nav-link text-dark" asp-controller="Home" asp-action="Calendar">Calendar</a></li>
-                            <li class="navbar-collapse collapse justify-content-around"><a class="nav-link text-dark" asp-controller="Home" asp-action="Budget">Budget</a></li>
-                            <li class="navbar-collapse collapse justify-content-around"><a class="nav-link text-dark" asp-controller="Home" asp-action="Admin">Admin</a></li>
-                            <li class="navbar-collapse collapse justify-content-end"><a class="nav-link text-dark" asp-controller="Home" asp-action="Logout">Logout</a></li>
+                            <li class="nav-item">
+                                <a class="nav-link text-dark" id="notesnav" asp-controller="Home" asp-action="Notes">Notes</a>
+                            </li>
+                            <li class="nav-item">
+                                <a class="nav-link text-dark" id="listsnav" asp-controller="Home" asp-action="Lists">Lists</a>
+                            </li>
+                            <li class="nav-item">
+                                <a class="nav-link text-dark" id="homenav" asp-controller="Home" asp-action="Home">Home</a>
+                            </li>
+                            <li class="nav-item">
+                                <a class="nav-link text-light" id="calendarnav" asp-controller="Home" asp-action="Calendar">Calendar</a>
+                            </li>
+                            <li class="nav-item">
+                                <a class="nav-link text-dark" id="budgetnav" asp-controller="Home" asp-action="Budget">Budget</a>
+                            </li>
+                            <li class="nav-item">
+                                <a class="nav-link text-dark" asp-controller="Home" asp-action="Admin">Admin</a>
+                            </li>
+                            <li class="nav-item">
+                                <a class="nav-link text-dark" asp-controller="Home" asp-action="Logout">Logout</a>
+                            </li>
                             }
                             else if (Context.Session.GetString("userID") != null)
                             {
-                            <li class="navbar-collapse collapse justify-content-around"><a class="nav-link text-dark" asp-controller="Home" asp-action="Notes">Notes</a></li>
-                            <li class="navbar-collapse collapse justify-content-around"><a class="nav-link text-dark" asp-controller="Home" asp-action="Lists">Lists</a></li>
-                            <li class="navbar-collapse collapse justify-content-center"><a class="nav-link text-dark" asp-controller="Home" asp-action="Home">Home</a></li>
-                            <li class="navbar-collapse collapse justify-content-around"><a class="nav-link text-dark" asp-controller="Home" asp-action="Calendar">Calendar</a></li>
-                            <li class="navbar-collapse collapse justify-content-around"><a class="nav-link text-dark" asp-controller="Home" asp-action="Budget">Budget</a></li>
-                            <li class="navbar-collapse collapse justify-content-end"><a class="nav-link text-dark" asp-controller="Home" asp-action="Logout">Logout</a></li>
+                            <li class="nav-item">
+                                <a class="nav-link text-dark" id="notesnav" asp-controller="Home" asp-action="Notes">Notes</a>
+                            </li>
+                            <li class="nav-item">
+                                <a class="nav-link text-dark" id="listsnav" asp-controller="Home" asp-action="Lists">Lists</a>
+                            </li>
+                            <li class="nav-item">
+                                <a class="nav-link text-dark" id="homenav" asp-controller="Home" asp-action="Home">Home</a>
+                            </li>
+                            <li class="nav-item">
+                                <a class="nav-link text-light" id="calendarnav" asp-controller="Home" asp-action="Calendar">Calendar</a>
+                            </li>
+                            <li class="nav-item">
+                                <a class="nav-link text-dark" id="budgetnav" asp-controller="Home" asp-action="Budget">Budget</a>
+                            </li>
+                            <li class="nav-item">
+                                <a class="nav-link text-dark" asp-controller="Home" asp-action="Logout">Logout</a>
+                            </li>
                             }
                             else
                             {
-                            <li class="navbar-collapse collapse justify-content-end"><a class="nav-link text-dark" asp-area="" asp-controller="Home" asp-action="Register">Register</a></li>
-                            <li class="navbar-collapse collapse justify-content-end"><a class="nav-link text-dark" asp-area="" asp-controller="Home" asp-action="Login">Login</a></li>
+                            <li class="nav-item">
+                                <a class="nav-link text-dark" asp-area="" asp-controller="Home" asp-action="Register">Register</a>
+                            </li>
+                            <li class="nav-item">
+                                <a class="nav-link text-dark" asp-area="" asp-controller="Home" asp-action="Login">Login</a>
+                            </li>
                             }
-                        </li>
                     </ul>
                 </div>
             </div>
@@ -63,7 +94,8 @@
     </div>
 
     <footer class="border-top footer text-muted">
-        <div class="container">
+        <div class="container text-center">
+            <p>© 2022 Copyright: Nathan Slack. Contact nathanslack@yahoo.com</p>
         </div>
     </footer>
     <script src="~/lib/jquery/dist/jquery.js"></script>
@@ -75,8 +107,6 @@
     <script src="~/lib/moment.min.js"></script>
     <script src="~/lib/bootstrap-daterangepicker/daterangepicker.js"></script>
     <script src="~/lib/fullcalendar.min.js"></script>
-    @*<script src="~/lib/fullcalendar/js/main.js"></script>
-    <script src="~/lib/fullcalendar/js/main.min.js"></script>*@
     <script src="https://cdn.jsdelivr.net/npm/flatpickr"></script>
     @await RenderSectionAsync("Scripts", required: false)
 </body>

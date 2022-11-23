@@ -1,14 +1,9 @@
 ﻿@{
     ViewData["Title"] = "Budget";
 }
-<head>
-    
-</head>
 
-<h2>Welcome to your Budget Page @ViewBag.Username</h2>
 
 <div class="container bootstrap snippets bootdeys" id="budgetDiv">
-    <button type="submit" class="btn btn-dark" data-bs-toggle="modal" data-bs-target="#addExpenseModal">Add an Expense</button>
 
     <!-- Add Expense Modal -->
     <div class="modal fade" id="addExpenseModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
@@ -29,7 +24,7 @@
                         <label for="expenseDescription">Description</label>
                         <textarea class="form-control" type="text" id="expenseDescription" required ></textarea>
 
-                        <label for="expenseCreationDate">Start Time</label>
+                        <label for="expenseCreationDate">Date</label>
                         <input type="datetime-local" placeholder="Select DateTime" class="form-control" id="expenseCreationDate" />
 
                         <br />
@@ -55,7 +50,7 @@
                         <label for="expenseTitle">Title</label>
                         <input class="form-control" type="text" id="editExpenseTitle" data-bind="textInput: userExpensesObject().expenseTitle()" required />
 
-                        <label for="expenseValue">Amount (Do not include a Dollar Sign)</label>
+                        <label for="expenseValue">Amount</label>
                         <input class="form-control" type="text" id="editExpenseValue" data-bind="textInput: userExpensesObject().expenseValue()" required />
 
                         <label for="expenseDescription">Description</label>
@@ -117,17 +112,16 @@
     </div>
 
     <!-- Rest of Budget Page HTML -->
-    <br>
-    <br>
-    <h1 class="title">Expense Tracking</h1>
-    <div class="table-responsive">
-        <button type="button" class="btn btn-secondary" data-bs-toggle="modal" data-bs-target="#last7DaysModal" data-bind="click: $root.past7days">Total Expenses for Last 7 Days</button>
-        <button type="button" class="btn btn-secondary" data-bs-toggle="modal" data-bs-target="#last30DaysModal" data-bind="click: $root.past30days">Total Expenses for Last 30 Days</button>
+    <div class="text-center">
+        <h2>Welcome to your Budget Page @ViewBag.Username</h2>
         <h5>Click Column Headers to Sort</h5>
+        <button type="submit" class="btn btn-dark btn-lg" data-bs-toggle="modal" data-bs-target="#addExpenseModal">Add an Expense</button>
+        <button type="button" class="btn btn-secondary btn-lg" data-bs-toggle="modal" data-bs-target="#last7DaysModal" data-bind="click: $root.past7days">Last 7 Days</button>
+        <button type="button" class="btn btn-secondary btn-lg" data-bs-toggle="modal" data-bs-target="#last30DaysModal" data-bind="click: $root.past30days">Last 30 Days</button>
+    </div>
+    <br />
+    <div class="table-responsive">
         <div class="input-group left-icon">
-            <span class="input-group-addon input-icon">
-                <span class="fa fa-search"></span>
-            </span>
             <input id="search" type="text" class="form-control" placeholder="Search for an Expense" aria-expanded="false" aria-owns="awesomplete_list_2" role="combobox">
         </div>
         <div class="noItemsDiv table-bordered" data-bind="visible: noExpenses">
@@ -136,10 +130,10 @@
         <table class="table table-striped" id="myTable" data-bind="visible: expensesAvailable">
             <thead>
                 <tr>
-                    <th scope="col" data-bind="sort: { arr: userExpenses, prop: 'expenseTitle' }">Title</th>
-                    <th scope="col" data-bind="sort: { arr: userExpenses, prop: 'expenseValue' }">Amount</th>
-                    <th scope="col" data-bind="sort: { arr: userExpenses, prop: 'expenseCreationDate' }">Date</th>
-                    <th scope="col" data-bind="sort: { arr: userExpenses, prop: 'expenseDescription' }">Description</th>
+                    <th scope="col" data-bind="sort: { arr: userExpenses, prop: 'expenseTitle()' }">Title</th>
+                    <th scope="col" data-bind="sort: { arr: userExpenses, prop: 'expenseValue()' }">Amount</th>
+                    <th scope="col" data-bind="sort: { arr: userExpenses, prop: 'expenseCreationDate()' }">Date</th>
+                    <th scope="col" data-bind="sort: { arr: userExpenses, prop: 'expenseDescription()' }">Description</th>
                     <th scope="col">Edit</th>
                     <th scope="col">Delete</th>
                 </tr>
@@ -161,10 +155,10 @@
                         <a data-bind="text: expenseDescription"></a>
                     </td>
                     <td>
-                        <button type="button" class="btn btn-secondary" data-bs-toggle="modal" data-bs-target="#editExpenseModal" data-bind="click: $root.editExpense">Edit</button>
+                        <button type="button" class="btn btn-secondary" data-bs-toggle="modal" data-bs-target="#editExpenseModal" data-bind="click: $root.editExpense"><i class="fa fa-solid fa-pencil"></i></button>
                     </td>
                     <td>
-                        <button type="button" class="btn btn-danger" data-bind="click: $parent.deleteExpense">Delete</button>
+                        <button type="button" class="btn btn-danger" data-bind="click: $parent.deleteExpense"><i class="fa fa-solid fa-trash"></i></button>
                     </td>
                 </tr>
                 <!-- /ko -->

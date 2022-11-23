@@ -51,6 +51,10 @@ var ReminderViewModel = function (userID) {
     self.noReminders = ko.observable(false);
     self.remindersAvailable = ko.observable(false);
 
+    self.noFavNotes = ko.observable(false);
+    self.noFavLists = ko.observable(false);
+    self.noFavEvents = ko.observable(false);
+
     self.dismissEditModal = function () {
         $("#editReminderModal").modal("toggle");
     }
@@ -80,8 +84,12 @@ var ReminderViewModel = function (userID) {
         $.ajax({
             url: "/Home/favnotes/?userID=" + userID,
             type: "GET",
-            success: function (data) {
-                self.favoritedNotes(data);
+            success: function (response) {
+                if (response.length < 1) {
+                    self.noFavNotes(true);
+                } else {
+                    self.favoritedNotes(response);
+                }
             },
             failure: function (response) {
                 alert(response.responseText);
@@ -96,8 +104,12 @@ var ReminderViewModel = function (userID) {
         $.ajax({
             url: "/Home/favlists/?userID=" + userID,
             type: "GET",
-            success: function (data) {
-                self.favoritedLists(data);
+            success: function (response) {
+                if (response.length < 1) {
+                    self.noFavLists(true);
+                } else {
+                    self.favoritedLists(response);
+                }
             },
             failure: function (response) {
                 alert(response.responseText);
@@ -112,8 +124,12 @@ var ReminderViewModel = function (userID) {
         $.ajax({
             url: "/Home/favevents/?userID=" + userID,
             type: "GET",
-            success: function (data) {
-                self.favoritedEvents(data);
+            success: function (response) {
+                if (response.length < 1) {
+                    self.noFavEvents(true);
+                } else {
+                    self.favoritedEvents(response);
+                }
             },
             failure: function (response) {
                 alert(response.responseText);
@@ -266,6 +282,7 @@ var ReminderViewModel = function (userID) {
                     toastr.error("Error");
                 } else {
                     toastr.success("Success!");
+                    location.reload();
                     self.getFavoritedNotes();
                 }
             },
@@ -287,6 +304,7 @@ var ReminderViewModel = function (userID) {
                     toastr.error("Error");
                 } else {
                     toastr.success("Success!");
+                    location.reload();
                     self.getFavoritedLists();
                 }
             },
@@ -308,6 +326,7 @@ var ReminderViewModel = function (userID) {
                     toastr.error("Error");
                 } else {
                     toastr.success("Success!");
+                    location.reload();
                     self.getFavoritedEvents();
                 }
             },

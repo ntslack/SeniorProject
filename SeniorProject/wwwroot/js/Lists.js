@@ -240,7 +240,11 @@ var ListViewModel = function (userID) {
                 if (result == -1) {
                     toastr.error("Error");
                 } else {
-                    toastr.success("Success!");
+                    if (payload4.listIsFavorited == true) {
+                        toastr.success("List Unfavorited")
+                    } else {
+                        toastr.success("List Favorited");
+                    }
                     self.getUserLists();
                 }
             },

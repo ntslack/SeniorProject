@@ -26,6 +26,8 @@ var NotesViewModel = function (userID) {
     self.noNotes = ko.observable(false);
     self.notesAvailable = ko.observable(false);
 
+    self.isFavorited = ko.observable(false);
+
     self.dismissEditModal = function () {
         $("#editNoteModal").modal("toggle");
     }
@@ -154,7 +156,11 @@ var NotesViewModel = function (userID) {
                 if (result == -1) {
                     toastr.error("Error");
                 } else {
-                    toastr.success("Success!");
+                    if (payload3.noteIsFavorited == true) {
+                        toastr.success("Note Unfavorited")
+                    } else {
+                        toastr.success("Note Favorited");
+                    }
                     self.getUserNotes();
                 }
             },

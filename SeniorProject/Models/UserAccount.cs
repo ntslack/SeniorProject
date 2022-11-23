@@ -12,25 +12,15 @@ namespace SeniorProject.Models
         [Key]
         public int userID { get; set; }
 
-        //[Required(ErrorMessage = "Please Enter Username")]
         public string? username { get; set; }
 
-        //[Required(ErrorMessage = "Please Enter Password")]
         [DataType(DataType.Password)]
         public string? password { get; set; }
 
-        //[Required(ErrorMessage = "Please Enter First Name")]
         public string? firstName { get; set; }
 
-        //[Required(ErrorMessage = "Please Enter Last Name")]
         public string? lastName { get; set; }
 
-        //[Required(ErrorMessage = "Please Enter Email")]
-        //[RegularExpression(@"[a-zA-Z0-9_]+@[A-Za-z0-9]+.[A-Za-z]{2,4}")]
-        [DataType(DataType.EmailAddress)]
-        public string? email { get; set; }
-
-        //[Required(ErrorMessage = "Please Enter Phone Number")]
         [DataType(DataType.PhoneNumber)]
         public string? mobile { get; set; }
 

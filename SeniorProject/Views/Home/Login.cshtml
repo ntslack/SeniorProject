@@ -3,28 +3,26 @@
     ViewData["Title"] = "Login";
 }
 
-<h2>Login</h2>
+<div class="text-center" style="align-items: center">
 
-<form class="form-horizontal" asp-controller="Home" asp-action="Login" method="post">
-    <div asp-validation-summary="ModelOnly" class="text-danger"></div>
-    <div class="form-group">
-        <label asp-for="username" class="col-md-2 control-label">Username</label>
-        <div class="col-md-10">
+    <h2>Login</h2>
+
+    <form asp-controller="Home" asp-action="Login" method="post">
+        <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+        <label asp-for="username" class="col-md control-label">Username</label>
+        <div class="col-md-4 offset-md-4">
             <input asp-for="username" class="form-control" />
             <span asp-validation-for="username" class="text-danger"></span>
         </div>
-    </div>
-    <div class="form-group">
-        <label asp-for="password" class="col-md-2 control-label">Password</label>
-        <div class="col-md-10">
+        <label asp-for="password" class="col-md control-label">Password</label>
+        <div class="col-md-4 offset-md-4">
             <input asp-for="password" class="form-control" />
             <span asp-validation-for="password" class="text-danger"></span>
         </div>
-    </div>
-    <br />
-    <div class="form-group">
-        <div class="col-md-offset-2 col-md-10">
+        <br />
+        <div class="form-group">
             <button type="submit" class="btn btn-dark">Login</button>
         </div>
-    </div>
-</form>
+    </form>
+
+</div>

@@ -2,10 +2,8 @@
     ViewData["Title"] = "Notes";
 }
 
-<h2>Welcome to your Notes Page @ViewBag.Username</h2>
 
 <div class="container bootstrap snippets bootdeys" id="notesDiv">
-    <button type="submit" class="btn btn-warning btn-lg" data-bs-toggle="modal" data-bs-target="#createNoteModal">Create a new Note</button>
 
     <!-- Create Note Modal -->
     <div class="modal fade" id="createNoteModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
@@ -22,6 +20,8 @@
 
                         <label for="noteValue">Note Content</label>
                         <textarea class="form-control" type="text" id="noteValue" required></textarea>
+
+                        <br />
 
                         <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
                         <button type="submit" class="btn btn-primary">Create Note</button>
@@ -59,12 +59,12 @@
 
 
     <!-- Rest of Notes Page HTML -->
-    <br>
+    <div class="text-center">
+        <h2>Welcome to your Notes Page @ViewBag.Username</h2>
+        <button type="submit" class="btn btn-secondary btn-lg" data-bs-toggle="modal" data-bs-target="#createNoteModal">Create a new Note</button>
+    </div>
     <br>
     <div class="input-group left-icon">
-        <span class="input-group-addon input-icon">
-            <span class="fa fa-search"></span>
-        </span>
         <input id="search" type="text" class="form-control" placeholder="Search for a Note" aria-expanded="false" aria-owns="awesomplete_list_2" role="combobox">
     </div>
     <div class="noItemsDiv table-bordered" data-bind="visible: noNotes">
@@ -75,19 +75,19 @@
         <div class="col-md-4 col-sm-6 content-card">
             <div class="card card-just-text" data-background="color" data-color="yellow" data-radius="none">
                 <div class="content">
-                    <button type="button" class="btn btn-secondary" data-bs-toggle="modal" data-bs-target="#editNoteModal" data-bind="click: $root.editNote">Edit</button>
-                    <button type="button" class="btn btn-danger" data-bind="click: $parent.deleteNote">Delete</button>
-                    <button type="button" class="btn btn-secondary" data-bind="click: $parent.favoriteNote">Favorite</button>
+                    <button type="button" class="btn btn-secondary edit" data-bs-toggle="modal" data-bs-target="#editNoteModal" data-bind="click: $root.editNote"><i class="fa fa-solid fa-pencil"></i></button>
+                    <button type="button" class="btn btn-success" data-bind="click: $parent.favoriteNote"><i class="fa fa-solid fa-heart"></i></button>
+                    <button type="button" class="btn btn-danger delete" data-bind="click: $parent.deleteNote"><i class="fa fa-solid fa-trash"></i></button>
                     <h6 class="category">@ViewBag.Username</h6>
                     <h4 class="title" data-bind="text: noteTitle"></h4>
-                    <div style="white-space: pre-wrap">
-                        <p class="description" data-bind="text: noteValue"></p>
-                    </div>
+                    <p style="white-space: pre-wrap" class="description" data-bind="text: noteValue"></p>
                 </div>
             </div>
         </div>
         <!-- /ko -->
     </div>
+    <br />
+    <br />
 </div>
 
 @section scripts {

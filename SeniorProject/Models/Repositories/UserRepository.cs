@@ -25,7 +25,6 @@ namespace SeniorProject.Models.Repositories
                              username = u.username,
                              firstName = u.firstName,
                              lastName = u.lastName,
-                             email = u.email,
                              mobile = u.mobile,
                              isAdmin = u.isAdmin
                          }).ToListAsync();

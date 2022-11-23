@@ -3,9 +3,11 @@
     ViewData["Title"] = "Register";
 }
 
-<h2>Register</h2>
 
-<div class="form-horizontal">
+<div class="text-center" style="align-items: center">
+
+    <h2>Register</h2>
+
     <form asp-controller="Home" asp-action="Register" method="post">
         @if (ViewBag.Message != null)
         {
@@ -19,52 +21,44 @@
         }
 
         <div class="form-group">
-            <label asp-for="firstName" class="col-md-2 control-label">First Name</label>
-            <div class="col-md-10">
+            <label asp-for="firstName" class="col-md control-label">First Name</label>
+            <div class="col-md-4 offset-md-4">
                 <input asp-for="firstName" class="form-control" required/>
                 <span asp-validation-for="firstName" class="text-danger"></span>
             </div>
         </div>
         <div class="form-group">
-            <label asp-for="lastName" class="col-md-2 control-label">Last Name</label>
-            <div class="col-md-10">
+            <label asp-for="lastName" class="col-md control-label">Last Name</label>
+            <div class="col-md-4 offset-md-4">
                 <input asp-for="lastName" class="form-control" required/>
                 <span asp-validation-for="lastName" class="text-danger"></span>
             </div>
         </div>
         <div class="form-group">
-            <label asp-for="email" class="col-md-2 control-label">Email</label>
-            <div class="col-md-10">
-                <input asp-for="email" class="form-control" required/>
-                <span asp-validation-for="email" class="text-danger"></span>
-            </div>
-        </div>
-        <div class="form-group">
-            <label asp-for="username" class="col-md-2 control-label">Username</label>
-            <div class="col-md-10">
+            <label asp-for="username" class="col-md control-label">Username</label>
+            <div class="col-md-4 offset-md-4">
                 <input asp-for="username" class="form-control" required/>
                 <span asp-validation-for="username" class="text-danger"></span>
             </div>
         </div>
         <div class="form-group">
-            <label asp-for="password" class="col-md-2 control-label">Password</label>
-            <div class="col-md-10">
+            <label asp-for="password" class="col-md control-label">Password</label>
+            <div class="col-md-4 offset-md-4">
                 <input asp-for="password" class="form-control" required/>
                 <span asp-validation-for="password" class="text-danger"></span>
             </div>
         </div>
         <div class="form-group">
-            <label asp-for="mobile" class="col-md-2 control-label">Phone Number</label>
-            <div class="col-md-10">
+            <label asp-for="mobile" class="col-md control-label">Phone Number</label>
+            <div class="col-md-4 offset-md-4">
                 <input asp-for="mobile" class="form-control" required/>
                 <span asp-validation-for="mobile" class="text-danger"></span>
             </div>
         </div>
         <br />
         <div class="form-group">
-            <div class="col-md-offset-2 col-md-10">
-                <button type="submit" class="btn btn-dark">Register</button>
-            </div>
+            <button type="submit" class="btn btn-dark">Register</button>
         </div>
     </form>
+
 </div>
