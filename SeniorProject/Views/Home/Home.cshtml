@@ -183,10 +183,10 @@
         $(document).ready(function () {
             var reminderViewModel = new ReminderViewModel(@ViewBag.userID);
             ko.applyBindings(reminderViewModel, document.getElementById("homeDiv"));
-            reminderViewModel.getFavoritedEvents();
-            reminderViewModel.getFavoritedLists();
-            reminderViewModel.getFavoritedNotes();
             reminderViewModel.getUserReminders();
+            reminderViewModel.getFavoritedNotes();
+            reminderViewModel.getFavoritedLists();
+            reminderViewModel.getFavoritedEvents();
         })
     </script>
 }

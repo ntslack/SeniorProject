@@ -118,6 +118,7 @@
                     <button type="button" class="btn btn-success" data-bind="click: $parent.favoriteList"><i class="fa fa-solid fa-heart"></i></button>
                     <button type="button" class="btn btn-danger" data-bind="click: $parent.deleteList"><i class="fa fa-solid fa-trash"></i></button>
                     <h6 class="category">@ViewBag.Username</h6>
+                    <h6 class="category" data-bind="if: listIsFavorited()">Favorited</h6>
                     <h4 class="title" data-bind="text: listName"></h4>
                     <p style="white-space: pre-wrap" class="description" data-bind="text: listDescription"></p>
                     <button type="button" class="btn btn-secondary" data-bs-toggle="modal" data-bs-target="#editListItemsModal" data-bind="click: $root.editListItems">Items</button>

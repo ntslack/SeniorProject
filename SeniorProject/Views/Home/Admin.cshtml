@@ -21,9 +21,6 @@
                         <label for="username">Username</label>
                         <input class="form-control" type="text" id="editUsername" data-bind="textInput: adminObject().username()" required />
 
-                        <label for="email">Email</label>
-                        <input class="form-control" type="text" id="editEmail" data-bind="textInput: adminObject().email()" required />
-
                         <label for="mobile">Mobile</label>
                         <input class="form-control" type="text" id="editMobile" data-bind="textInput: adminObject().mobile()" required />
 
@@ -77,7 +74,7 @@
                         <button type="button" class="btn btn-secondary" data-bs-toggle="modal" data-bs-target="#editUserModal" data-bind="click: $root.editInfo">Edit Info</button>
                     </td>*@
                     <td>
-                        <button type="button" class="btn btn-danger" data-bind="click: $parent.deleteUser">Delete</button>
+                        <button type="button" class="btn btn-danger" data-bind="click: $parent.deleteUser"><i class="fa fa-solid fa-trash"></i></button>
                     </td>
                 </tr>
                 <!-- /ko -->

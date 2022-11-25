@@ -79,6 +79,7 @@
                     <button type="button" class="btn btn-success" data-bind="click: $parent.favoriteNote"><i class="fa fa-solid fa-heart"></i></button>
                     <button type="button" class="btn btn-danger delete" data-bind="click: $parent.deleteNote"><i class="fa fa-solid fa-trash"></i></button>
                     <h6 class="category">@ViewBag.Username</h6>
+                    <h6 class="category" data-bind="if: noteIsFavorited()">Favorited</h6>
                     <h4 class="title" data-bind="text: noteTitle"></h4>
                     <p style="white-space: pre-wrap" class="description" data-bind="text: noteValue"></p>
                 </div>
