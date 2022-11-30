@@ -179,7 +179,7 @@ namespace SeniorProject.Controllers
         [Route("admin")]
         public IActionResult Admin()
         {
-            if (HttpContext.Session.GetString("userID") != null)
+            if (HttpContext.Session.GetString("isAdmin") == "True")
             {
                 ViewBag.Username = HttpContext.Session.GetString("username");
                 ViewBag.userID = HttpContext.Session.GetString("userID");
