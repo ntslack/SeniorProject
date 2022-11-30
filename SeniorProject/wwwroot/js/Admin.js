@@ -48,7 +48,6 @@ var AdminViewModel = function () {
 
     var Id;
     self.editInfo = function (Object) {
-        console.log(Object);
         ko.mapping.fromJS(Object, {}, self.adminObject);
         Id = Object.userID;
     }
@@ -68,7 +67,6 @@ var AdminViewModel = function () {
     }
 
     self.updateUser = function (payload2) {
-        console.log(payload2);
         $.ajax({
             url: "/Home/users",
             type: "PUT",
@@ -85,14 +83,12 @@ var AdminViewModel = function () {
                 }
             },
             error: function (result) {
-                console.log(result);
                 toastr.error("Error Updating Contact Info")
             }
         })
     }
 
     self.deleteUser = function (Object) {
-        console.log(Object);
         $.ajax({
             url: '/Home/users/' + Object.userID,
             type: 'DELETE',

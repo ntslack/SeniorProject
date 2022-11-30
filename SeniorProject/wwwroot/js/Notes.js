@@ -93,7 +93,6 @@ var NotesViewModel = function (userID) {
 
     var Id;
     self.editNote = function (Object) {
-        console.log(Object);
         ko.mapping.fromJS(Object, {}, self.userNotesObject);
         Id = Object.noteID();
     }
