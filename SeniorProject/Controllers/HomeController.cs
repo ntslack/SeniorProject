@@ -4,9 +4,12 @@ using SeniorProject.Models;
 using System.Diagnostics;
 using SeniorProject.Models.Context;
 using System.Security.Cryptography;
+using Microsoft.Extensions.Options;
+using Microsoft.AspNetCore.Authentication;
 
 namespace SeniorProject.Controllers
 {
+    [ResponseCache(Location = ResponseCacheLocation.None, NoStore = true)]
     public class HomeController : Controller
     {
         private readonly ILogger<HomeController> _logger;
@@ -107,7 +110,6 @@ namespace SeniorProject.Controllers
             {
                 ViewBag.Username = HttpContext.Session.GetString("username");
                 ViewBag.userID = HttpContext.Session.GetString("userID");
-                //ViewBag.userID = userID;
                 return View(_context.User.ToList());
             }
             else
@@ -196,6 +198,9 @@ namespace SeniorProject.Controllers
         public IActionResult Logout()
         {
             HttpContext.Session.Clear();
+            //HttpContext.Response.AppendTrailer("Cache-Control", "no-cache, no-store, must-revalidate");
+            //HttpContext.Response.AppendTrailer("Pragma", "no-cache");
+            //HttpContext.Response.AppendTrailer("Expires", "0");
             return RedirectToAction("Index");
         }
 
