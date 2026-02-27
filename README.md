@@ -1,4 +1,4 @@
-# SeniorProject - ORGANIZE ALL
+# DEPRECATED SeniorProject - ORGANIZE ALL
 
 Check out the website at https://organizeall.azurewebsites.net/
 
